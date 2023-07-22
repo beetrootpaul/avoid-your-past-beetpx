@@ -1,6 +1,6 @@
-import { Sprite, transparent, Xy, xy_ } from "beetpx";
+import { BeetPx, BpxSprite, BpxVector2d, transparent_, v_ } from "beetpx";
 import { CollisionCircle } from "../Collisions";
-import { f, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 import { Direction } from "./Direction";
 import { Origin, OriginSnapshot } from "./Origin";
 
@@ -14,15 +14,15 @@ export class Memory extends Origin {
   #originStateBufferIndex: number = 0;
 
   readonly #origin: Origin;
-  #xy: Xy;
+  #xy: BpxVector2d;
   #r: number;
   #direction: Direction;
 
   readonly #spriteXy1ForDirection = {
-    u: xy_(7, 3).mul(g.spriteSheetCellSize),
-    r: xy_(8, 3).mul(g.spriteSheetCellSize),
-    d: xy_(9, 3).mul(g.spriteSheetCellSize),
-    l: xy_(10, 3).mul(g.spriteSheetCellSize),
+    u: v_(7, 3).mul(g.spriteSheetCellSize),
+    r: v_(8, 3).mul(g.spriteSheetCellSize),
+    d: v_(9, 3).mul(g.spriteSheetCellSize),
+    l: v_(10, 3).mul(g.spriteSheetCellSize),
   };
 
   constructor(params: MemoryParams) {
@@ -33,7 +33,7 @@ export class Memory extends Origin {
     this.#direction = this.#origin.direction();
   }
 
-  center(): Xy {
+  center(): BpxVector2d {
     return this.#xy;
   }
 
@@ -75,23 +75,23 @@ export class Memory extends Origin {
   }
 
   draw(): void {
-    f.drawApi.mapSpriteColor(p8c.darkBlue, transparent);
+    BeetPx.mapSpriteColor(p8c.darkBlue, transparent_);
 
     if (this.isActive()) {
       const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-      f.drawApi.sprite(
+      BeetPx.sprite(
         g.assets.spritesheet,
-        new Sprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
+        new BpxSprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
         this.#xy.sub(this.#r)
       );
     }
 
     // TODO: API to reset all mappings?
-    f.drawApi.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
+    BeetPx.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
 
-    if (f.debug) {
+    if (BeetPx.debug) {
       const cc = this.collisionCircle();
-      f.drawApi.ellipse(
+      BeetPx.ellipse(
         cc.center.sub(cc.r),
         cc.center.add(cc.r),
         this.isActive() ? p8c.red : p8c.darkGrey

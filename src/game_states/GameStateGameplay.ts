@@ -1,10 +1,11 @@
+import { BeetPx } from "beetpx";
 import { Level } from "../gameplay/Level";
 import { Memories } from "../gameplay/Memories";
 import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
 import { Trail } from "../gameplay/Trail";
-import { f, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 import { Topbar } from "../gui/Topbar";
 import { GameState } from "./GameState";
 import { GameStateOver } from "./GameStateOver";
@@ -40,12 +41,12 @@ export class GameStateGameplay implements GameState {
       color: p8c.darkGreen,
     });
 
-    f.audio.unmuteSound(g.assets.musicMelody);
+    BeetPx.unmuteSound(g.assets.musicMelody);
   }
 
   #onBackToRegularMode(): void {
-    f.audio.muteSound(g.assets.musicModeNoCoins);
-    f.audio.muteSound(g.assets.musicModeNoMemories);
+    BeetPx.muteSound(g.assets.musicModeNoCoins);
+    BeetPx.muteSound(g.assets.musicModeNoMemories);
   }
 
   #onCoinCollision(): void {
@@ -53,7 +54,7 @@ export class GameStateGameplay implements GameState {
       return;
     }
 
-    f.audio.playSoundOnce(g.assets.coinSfx);
+    BeetPx.playSoundOnce(g.assets.coinSfx);
 
     this.#score.add(10);
 
@@ -65,27 +66,27 @@ export class GameStateGameplay implements GameState {
   }
 
   #onDropletNoCoinsCollision(): void {
-    f.audio.unmuteSound(g.assets.musicModeNoCoins);
+    BeetPx.unmuteSound(g.assets.musicModeNoCoins);
     this.#score.add(3);
     this.#mode.startNoCoins();
     this.#level.removeDropletNoCoins();
   }
 
   #onDropletNoMemoriesCollision(): void {
-    f.audio.unmuteSound(g.assets.musicModeNoMemories);
+    BeetPx.unmuteSound(g.assets.musicModeNoMemories);
     this.#score.add(1);
     this.#mode.startNoMemories();
     this.#level.removeDropletNoMemories();
   }
 
   update(): GameState {
-    if (f.continuousInputEvents.has("left")) {
+    if (BeetPx.continuousInputEvents.has("left")) {
       this.#player.directLeft();
-    } else if (f.continuousInputEvents.has("right")) {
+    } else if (BeetPx.continuousInputEvents.has("right")) {
       this.#player.directRight();
-    } else if (f.continuousInputEvents.has("up")) {
+    } else if (BeetPx.continuousInputEvents.has("up")) {
       this.#player.directUp();
-    } else if (f.continuousInputEvents.has("down")) {
+    } else if (BeetPx.continuousInputEvents.has("down")) {
       this.#player.directDown();
     }
 

@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@jest/globals": "29.5.0",
-    "beetpx": "git+ssh://git@github.com:beetrootpaul/beetpx#a4ea34f9cbb37ea79551060c4fe724cf416ddfc7",
+    "beetpx": "git+ssh://git@github.com:beetrootpaul/beetpx#0d8a736ff9f190052405fa61a27d12d5a17c81bc",
     "cross-zip-cli": "1.0.0",
     "husky": "8.0.3",
     "lint-staged": "13.2.1",

@@ -1,4 +1,4 @@
-import { Sprite, xy_ } from "beetpx";
+import { BpxSprite, v_ } from "beetpx";
 import { g } from "../globals";
 
 type AnimatedSpriteParams = {
@@ -29,14 +29,14 @@ export class AnimatedSprite {
     this.#frameCounter = (this.#frameCounter + 1) % this.#loopLengthFrames;
   }
 
-  currentSprite(): Sprite {
+  currentSprite(): BpxSprite {
     let spriteIndex =
       this.#firstSpriteSheetCell +
       Math.floor(this.#frameCounter / this.#framesPerSprite);
-    const spriteXy1 = xy_(
+    const spriteXy1 = v_(
       spriteIndex % g.spriteSheetCells.x,
       Math.floor(spriteIndex / g.spriteSheetCells.x)
     ).mul(g.spriteSheetCellSize);
-    return new Sprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize));
+    return new BpxSprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize));
   }
 }

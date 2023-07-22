@@ -1,10 +1,10 @@
-import { Xy, xy_ } from "beetpx";
-import { f, g, p8c } from "../globals";
+import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { g, p8c } from "../globals";
 
 type SashParams = {
   duration: number;
   expand: boolean;
-  drawText: (sashCenter: Xy) => void;
+  drawText: (sashCenter: BpxVector2d) => void;
 };
 
 export class Sash {
@@ -12,7 +12,7 @@ export class Sash {
 
   readonly #shouldExpand: boolean;
 
-  readonly #drawText: (sashCenter: Xy) => void;
+  readonly #drawText: (sashCenter: BpxVector2d) => void;
 
   readonly #ttlExpansionStart: number;
   readonly #ttlExpansionEnd: number;
@@ -70,9 +70,9 @@ export class Sash {
     }
 
     if (h > 0) {
-      f.drawApi.rectFilled(
-        xy_(0, this.#center.y - h / 2),
-        xy_(g.screenSize.x, this.#center.y + h / 2),
+      BeetPx.rectFilled(
+        v_(0, this.#center.y - h / 2),
+        v_(g.screenSize.x, this.#center.y + h / 2),
         p8c.darkGreen
       );
     }

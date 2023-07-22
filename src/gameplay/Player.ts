@@ -1,6 +1,6 @@
-import { Sprite, transparent, Xy, xy_ } from "beetpx";
+import { BeetPx, BpxSprite, BpxVector2d, transparent_, v_ } from "beetpx";
 import { type CollisionCircle } from "../Collisions";
-import { f, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 import { Direction } from "./Direction";
 import { Origin } from "./Origin";
 
@@ -8,21 +8,21 @@ export class Player extends Origin {
   readonly #r = 3;
   readonly #speed = 2;
 
-  #xy: Xy = g.gameAreaSize.div(2);
+  #xy: BpxVector2d = g.gameAreaSize.div(2);
 
   // Let's start right (but it's effectively unused, because we
   //   let the user to choose the direction at the game's start).
   #direction: Direction = "r";
-  #dXy = xy_(this.#speed, 0);
+  #dXy = v_(this.#speed, 0);
 
   readonly #spriteXy1ForDirection = {
-    u: xy_(7, 2).mul(g.spriteSheetCellSize),
-    r: xy_(8, 2).mul(g.spriteSheetCellSize),
-    d: xy_(9, 2).mul(g.spriteSheetCellSize),
-    l: xy_(10, 2).mul(g.spriteSheetCellSize),
+    u: v_(7, 2).mul(g.spriteSheetCellSize),
+    r: v_(8, 2).mul(g.spriteSheetCellSize),
+    d: v_(9, 2).mul(g.spriteSheetCellSize),
+    l: v_(10, 2).mul(g.spriteSheetCellSize),
   };
 
-  center(): Xy {
+  center(): BpxVector2d {
     return this.#xy;
   }
 
@@ -34,11 +34,11 @@ export class Player extends Origin {
     return this.#direction;
   }
 
-  xy1(): Xy {
+  xy1(): BpxVector2d {
     return this.#xy.sub(this.#r);
   }
 
-  xy2(): Xy {
+  xy2(): BpxVector2d {
     return this.#xy.add(this.#r);
   }
 
@@ -51,49 +51,49 @@ export class Player extends Origin {
 
   // TODO: replace all these 4 methods with a single one which takes Direction as a param
   directLeft(): void {
-    this.#dXy = xy_(-this.#speed, 0);
+    this.#dXy = v_(-this.#speed, 0);
     this.#direction = "l";
   }
 
   directRight(): void {
-    this.#dXy = xy_(this.#speed, 0);
+    this.#dXy = v_(this.#speed, 0);
     this.#direction = "r";
   }
 
   directUp(): void {
-    this.#dXy = xy_(0, -this.#speed);
+    this.#dXy = v_(0, -this.#speed);
     this.#direction = "u";
   }
 
   directDown(): void {
-    this.#dXy = xy_(0, this.#speed);
+    this.#dXy = v_(0, this.#speed);
     this.#direction = "d";
   }
 
   move(): void {
     this.#xy = this.#xy.add(this.#dXy);
     this.#xy = this.#xy.clamp(
-      xy_(this.#r, this.#r),
+      v_(this.#r, this.#r),
       g.gameAreaSize.sub(this.#r + 1)
     );
   }
 
   draw(): void {
-    f.drawApi.mapSpriteColor(p8c.darkBlue, transparent);
+    BeetPx.mapSpriteColor(p8c.darkBlue, transparent_);
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    f.drawApi.sprite(
+    BeetPx.sprite(
       g.assets.spritesheet,
-      new Sprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
+      new BpxSprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
       this.#xy.sub(this.#r)
     );
 
     // TODO: API to reset all mappings?
-    f.drawApi.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
+    BeetPx.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
 
-    if (f.debug) {
+    if (BeetPx.debug) {
       const cc = this.collisionCircle();
-      f.drawApi.ellipse(cc.center.sub(cc.r), cc.center.add(cc.r), p8c.red);
+      BeetPx.ellipse(cc.center.sub(cc.r), cc.center.add(cc.r), p8c.red);
     }
   }
 }
