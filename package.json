@@ -1,17 +1,14 @@
 {
-  "name": "poc--typescript-browser-game",
+  "name": "avoid-your-past-beetpx",
   "version": "0.0.0",
   "author": "Beetroot Paul",
   "license": "MIT",
   "private": true,
   "description": "A snake-like BeetPx game where each collected coin brings a harmful memory of your past steps.",
-  "homepage": "https://github.com/beetrootpaul/poc--typescript-browser-game#readme",
+  "homepage": "https://github.com/beetrootpaul/avoid-your-past-beetpx#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/beetrootpaul/poc--typescript-browser-game.git"
-  },
-  "bugs": {
-    "url": "https://github.com/beetrootpaul/poc--typescript-browser-game/issues"
+    "url": "git+https://github.com/beetrootpaul/avoid-your-past-beetpx.git"
   },
   "scripts": {
     "prepare": "husky install",
