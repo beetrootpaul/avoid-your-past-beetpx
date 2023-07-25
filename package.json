@@ -4,7 +4,7 @@
   "author": "Beetroot Paul",
   "license": "MIT",
   "private": true,
-  "description": "A PoC of a simple low-res game written in TypeScript, meant to be played in web browsers.",
+  "description": "A snake-like BeetPx game where each collected coin brings a harmful memory of your past steps.",
   "homepage": "https://github.com/beetrootpaul/poc--typescript-browser-game#readme",
   "repository": {
     "type": "git",
