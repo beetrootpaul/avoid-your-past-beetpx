@@ -1,4 +1,4 @@
-# Avoid Your Past
+# Avoid Your Past (BeetPx)
 
 > a snake-like [BeetPx](https://github.com/beetrootpaul/beetpx) game where each collected coin brings a harmful memory of your past steps
 
