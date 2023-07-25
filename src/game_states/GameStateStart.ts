@@ -1,4 +1,5 @@
 import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
@@ -30,25 +31,18 @@ export class GameStateStart implements GameState {
   }
 
   update(): GameState {
-    let hasStarted = false;
-    // TODO: make one directional input clear another, like left+right = nothing
-    if (BeetPx.continuousInputEvents.has("left")) {
-      this.#player.directLeft();
-      hasStarted = true;
-    } else if (BeetPx.continuousInputEvents.has("right")) {
-      this.#player.directRight();
-      hasStarted = true;
-    } else if (BeetPx.continuousInputEvents.has("up")) {
-      this.#player.directUp();
-      hasStarted = true;
-    } else if (BeetPx.continuousInputEvents.has("down")) {
-      this.#player.directDown();
-      hasStarted = true;
+    const detectedDirections: Direction[] = [];
+    if (BeetPx.continuousInputEvents.has("left")) detectedDirections.push("l");
+    if (BeetPx.continuousInputEvents.has("right")) detectedDirections.push("r");
+    if (BeetPx.continuousInputEvents.has("up")) detectedDirections.push("u");
+    if (BeetPx.continuousInputEvents.has("down")) detectedDirections.push("d");
+    if (detectedDirections.length === 1) {
+      detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
 
     this.#level.animate();
 
-    if (hasStarted) {
+    if (detectedDirections.length === 1) {
       return new GameStateGameplay({
         mode: this.#mode,
         topbar: this.#topbar,

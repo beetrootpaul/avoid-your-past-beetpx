@@ -49,25 +49,12 @@ export class Player extends Origin {
     };
   }
 
-  // TODO: replace all these 4 methods with a single one which takes Direction as a param
-  directLeft(): void {
-    this.#dXy = v_(-this.#speed, 0);
-    this.#direction = "l";
-  }
-
-  directRight(): void {
-    this.#dXy = v_(this.#speed, 0);
-    this.#direction = "r";
-  }
-
-  directUp(): void {
-    this.#dXy = v_(0, -this.#speed);
-    this.#direction = "u";
-  }
-
-  directDown(): void {
-    this.#dXy = v_(0, this.#speed);
-    this.#direction = "d";
+  direct(direction: Direction): void {
+    this.#dXy = v_(
+      direction === "l" ? -this.#speed : direction === "r" ? this.#speed : 0,
+      direction === "u" ? -this.#speed : direction === "d" ? this.#speed : 0
+    );
+    this.#direction = direction;
   }
 
   move(): void {

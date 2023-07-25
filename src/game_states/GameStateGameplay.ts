@@ -1,4 +1,5 @@
 import { BeetPx } from "beetpx";
+import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Memories } from "../gameplay/Memories";
 import { Mode } from "../gameplay/Mode";
@@ -80,14 +81,13 @@ export class GameStateGameplay implements GameState {
   }
 
   update(): GameState {
-    if (BeetPx.continuousInputEvents.has("left")) {
-      this.#player.directLeft();
-    } else if (BeetPx.continuousInputEvents.has("right")) {
-      this.#player.directRight();
-    } else if (BeetPx.continuousInputEvents.has("up")) {
-      this.#player.directUp();
-    } else if (BeetPx.continuousInputEvents.has("down")) {
-      this.#player.directDown();
+    const detectedDirections: Direction[] = [];
+    if (BeetPx.continuousInputEvents.has("left")) detectedDirections.push("l");
+    if (BeetPx.continuousInputEvents.has("right")) detectedDirections.push("r");
+    if (BeetPx.continuousInputEvents.has("up")) detectedDirections.push("u");
+    if (BeetPx.continuousInputEvents.has("down")) detectedDirections.push("d");
+    if (detectedDirections.length === 1) {
+      detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
 
     this.#mode.update({
