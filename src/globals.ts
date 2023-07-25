@@ -4,9 +4,8 @@ import { Pico8Colors } from "./Pico8Color";
 export const p8c = Pico8Colors;
 
 export const g = {
-  // TODO: make it always false for prod build
-  __debug: true,
-  __quickStart: false,
+  __debug: !__BEETPX_IS_PROD__,
+  __quickStart: !__BEETPX_IS_PROD__,
   //
   fps: 30,
   //

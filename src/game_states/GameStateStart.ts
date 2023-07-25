@@ -22,8 +22,9 @@ export class GameStateStart implements GameState {
   });
 
   constructor() {
-    // TODO: migrate from Lua
-    // audio.enable_music_layers { false, false, false }
+    BeetPx.muteSound(g.assets.musicMelody);
+    BeetPx.muteSound(g.assets.musicModeNoCoins);
+    BeetPx.muteSound(g.assets.musicModeNoMemories);
 
     this.#level.spawnItems();
   }

@@ -21,13 +21,13 @@ export class Game {
         htmlCanvasBackground: p8c.black,
         gameCanvasSize: g.screenSize,
         desiredFps: g.fps,
-        // TODO: consider disabling these logs in the production build
-        logActualFps: true,
-        // TODO: make it disabled for prod and toggleable for dev
-        debug: {
-          enabledOnInit: g.__debug,
-          toggleKey: ";",
-        },
+        logActualFps: g.__debug,
+        debug: g.__debug
+          ? {
+              enabledOnInit: g.__debug,
+              toggleKey: ";",
+            }
+          : undefined,
       },
       {
         images: [{ url: g.assets.spritesheet }],
