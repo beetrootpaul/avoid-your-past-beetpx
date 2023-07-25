@@ -19,11 +19,7 @@ export class GameStateSplash implements GameState {
         p8c.pink,
         p8c.black
       );
-      BeetPx.print(
-        author,
-        sashCenter.add(v_(-authorSize.x / 2, 2)),
-        p8c.white
-      );
+      BeetPx.print(author, sashCenter.add(v_(-authorSize.x / 2, 2)), p8c.white);
     },
   });
 

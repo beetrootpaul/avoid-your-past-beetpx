@@ -1,4 +1,10 @@
-import { BpxCharSprite, type BpxFont, BpxSprite, BpxVector2d, v_ } from "beetpx";
+import {
+  BpxCharSprite,
+  type BpxFont,
+  BpxSprite,
+  BpxVector2d,
+  v_,
+} from "beetpx";
 
 export class Pico8Font implements BpxFont {
   static #letterSpacingW = 1;

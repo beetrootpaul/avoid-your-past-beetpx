@@ -1,4 +1,4 @@
-import {BeetPx, BpxUtils, v_} from "beetpx";
+import { BeetPx, BpxUtils, v_ } from "beetpx";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";

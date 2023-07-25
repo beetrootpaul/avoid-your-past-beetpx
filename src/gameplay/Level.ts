@@ -199,10 +199,7 @@ export class Level {
           tileY <= g.gameAreaSize.div(g.tileSize).y;
           tileY += 1
         ) {
-          BeetPx.pixel(
-            v_(tileX, tileY).sub(1).mul(g.tileSize),
-            p8c.lavender
-          );
+          BeetPx.pixel(v_(tileX, tileY).sub(1).mul(g.tileSize), p8c.lavender);
           if (tilesCloseToPlayer[`${tileX}_${tileY}`]) {
             BeetPx.rectFilled(
               v_(tileX - 1, tileY - 1)
