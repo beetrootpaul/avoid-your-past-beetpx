@@ -1,7 +1,7 @@
-import { Utils, xy_ } from "beetpx";
+import { BeetPx, BpxUtils, v_ } from "beetpx";
 import { Mode } from "../gameplay/Mode";
 import { Score } from "../gameplay/Score";
-import { f, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 
 type TopbarParams = {
   score: Score;
@@ -18,7 +18,7 @@ export class Topbar {
   }
 
   draw(): void {
-    f.drawApi.rectFilled(
+    BeetPx.rectFilled(
       g.cameraOffset,
       g.cameraOffset.add(g.topbarSize),
       p8c.black
@@ -27,7 +27,7 @@ export class Topbar {
     const modeLabel = this.#mode.label();
     if (modeLabel) {
       const textY = g.cameraOffset.y + 4;
-      const modeLabelSize = Utils.measureTextSize(modeLabel);
+      const modeLabelSize = BpxUtils.measureTextSize(modeLabel);
       const progressW = modeLabelSize.x;
       const progressRemainingW = Math.floor(
         (this.#mode.percentageLeft() / 100) * progressW
@@ -35,7 +35,7 @@ export class Topbar {
       const progressX = g.cameraOffset.x + g.screenSize.x - progressW - 1;
       const progressY = textY + modeLabelSize.y + 2;
 
-      f.drawApi.print(modeLabel, xy_(progressX, textY), p8c.lightGrey);
+      BeetPx.print(modeLabel, v_(progressX, textY), p8c.lightGrey);
 
       if (progressRemainingW > 0) {
         // TODO: migrate from Lua
@@ -44,7 +44,7 @@ export class Topbar {
           x <= progressX + progressW - 1;
           x += 1
         ) {
-          f.drawApi.pixel(xy_(x, progressY), this.#mode.progressColor());
+          BeetPx.pixel(v_(x, progressY), this.#mode.progressColor());
         }
         // line(
         //   progress_x + progress_w - progress_remaining_w,
@@ -56,9 +56,9 @@ export class Topbar {
       }
     }
 
-    f.drawApi.print(
+    BeetPx.print(
       `score ${this.#score.value()}`,
-      g.cameraOffset.add(xy_(1, 4)),
+      g.cameraOffset.add(v_(1, 4)),
       p8c.lightGrey
     );
   }

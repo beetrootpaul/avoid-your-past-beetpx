@@ -1,27 +1,22 @@
-import { PocTsBGFramework, Utils, xy_ } from "beetpx";
+import { v_ } from "beetpx";
 import { Pico8Colors } from "./Pico8Color";
-
-export const f = PocTsBGFramework;
 
 export const p8c = Pico8Colors;
 
-export const u = Utils;
-
 export const g = {
-  // TODO: make it always false for prod build
-  __debug: true,
-  __quickStart: false,
+  __debug: !__BEETPX_IS_PROD__,
+  __quickStart: !__BEETPX_IS_PROD__,
   //
   fps: 30,
   //
-  screenSize: xy_(128, 128),
-  cameraOffset: xy_(0, -16),
-  topbarSize: xy_(128, 16),
-  gameAreaSize: xy_(128, 112),
-  tileSize: xy_(8, 8),
+  screenSize: v_(128, 128),
+  cameraOffset: v_(0, -16),
+  topbarSize: v_(128, 16),
+  gameAreaSize: v_(128, 112),
+  tileSize: v_(8, 8),
   //
-  spriteSheetCells: xy_(16, 16),
-  spriteSheetCellSize: xy_(8, 8),
+  spriteSheetCells: v_(16, 16),
+  spriteSheetCellSize: v_(8, 8),
   //
   musicBeatFrames: 16,
   //

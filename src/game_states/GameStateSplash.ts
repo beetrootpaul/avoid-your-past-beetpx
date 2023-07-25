@@ -1,5 +1,5 @@
-import { xy_ } from "beetpx";
-import { f, g, p8c, u } from "../globals";
+import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { g, p8c } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
 import { GameStateStart } from "./GameStateStart";
@@ -10,28 +10,24 @@ export class GameStateSplash implements GameState {
     expand: false,
     drawText: (sashCenter) => {
       const title = "Avoid Your Past";
-      const titleSize = u.measureTextSize(title);
+      const titleSize = BpxUtils.measureTextSize(title);
       const author = "by @beetrootpaul";
-      const authorSize = u.measureTextSize(author);
-      u.printWithOutline(
+      const authorSize = BpxUtils.measureTextSize(author);
+      BpxUtils.printWithOutline(
         title,
-        sashCenter.add(xy_(-titleSize.x / 2, -authorSize.y - 3)),
+        sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
         p8c.pink,
         p8c.black
       );
-      f.drawApi.print(
-        author,
-        sashCenter.add(xy_(-authorSize.x / 2, 2)),
-        p8c.white
-      );
+      BeetPx.print(author, sashCenter.add(v_(-authorSize.x / 2, 2)), p8c.white);
     },
   });
 
   constructor() {
-    f.audio.playSoundLooped(g.assets.musicBase);
-    f.audio.playSoundLooped(g.assets.musicMelody, true);
-    f.audio.playSoundLooped(g.assets.musicModeNoCoins, true);
-    f.audio.playSoundLooped(g.assets.musicModeNoMemories, true);
+    BeetPx.playSoundLooped(g.assets.musicBase);
+    BeetPx.playSoundLooped(g.assets.musicMelody, true);
+    BeetPx.playSoundLooped(g.assets.musicModeNoCoins, true);
+    BeetPx.playSoundLooped(g.assets.musicModeNoMemories, true);
   }
 
   update(): GameState {
@@ -40,10 +36,10 @@ export class GameStateSplash implements GameState {
     }
 
     if (
-      f.continuousInputEvents.has("left") ||
-      f.continuousInputEvents.has("right") ||
-      f.continuousInputEvents.has("up") ||
-      f.continuousInputEvents.has("down")
+      BeetPx.continuousInputEvents.has("left") ||
+      BeetPx.continuousInputEvents.has("right") ||
+      BeetPx.continuousInputEvents.has("up") ||
+      BeetPx.continuousInputEvents.has("down")
     ) {
       this.#sash.collapse();
     }
@@ -54,7 +50,7 @@ export class GameStateSplash implements GameState {
   }
 
   draw(): void {
-    f.drawApi.rectFilled(
+    BeetPx.rectFilled(
       g.cameraOffset,
       g.cameraOffset.add(g.screenSize),
       g.colors.bgColorModeNormal

@@ -1,8 +1,8 @@
-import { xy_ } from "beetpx";
+import { BeetPx, BpxUtils, v_ } from "beetpx";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
-import { f, g, p8c, u } from "../globals";
+import { g, p8c } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
 import { GameStateStart } from "./GameStateStart";
@@ -23,17 +23,17 @@ export class GameStateOver implements GameState {
     expand: true,
     drawText: (sashCenter) => {
       const heading = "your score";
-      const headingSize = u.measureTextSize(heading);
+      const headingSize = BpxUtils.measureTextSize(heading);
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = u.measureTextSize(finalScore);
-      f.drawApi.print(
+      const finalScoreSize = BpxUtils.measureTextSize(finalScore);
+      BeetPx.print(
         heading,
-        sashCenter.add(xy_(-headingSize.x / 2, -headingSize.y - 3)),
+        sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
         p8c.white
       );
-      u.printWithOutline(
+      BpxUtils.printWithOutline(
         finalScore,
-        sashCenter.add(xy_(-finalScoreSize.x / 2, 2)),
+        sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
         p8c.pink,
         p8c.black
       );
@@ -45,9 +45,9 @@ export class GameStateOver implements GameState {
     this.#level = params.level;
     this.#player = params.player;
 
-    f.audio.muteSound(g.assets.musicMelody);
-    f.audio.muteSound(g.assets.musicModeNoCoins);
-    f.audio.muteSound(g.assets.musicModeNoMemories);
+    BeetPx.muteSound(g.assets.musicMelody);
+    BeetPx.muteSound(g.assets.musicModeNoCoins);
+    BeetPx.muteSound(g.assets.musicModeNoMemories);
   }
 
   update(): GameState {
@@ -57,10 +57,10 @@ export class GameStateOver implements GameState {
 
     if (this.#sash.hasExpanded()) {
       if (
-        f.continuousInputEvents.has("left") ||
-        f.continuousInputEvents.has("right") ||
-        f.continuousInputEvents.has("up") ||
-        f.continuousInputEvents.has("down")
+        BeetPx.continuousInputEvents.has("left") ||
+        BeetPx.continuousInputEvents.has("right") ||
+        BeetPx.continuousInputEvents.has("up") ||
+        BeetPx.continuousInputEvents.has("down")
       ) {
         this.#sash.collapse();
       }

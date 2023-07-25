@@ -1,83 +1,89 @@
-import { CharSprite, type Font, Sprite, Xy, xy_ } from "beetpx";
+import {
+  BpxCharSprite,
+  type BpxFont,
+  BpxSprite,
+  BpxVector2d,
+  v_,
+} from "beetpx";
 
-export class Pico8Font implements Font {
+export class Pico8Font implements BpxFont {
   static #letterSpacingW = 1;
 
-  static #defaultCharSpriteSize = xy_(3, 5);
+  static #defaultCharSpriteSize = v_(3, 5);
 
-  static #spriteSheetCells: Record<string, Xy> = {
+  static #spriteSheetCells: Record<string, BpxVector2d> = {
     // TODO: externalize these emojis to constants for an easier re-use
-    ["⬅️"]: xy_(11, 8),
-    ["⬆️"]: xy_(4, 9),
-    ["➡️"]: xy_(1, 9),
-    ["⬇️"]: xy_(3, 8),
-    ["♪"]: xy_(13, 8),
+    ["⬅️"]: v_(11, 8),
+    ["⬆️"]: v_(4, 9),
+    ["➡️"]: v_(1, 9),
+    ["⬇️"]: v_(3, 8),
+    ["♪"]: v_(13, 8),
     //
-    ["0"]: xy_(0, 3),
-    ["1"]: xy_(1, 3),
-    ["2"]: xy_(2, 3),
-    ["3"]: xy_(3, 3),
-    ["4"]: xy_(4, 3),
-    ["5"]: xy_(5, 3),
-    ["6"]: xy_(6, 3),
-    ["7"]: xy_(7, 3),
-    ["8"]: xy_(8, 3),
-    ["9"]: xy_(9, 3),
+    ["0"]: v_(0, 3),
+    ["1"]: v_(1, 3),
+    ["2"]: v_(2, 3),
+    ["3"]: v_(3, 3),
+    ["4"]: v_(4, 3),
+    ["5"]: v_(5, 3),
+    ["6"]: v_(6, 3),
+    ["7"]: v_(7, 3),
+    ["8"]: v_(8, 3),
+    ["9"]: v_(9, 3),
     //
-    ["@"]: xy_(0, 4),
+    ["@"]: v_(0, 4),
     //
-    ["a"]: xy_(1, 6),
-    ["b"]: xy_(2, 6),
-    ["c"]: xy_(3, 6),
-    ["d"]: xy_(4, 6),
-    ["e"]: xy_(5, 6),
-    ["f"]: xy_(6, 6),
-    ["g"]: xy_(7, 6),
-    ["h"]: xy_(8, 6),
-    ["i"]: xy_(9, 6),
-    ["j"]: xy_(10, 6),
-    ["k"]: xy_(11, 6),
-    ["l"]: xy_(12, 6),
-    ["m"]: xy_(13, 6),
-    ["n"]: xy_(14, 6),
-    ["o"]: xy_(15, 6),
-    ["p"]: xy_(0, 7),
-    ["q"]: xy_(1, 7),
-    ["r"]: xy_(2, 7),
-    ["s"]: xy_(3, 7),
-    ["t"]: xy_(4, 7),
-    ["u"]: xy_(5, 7),
-    ["v"]: xy_(6, 7),
-    ["w"]: xy_(7, 7),
-    ["x"]: xy_(8, 7),
-    ["y"]: xy_(9, 7),
-    ["z"]: xy_(10, 7),
+    ["a"]: v_(1, 6),
+    ["b"]: v_(2, 6),
+    ["c"]: v_(3, 6),
+    ["d"]: v_(4, 6),
+    ["e"]: v_(5, 6),
+    ["f"]: v_(6, 6),
+    ["g"]: v_(7, 6),
+    ["h"]: v_(8, 6),
+    ["i"]: v_(9, 6),
+    ["j"]: v_(10, 6),
+    ["k"]: v_(11, 6),
+    ["l"]: v_(12, 6),
+    ["m"]: v_(13, 6),
+    ["n"]: v_(14, 6),
+    ["o"]: v_(15, 6),
+    ["p"]: v_(0, 7),
+    ["q"]: v_(1, 7),
+    ["r"]: v_(2, 7),
+    ["s"]: v_(3, 7),
+    ["t"]: v_(4, 7),
+    ["u"]: v_(5, 7),
+    ["v"]: v_(6, 7),
+    ["w"]: v_(7, 7),
+    ["x"]: v_(8, 7),
+    ["y"]: v_(9, 7),
+    ["z"]: v_(10, 7),
   };
 
-  static #charSpriteSizes: Record<string, Xy> = {
+  static #charSpriteSizes: Record<string, BpxVector2d> = {
     // TODO: externalize these emojis to constants for an easier re-use
-    ["⬅️"]: xy_(7, 5),
-    ["⬆️"]: xy_(7, 5),
-    ["➡️"]: xy_(7, 5),
-    ["⬇️"]: xy_(7, 5),
-    ["♪"]: xy_(7, 5),
+    ["⬅️"]: v_(7, 5),
+    ["⬆️"]: v_(7, 5),
+    ["➡️"]: v_(7, 5),
+    ["⬇️"]: v_(7, 5),
+    ["♪"]: v_(7, 5),
   };
 
-  static #spriteFor(char: string): Sprite | null {
+  static #spriteFor(char: string): BpxSprite | null {
     char = char.toLowerCase();
     const cell = Pico8Font.#spriteSheetCells[char];
     if (!cell) return null;
     const size = Pico8Font.#charSpriteSizes[char];
-    return new Sprite(
+    return new BpxSprite(
       cell.mul(8),
       cell.mul(8).add(size ?? Pico8Font.#defaultCharSpriteSize)
     );
   }
 
   // TODO: tests, especially to check that we iterate over emojis like "➡️" correctly
-  spritesFor(text: string): CharSprite[] {
-    const charSprites: CharSprite[] = [];
-    let positionInText: Xy = Xy.zero;
+  spritesFor(text: string): BpxCharSprite[] {
+    const charSprites: BpxCharSprite[] = [];
+    let positionInText: BpxVector2d = BpxVector2d.zero;
 
     for (let i = 0; i < text.length; i += 1) {
       let char = text[i]!;
@@ -92,11 +98,11 @@ export class Pico8Font implements Font {
       if (sprite) {
         charSprites.push({ positionInText, sprite });
         positionInText = positionInText.add(
-          xy_(Pico8Font.#defaultCharSpriteSize.x + Pico8Font.#letterSpacingW, 0)
+          v_(Pico8Font.#defaultCharSpriteSize.x + Pico8Font.#letterSpacingW, 0)
         );
       } else {
         positionInText = positionInText.add(
-          xy_(Pico8Font.#defaultCharSpriteSize.x + Pico8Font.#letterSpacingW, 0)
+          v_(Pico8Font.#defaultCharSpriteSize.x + Pico8Font.#letterSpacingW, 0)
         );
       }
     }

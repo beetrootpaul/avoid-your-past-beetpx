@@ -1,6 +1,6 @@
-import { FillPattern, Xy, xy_ } from "beetpx";
+import { BeetPx, BpxVector2d, BpxFillPattern, v_ } from "beetpx";
 import { Collisions } from "../Collisions";
-import { f, g, p8c } from "../globals";
+import { g, p8c } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
 import { Item } from "./Item";
 import { Mode } from "./Mode";
@@ -49,7 +49,7 @@ export class Level {
   spawnItems(): void {
     const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
 
-    let availableTiles: Xy[] = [];
+    let availableTiles: BpxVector2d[] = [];
 
     const marginTiles = 1;
     for (
@@ -63,7 +63,7 @@ export class Level {
         tileY += 1
       ) {
         if (!tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-          availableTiles.push(xy_(tileX, tileY));
+          availableTiles.push(v_(tileX, tileY));
         }
       }
     }
@@ -97,7 +97,7 @@ export class Level {
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (dropletTile) {
         const probability = Math.random();
-        if (f.debug) {
+        if (BeetPx.debug) {
           // TODO: use some custom logger?
           console.debug("Droplet probability:", probability);
         }
@@ -183,11 +183,11 @@ export class Level {
   }
 
   drawBg(): void {
-    f.drawApi.setFillPattern(this.#mode.bgPattern());
-    f.drawApi.rectFilled(Xy.zero, g.gameAreaSize, this.#mode.bgColor());
-    f.drawApi.setFillPattern(FillPattern.primaryOnly);
+    BeetPx.setFillPattern(this.#mode.bgPattern());
+    BeetPx.rectFilled(BpxVector2d.zero, g.gameAreaSize, this.#mode.bgColor());
+    BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
 
-    if (f.debug) {
+    if (BeetPx.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
       for (
         let tileX = 1;
@@ -199,16 +199,13 @@ export class Level {
           tileY <= g.gameAreaSize.div(g.tileSize).y;
           tileY += 1
         ) {
-          f.drawApi.pixel(
-            xy_(tileX, tileY).sub(1).mul(g.tileSize),
-            p8c.lavender
-          );
+          BeetPx.pixel(v_(tileX, tileY).sub(1).mul(g.tileSize), p8c.lavender);
           if (tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-            f.drawApi.rectFilled(
-              xy_(tileX - 1, tileY - 1)
+            BeetPx.rectFilled(
+              v_(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),
-              xy_(tileX, tileY).mul(g.tileSize),
+              v_(tileX, tileY).mul(g.tileSize),
               p8c.darkPurple
             );
           }

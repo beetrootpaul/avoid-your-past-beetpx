@@ -1,9 +1,10 @@
-import { xy_ } from "beetpx";
+import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
-import { f, g, p8c, u } from "../globals";
+import { g, p8c } from "../globals";
 import { Topbar } from "../gui/Topbar";
 import { GameState } from "./GameState";
 import { GameStateGameplay } from "./GameStateGameplay";
@@ -22,32 +23,26 @@ export class GameStateStart implements GameState {
   });
 
   constructor() {
-    // TODO: migrate from Lua
-    // audio.enable_music_layers { false, false, false }
+    BeetPx.muteSound(g.assets.musicMelody);
+    BeetPx.muteSound(g.assets.musicModeNoCoins);
+    BeetPx.muteSound(g.assets.musicModeNoMemories);
 
     this.#level.spawnItems();
   }
 
   update(): GameState {
-    let hasStarted = false;
-    // TODO: make one directional input clear another, like left+right = nothing
-    if (f.continuousInputEvents.has("left")) {
-      this.#player.directLeft();
-      hasStarted = true;
-    } else if (f.continuousInputEvents.has("right")) {
-      this.#player.directRight();
-      hasStarted = true;
-    } else if (f.continuousInputEvents.has("up")) {
-      this.#player.directUp();
-      hasStarted = true;
-    } else if (f.continuousInputEvents.has("down")) {
-      this.#player.directDown();
-      hasStarted = true;
+    const detectedDirections: Direction[] = [];
+    if (BeetPx.continuousInputEvents.has("left")) detectedDirections.push("l");
+    if (BeetPx.continuousInputEvents.has("right")) detectedDirections.push("r");
+    if (BeetPx.continuousInputEvents.has("up")) detectedDirections.push("u");
+    if (BeetPx.continuousInputEvents.has("down")) detectedDirections.push("d");
+    if (detectedDirections.length === 1) {
+      detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
 
     this.#level.animate();
 
-    if (hasStarted) {
+    if (detectedDirections.length === 1) {
       return new GameStateGameplay({
         mode: this.#mode,
         topbar: this.#topbar,
@@ -72,51 +67,51 @@ export class GameStateStart implements GameState {
     const margin = 6;
     const prompt1 = "press an arrow";
     const prompt2 = "to choose direction";
-    const prompt1Size = u.measureTextSize(prompt1);
-    const prompt2Size = u.measureTextSize(prompt2);
-    u.printWithOutline(
+    const prompt1Size = BpxUtils.measureTextSize(prompt1);
+    const prompt2Size = BpxUtils.measureTextSize(prompt2);
+    BpxUtils.printWithOutline(
       prompt1,
-      xy_(
+      v_(
         this.#player.center().x - prompt1Size.x / 2,
         this.#player.xy1().y - margin - 26
       ),
       p8c.lavender,
       p8c.darkBlue
     );
-    u.printWithOutline(
+    BpxUtils.printWithOutline(
       prompt2,
-      xy_(
+      v_(
         this.#player.center().x - prompt2Size.x / 2,
         this.#player.xy1().y - margin - 17
       ),
       p8c.lavender,
       p8c.darkBlue
     );
-    const timeDependentBoolean = u.booleanChangingEveryNthFrame(
+    const timeDependentBoolean = BpxUtils.booleanChangingEveryNthFrame(
       g.musicBeatFrames
     );
     const glyphColor = timeDependentBoolean ? p8c.blue : p8c.lavender;
-    u.printWithOutline(
+    BpxUtils.printWithOutline(
       "⬅️",
-      xy_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
+      v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
       p8c.darkBlue
     );
-    u.printWithOutline(
+    BpxUtils.printWithOutline(
       "➡️",
-      xy_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
+      v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
       p8c.darkBlue
     );
-    u.printWithOutline(
+    BpxUtils.printWithOutline(
       "⬆️",
-      xy_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
+      v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
       p8c.darkBlue
     );
-    u.printWithOutline(
+    BpxUtils.printWithOutline(
       "⬇️",
-      xy_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
+      v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,
       p8c.darkBlue
     );

@@ -1,14 +1,13 @@
-import { SolidColor, Xy } from "beetpx";
-import { f } from "../globals";
+import { BeetPx, BpxVector2d, BpxSolidColor } from "beetpx";
 
 type ParticleParams = {
-  xy: Xy;
-  color: SolidColor;
+  xy: BpxVector2d;
+  color: BpxSolidColor;
 };
 
 export class Particle {
-  readonly #xy: Xy;
-  readonly #color: SolidColor;
+  readonly #xy: BpxVector2d;
+  readonly #color: BpxSolidColor;
 
   readonly #rMax = 2;
   readonly #ttlMax = 14;
@@ -29,6 +28,6 @@ export class Particle {
 
   draw(): void {
     const r = 0.5 + Math.floor((this.#ttl / this.#ttlMax) * (this.#rMax + 0.9));
-    f.drawApi.ellipseFilled(this.#xy.sub(r), this.#xy.add(r), this.#color);
+    BeetPx.ellipseFilled(this.#xy.sub(r), this.#xy.add(r), this.#color);
   }
 }
