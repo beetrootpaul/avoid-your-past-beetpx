@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, BpxFillPattern, v_ } from "beetpx";
+import { BeetPx, BpxFillPattern, BpxVector2d, v_ } from "beetpx";
 import { Collisions } from "../Collisions";
 import { g, p8c } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";

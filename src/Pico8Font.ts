@@ -1,9 +1,9 @@
 import {
   BpxCharSprite,
-  type BpxFont,
   BpxSprite,
   BpxVector2d,
   v_,
+  type BpxFont,
 } from "beetpx";
 
 export class Pico8Font implements BpxFont {

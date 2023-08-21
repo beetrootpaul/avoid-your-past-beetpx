@@ -1,8 +1,8 @@
 import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { Pico8Font } from "./Pico8Font";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g, p8c } from "./globals";
-import { Pico8Font } from "./Pico8Font";
 
 type GameStoredState = {
   // TODO: Is it possible to enforce optionality of every field in the framework itself?

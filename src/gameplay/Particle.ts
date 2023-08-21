@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, BpxSolidColor } from "beetpx";
+import { BeetPx, BpxSolidColor, BpxVector2d } from "beetpx";
 
 type ParticleParams = {
   xy: BpxVector2d;
