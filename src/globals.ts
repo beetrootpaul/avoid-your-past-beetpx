@@ -4,7 +4,6 @@ import { Pico8Colors } from "./Pico8Color";
 export const p8c = Pico8Colors;
 
 export const g = {
-  __debug: !__BEETPX_IS_PROD__,
   __quickStart: !__BEETPX_IS_PROD__,
   //
   fps: 30,
@@ -28,7 +27,8 @@ export const g = {
   //
   assets: {
     spritesheet: "spritesheet.png",
-    pico8Font: "pico-8-font.png",
+    pico8FontId: "pico8",
+    pico8FontImage: "pico-8-font.png",
     coinSfx: "sfx_coin_collected.wav",
     musicBase: "music_base.wav",
     musicMelody: "music_melody.wav",

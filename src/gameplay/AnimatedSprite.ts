@@ -37,6 +37,10 @@ export class AnimatedSprite {
       spriteIndex % g.spriteSheetCells.x,
       Math.floor(spriteIndex / g.spriteSheetCells.x)
     ).mul(g.spriteSheetCellSize);
-    return new Sprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize));
+    return new Sprite(
+      g.assets.spritesheet,
+      spriteXy1,
+      spriteXy1.add(g.spriteSheetCellSize)
+    );
   }
 }

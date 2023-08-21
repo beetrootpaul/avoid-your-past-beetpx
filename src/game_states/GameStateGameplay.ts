@@ -1,4 +1,5 @@
 import { BeetPx } from "@beetpx/beetpx";
+import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Memories } from "../gameplay/Memories";
@@ -42,12 +43,12 @@ export class GameStateGameplay implements GameState {
       color: p8c.darkGreen,
     });
 
-    BeetPx.unmuteSound(g.assets.musicMelody);
+    BeetPx.unmuteSound(Game.playbackIds.melody);
   }
 
   #onBackToRegularMode(): void {
-    BeetPx.muteSound(g.assets.musicModeNoCoins);
-    BeetPx.muteSound(g.assets.musicModeNoMemories);
+    BeetPx.muteSound(Game.playbackIds.modeNoCoins);
+    BeetPx.muteSound(Game.playbackIds.modeNoMemories);
   }
 
   #onCoinCollision(): void {
@@ -67,14 +68,14 @@ export class GameStateGameplay implements GameState {
   }
 
   #onDropletNoCoinsCollision(): void {
-    BeetPx.unmuteSound(g.assets.musicModeNoCoins);
+    BeetPx.unmuteSound(Game.playbackIds.modeNoCoins);
     this.#score.add(3);
     this.#mode.startNoCoins();
     this.#level.removeDropletNoCoins();
   }
 
   #onDropletNoMemoriesCollision(): void {
-    BeetPx.unmuteSound(g.assets.musicModeNoMemories);
+    BeetPx.unmuteSound(Game.playbackIds.modeNoMemories);
     this.#score.add(1);
     this.#mode.startNoMemories();
     this.#level.removeDropletNoMemories();
@@ -82,10 +83,10 @@ export class GameStateGameplay implements GameState {
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (BeetPx.continuousInputEvents.has("left")) detectedDirections.push("l");
-    if (BeetPx.continuousInputEvents.has("right")) detectedDirections.push("r");
-    if (BeetPx.continuousInputEvents.has("up")) detectedDirections.push("u");
-    if (BeetPx.continuousInputEvents.has("down")) detectedDirections.push("d");
+    if (BeetPx.wasJustPressed("left")) detectedDirections.push("l");
+    if (BeetPx.wasJustPressed("right")) detectedDirections.push("r");
+    if (BeetPx.wasJustPressed("up")) detectedDirections.push("u");
+    if (BeetPx.wasJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }

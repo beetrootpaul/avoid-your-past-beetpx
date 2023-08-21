@@ -1,8 +1,8 @@
-import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
-import { Pico8Font } from "./Pico8Font";
+import { BeetPx, Utils, v_, Vector2d } from "@beetpx/beetpx";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g, p8c } from "./globals";
+import { Pico8Font } from "./Pico8Font";
 
 type GameStoredState = {
   // TODO: Is it possible to enforce optionality of every field in the framework itself?
@@ -13,28 +13,36 @@ type GameStoredState = {
 };
 
 export class Game {
+  static playbackIds = {
+    melody: -1,
+    modeNoCoins: -1,
+    modeNoMemories: -1,
+  };
+
   #gameState: GameState | undefined;
 
   start(): void {
     BeetPx.init(
       {
-        htmlCanvasBackground: p8c.black,
-        gameCanvasSize: g.screenSize,
+        gameCanvasSize: "128x128",
         desiredFps: g.fps,
-        logActualFps: g.__debug,
-        debug: g.__debug
-          ? {
-              enabledOnInit: g.__debug,
-              toggleKey: ";",
-            }
-          : undefined,
+        // TODO: add menu and implement pause menu
+        visibleTouchButtons: ["left", "right", "up", "down"],
+        logActualFps: !__BEETPX_IS_PROD__,
+        debug: {
+          available: !__BEETPX_IS_PROD__,
+          toggleKey: ";",
+          frameByFrame: {
+            activateKey: ",",
+            stepKey: ".",
+          },
+        },
       },
       {
         images: [{ url: g.assets.spritesheet }],
         fonts: [
           {
             font: new Pico8Font(),
-            url: g.assets.pico8Font,
             imageTextColor: p8c.white,
             imageBgColor: p8c.black,
           },
@@ -50,7 +58,14 @@ export class Game {
     ).then(({ startGame }) => {
       this.#gameState = new GameStateSplash();
 
-      BeetPx.setFont(g.assets.pico8Font);
+      BeetPx.setFont(g.assets.pico8FontId);
+
+      // TODO: setOnStart
+      // TODO: button repeating false
+      // TODO: fix drawing
+      // TODO: fix music
+      // TODO: true lines
+      // TODO: visible touch buttons
 
       BeetPx.setOnUpdate(() => {
         BeetPx.store<GameStoredState>({
@@ -82,24 +97,29 @@ export class Game {
             p8c.darkPurple
           );
         }
+
+        // TODO: check if it draws OK
+        if (BeetPx.debug) {
+          const fps = BeetPx.averageFps.toFixed(0);
+          BeetPx.print(fps, Vector2d.zero, p8c.orange);
+          const audioState = BeetPx.audioContext.state;
+          const audioStateText =
+            audioState === "suspended"
+              ? "s"
+              : audioState === "running"
+              ? "r"
+              : audioState === "closed"
+              ? "c"
+              : "@";
+          BeetPx.print(
+            audioStateText,
+            v_(g.screenSize.x - Utils.measureTextSize(audioStateText).x, 0),
+            p8c.orange
+          );
+        }
       });
 
-      startGame(() => {
-        let restoredState: GameStoredState | null = null;
-        try {
-          restoredState = BeetPx.load<GameStoredState>();
-        } catch (err) {
-          // TODO: move this error to the framework itself, because there we can explicitly tell it's about `JSON.parse(…)` error
-          console.warn("Failed to stored state.");
-          BeetPx.clearStorage();
-        }
-        restoredState = restoredState ?? {
-          mostRecentFameNumber: 0,
-        };
-        console.info(
-          `Restored most recent frame number: ${restoredState.mostRecentFameNumber}`
-        );
-      });
+      startGame();
     });
   }
 }

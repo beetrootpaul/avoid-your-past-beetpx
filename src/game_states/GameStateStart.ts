@@ -1,4 +1,5 @@
 import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Mode } from "../gameplay/Mode";
@@ -23,19 +24,19 @@ export class GameStateStart implements GameState {
   });
 
   constructor() {
-    BeetPx.muteSound(g.assets.musicMelody);
-    BeetPx.muteSound(g.assets.musicModeNoCoins);
-    BeetPx.muteSound(g.assets.musicModeNoMemories);
+    BeetPx.muteSound(Game.playbackIds.melody);
+    BeetPx.muteSound(Game.playbackIds.modeNoCoins);
+    BeetPx.muteSound(Game.playbackIds.modeNoMemories);
 
     this.#level.spawnItems();
   }
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (BeetPx.continuousInputEvents.has("left")) detectedDirections.push("l");
-    if (BeetPx.continuousInputEvents.has("right")) detectedDirections.push("r");
-    if (BeetPx.continuousInputEvents.has("up")) detectedDirections.push("u");
-    if (BeetPx.continuousInputEvents.has("down")) detectedDirections.push("d");
+    if (BeetPx.wasJustPressed("left")) detectedDirections.push("l");
+    if (BeetPx.wasJustPressed("right")) detectedDirections.push("r");
+    if (BeetPx.wasJustPressed("up")) detectedDirections.push("u");
+    if (BeetPx.wasJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }

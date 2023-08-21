@@ -1,4 +1,5 @@
 import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { Game } from "../Game";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
@@ -45,9 +46,9 @@ export class GameStateOver implements GameState {
     this.#level = params.level;
     this.#player = params.player;
 
-    BeetPx.muteSound(g.assets.musicMelody);
-    BeetPx.muteSound(g.assets.musicModeNoCoins);
-    BeetPx.muteSound(g.assets.musicModeNoMemories);
+    BeetPx.muteSound(Game.playbackIds.melody);
+    BeetPx.muteSound(Game.playbackIds.modeNoCoins);
+    BeetPx.muteSound(Game.playbackIds.modeNoMemories);
   }
 
   update(): GameState {
@@ -57,10 +58,10 @@ export class GameStateOver implements GameState {
 
     if (this.#sash.hasExpanded()) {
       if (
-        BeetPx.continuousInputEvents.has("left") ||
-        BeetPx.continuousInputEvents.has("right") ||
-        BeetPx.continuousInputEvents.has("up") ||
-        BeetPx.continuousInputEvents.has("down")
+        BeetPx.wasJustPressed("left") ||
+        BeetPx.wasJustPressed("right") ||
+        BeetPx.wasJustPressed("up") ||
+        BeetPx.wasJustPressed("down")
       ) {
         this.#sash.collapse();
       }

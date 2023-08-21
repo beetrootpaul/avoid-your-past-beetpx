@@ -75,19 +75,23 @@ export class Memory extends Origin {
   }
 
   draw(): void {
-    BeetPx.mapSpriteColor(p8c.darkBlue, transparent_);
+    const prevMapping = BeetPx.mapSpriteColors([
+      { from: p8c.darkBlue, to: transparent_ },
+    ]);
 
     if (this.isActive()) {
       const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
       BeetPx.sprite(
-        g.assets.spritesheet,
-        new Sprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
+        new Sprite(
+          g.assets.spritesheet,
+          spriteXy1,
+          spriteXy1.add(g.spriteSheetCellSize)
+        ),
         this.#xy.sub(this.#r)
       );
     }
 
-    // TODO: API to reset all mappings?
-    BeetPx.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
+    BeetPx.mapSpriteColors(prevMapping);
 
     if (BeetPx.debug) {
       const cc = this.collisionCircle();

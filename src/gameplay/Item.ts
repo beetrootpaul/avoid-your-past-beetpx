@@ -32,16 +32,16 @@ export class Item {
   }
 
   draw(): void {
-    BeetPx.mapSpriteColor(p8c.darkBlue, transparent_);
+    const prevMapping = BeetPx.mapSpriteColors([
+      { from: p8c.darkBlue, to: transparent_ },
+    ]);
 
     BeetPx.sprite(
-      g.assets.spritesheet,
       this.#animatedSprite.currentSprite(),
       this.#tile.sub(1).mul(g.tileSize)
     );
 
-    // TODO: API to reset all mappings?
-    BeetPx.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
+    BeetPx.mapSpriteColors(prevMapping);
 
     if (BeetPx.debug) {
       const cc = this.collisionCircle();

@@ -24,6 +24,7 @@ export class GameStateSplash implements GameState {
   });
 
   constructor() {
+    // TODO: store playbackIds
     BeetPx.playSoundLooped(g.assets.musicBase);
     BeetPx.playSoundLooped(g.assets.musicMelody, true);
     BeetPx.playSoundLooped(g.assets.musicModeNoCoins, true);
@@ -36,10 +37,10 @@ export class GameStateSplash implements GameState {
     }
 
     if (
-      BeetPx.continuousInputEvents.has("left") ||
-      BeetPx.continuousInputEvents.has("right") ||
-      BeetPx.continuousInputEvents.has("up") ||
-      BeetPx.continuousInputEvents.has("down")
+      BeetPx.wasJustPressed("left") ||
+      BeetPx.wasJustPressed("right") ||
+      BeetPx.wasJustPressed("up") ||
+      BeetPx.wasJustPressed("down")
     ) {
       this.#sash.collapse();
     }
