@@ -3,7 +3,6 @@
 
 npm run format
 npm run typecheck
-# TODO: REVERT
-#npm test
+npm test
 
 git add --all .
