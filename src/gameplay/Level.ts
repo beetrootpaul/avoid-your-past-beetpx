@@ -1,4 +1,4 @@
-import { BeetPx, BpxVector2d, BpxFillPattern, v_ } from "beetpx";
+import { BeetPx, FillPattern, Vector2d, v_ } from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
 import { g, p8c } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
@@ -49,7 +49,7 @@ export class Level {
   spawnItems(): void {
     const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
 
-    let availableTiles: BpxVector2d[] = [];
+    let availableTiles: Vector2d[] = [];
 
     const marginTiles = 1;
     for (
@@ -69,7 +69,6 @@ export class Level {
     }
 
     if (availableTiles.length > 0) {
-      // TODO: create an util for random array pick + cover it with tests
       const coinTile =
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (coinTile) {
@@ -80,7 +79,7 @@ export class Level {
           animatedSprite: new AnimatedSprite({
             firstSpriteSheetCell: 16,
             numberOfSprites: 16,
-            framesPerSprite: 2,
+            framesPerSprite: 4,
           }),
         });
       }
@@ -92,13 +91,11 @@ export class Level {
       !this.#mode.isNoCoins() &&
       !this.#mode.isNoMemories()
     ) {
-      // TODO: create an util for random array pick + cover it with tests
       const dropletTile =
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (dropletTile) {
         const probability = Math.random();
         if (BeetPx.debug) {
-          // TODO: use some custom logger?
           console.debug("Droplet probability:", probability);
         }
         if (probability < 0.3) {
@@ -184,8 +181,8 @@ export class Level {
 
   drawBg(): void {
     BeetPx.setFillPattern(this.#mode.bgPattern());
-    BeetPx.rectFilled(BpxVector2d.zero, g.gameAreaSize, this.#mode.bgColor());
-    BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
+    BeetPx.rectFilled(Vector2d.zero, g.gameAreaSize, this.#mode.bgColor());
+    BeetPx.setFillPattern(FillPattern.primaryOnly);
 
     if (BeetPx.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
@@ -205,7 +202,7 @@ export class Level {
               v_(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),
-              v_(tileX, tileY).mul(g.tileSize),
+              g.tileSize.sub(1),
               p8c.darkPurple
             );
           }

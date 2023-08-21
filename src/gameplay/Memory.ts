@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxVector2d, transparent_, v_ } from "beetpx";
+import { BeetPx, Sprite, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
 import { g, p8c } from "../globals";
 import { Direction } from "./Direction";
@@ -14,7 +14,7 @@ export class Memory extends Origin {
   #originStateBufferIndex: number = 0;
 
   readonly #origin: Origin;
-  #xy: BpxVector2d;
+  #xy: Vector2d;
   #r: number;
   #direction: Direction;
 
@@ -33,7 +33,7 @@ export class Memory extends Origin {
     this.#direction = this.#origin.direction();
   }
 
-  center(): BpxVector2d {
+  center(): Vector2d {
     return this.#xy;
   }
 
@@ -56,7 +56,6 @@ export class Memory extends Origin {
     return this.#originStateBuffer.length > this.#originStateDelay;
   }
 
-  // TODO: cover the ring-moving index logic with tests
   followOrigin(): void {
     this.#originStateBuffer[this.#originStateBufferIndex] =
       this.#origin.snapshot();
@@ -75,25 +74,29 @@ export class Memory extends Origin {
   }
 
   draw(): void {
-    BeetPx.mapSpriteColor(p8c.darkBlue, transparent_);
+    const prevMapping = BeetPx.mapSpriteColors([
+      { from: p8c.darkBlue, to: transparent_ },
+    ]);
 
     if (this.isActive()) {
       const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
       BeetPx.sprite(
-        g.assets.spritesheet,
-        new BpxSprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
+        new Sprite(
+          g.assets.spritesheet,
+          spriteXy1,
+          spriteXy1.add(g.spriteSheetCellSize)
+        ),
         this.#xy.sub(this.#r)
       );
     }
 
-    // TODO: API to reset all mappings?
-    BeetPx.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
+    BeetPx.mapSpriteColors(prevMapping);
 
     if (BeetPx.debug) {
       const cc = this.collisionCircle();
       BeetPx.ellipse(
         cc.center.sub(cc.r),
-        cc.center.add(cc.r),
+        v_(cc.r, cc.r).mul(2),
         this.isActive() ? p8c.red : p8c.darkGrey
       );
     }

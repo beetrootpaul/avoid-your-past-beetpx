@@ -1,15 +1,15 @@
-import { BpxSolidColor } from "beetpx";
+import { SolidColor } from "@beetpx/beetpx";
 import { Origin } from "./Origin";
 import { Particle } from "./Particle";
 
 type TrailParams = {
   origin: Origin;
-  color: BpxSolidColor;
+  color: SolidColor;
 };
 
 export class Trail {
   readonly #origin: Origin;
-  readonly #color: BpxSolidColor;
+  readonly #color: SolidColor;
 
   readonly #framesBetweenParticles = 4;
   #frameCounter = this.#framesBetweenParticles;

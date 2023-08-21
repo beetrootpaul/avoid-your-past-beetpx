@@ -1,4 +1,4 @@
-import { BpxCompositeColor, BpxFillPattern, BpxSolidColor } from "beetpx";
+import { CompositeColor, FillPattern, SolidColor } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class Mode {
@@ -47,7 +47,7 @@ export class Mode {
     }
   }
 
-  progressColor(): BpxSolidColor {
+  progressColor(): SolidColor {
     switch (this.#current) {
       case "no_coins":
         return g.colors.bgColorModeNoCoins;
@@ -58,15 +58,15 @@ export class Mode {
     }
   }
 
-  bgColor(): BpxSolidColor | BpxCompositeColor {
+  bgColor(): SolidColor | CompositeColor {
     switch (this.#current) {
       case "no_coins":
-        return new BpxCompositeColor(
+        return new CompositeColor(
           g.colors.bgColorModeNoCoins,
           g.colors.bgColorModeNormal
         );
       case "no_memories":
-        return new BpxCompositeColor(
+        return new CompositeColor(
           g.colors.bgColorModeNoMemories,
           g.colors.bgColorModeNormal
         );
@@ -75,9 +75,9 @@ export class Mode {
     }
   }
 
-  bgPattern(): BpxFillPattern {
+  bgPattern(): FillPattern {
     if (this.#current == "regular") {
-      return BpxFillPattern.primaryOnly;
+      return FillPattern.primaryOnly;
     }
 
     const ttlMax = this.#ttlMax();
@@ -85,17 +85,17 @@ export class Mode {
 
     switch (ttlDistanceFromStartToEnd) {
       case 0:
-        return BpxFillPattern.of(0b1111_1111_1011_1111);
+        return FillPattern.of(0b1111_1111_1011_1111);
       case 1:
-        return BpxFillPattern.of(0b1010_1111_1010_1111);
+        return FillPattern.of(0b1010_1111_1010_1111);
       case 2:
-        return BpxFillPattern.of(0b1010_0101_1010_0101);
+        return FillPattern.of(0b1010_0101_1010_0101);
       case 3:
-        return BpxFillPattern.of(0b0000_0101_0000_0101);
+        return FillPattern.of(0b0000_0101_0000_0101);
       case 4:
-        return BpxFillPattern.of(0b0000_0000_0000_0001);
+        return FillPattern.of(0b0000_0000_0000_0001);
       default:
-        return BpxFillPattern.primaryOnly;
+        return FillPattern.primaryOnly;
     }
   }
 

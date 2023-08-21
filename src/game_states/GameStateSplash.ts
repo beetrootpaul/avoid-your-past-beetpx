@@ -1,4 +1,5 @@
-import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { Game } from "../Game";
 import { g, p8c } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
@@ -10,10 +11,10 @@ export class GameStateSplash implements GameState {
     expand: false,
     drawText: (sashCenter) => {
       const title = "Avoid Your Past";
-      const titleSize = BpxUtils.measureTextSize(title);
+      const titleSize = Utils.measureTextSize(title);
       const author = "by @beetrootpaul";
-      const authorSize = BpxUtils.measureTextSize(author);
-      BpxUtils.printWithOutline(
+      const authorSize = Utils.measureTextSize(author);
+      Utils.printWithOutline(
         title,
         sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
         p8c.pink,
@@ -25,9 +26,18 @@ export class GameStateSplash implements GameState {
 
   constructor() {
     BeetPx.playSoundLooped(g.assets.musicBase);
-    BeetPx.playSoundLooped(g.assets.musicMelody, true);
-    BeetPx.playSoundLooped(g.assets.musicModeNoCoins, true);
-    BeetPx.playSoundLooped(g.assets.musicModeNoMemories, true);
+    Game.playbackIds.melody = BeetPx.playSoundLooped(
+      g.assets.musicMelody,
+      true
+    );
+    Game.playbackIds.modeNoCoins = BeetPx.playSoundLooped(
+      g.assets.musicModeNoCoins,
+      true
+    );
+    Game.playbackIds.modeNoMemories = BeetPx.playSoundLooped(
+      g.assets.musicModeNoMemories,
+      true
+    );
   }
 
   update(): GameState {
@@ -36,10 +46,10 @@ export class GameStateSplash implements GameState {
     }
 
     if (
-      BeetPx.continuousInputEvents.has("left") ||
-      BeetPx.continuousInputEvents.has("right") ||
-      BeetPx.continuousInputEvents.has("up") ||
-      BeetPx.continuousInputEvents.has("down")
+      BeetPx.wasJustPressed("left") ||
+      BeetPx.wasJustPressed("right") ||
+      BeetPx.wasJustPressed("up") ||
+      BeetPx.wasJustPressed("down")
     ) {
       this.#sash.collapse();
     }
@@ -50,11 +60,7 @@ export class GameStateSplash implements GameState {
   }
 
   draw(): void {
-    BeetPx.rectFilled(
-      g.cameraOffset,
-      g.cameraOffset.add(g.screenSize),
-      g.colors.bgColorModeNormal
-    );
+    BeetPx.rectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
 
     this.#sash.draw();
   }

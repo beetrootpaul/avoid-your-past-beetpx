@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxVector2d, transparent_, v_ } from "beetpx";
+import { BeetPx, Sprite, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
 import { g, p8c } from "../globals";
 import { Direction } from "./Direction";
@@ -8,7 +8,7 @@ export class Player extends Origin {
   readonly #r = 3;
   readonly #speed = 2;
 
-  #xy: BpxVector2d = g.gameAreaSize.div(2);
+  #xy: Vector2d = g.gameAreaSize.div(2);
 
   // Let's start right (but it's effectively unused, because we
   //   let the user to choose the direction at the game's start).
@@ -22,7 +22,7 @@ export class Player extends Origin {
     l: v_(10, 2).mul(g.spriteSheetCellSize),
   };
 
-  center(): BpxVector2d {
+  center(): Vector2d {
     return this.#xy;
   }
 
@@ -34,11 +34,11 @@ export class Player extends Origin {
     return this.#direction;
   }
 
-  xy1(): BpxVector2d {
+  xy1(): Vector2d {
     return this.#xy.sub(this.#r);
   }
 
-  xy2(): BpxVector2d {
+  xy2(): Vector2d {
     return this.#xy.add(this.#r);
   }
 
@@ -66,21 +66,25 @@ export class Player extends Origin {
   }
 
   draw(): void {
-    BeetPx.mapSpriteColor(p8c.darkBlue, transparent_);
+    const prevMapping = BeetPx.mapSpriteColors([
+      { from: p8c.darkBlue, to: transparent_ },
+    ]);
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
     BeetPx.sprite(
-      g.assets.spritesheet,
-      new BpxSprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
+      new Sprite(
+        g.assets.spritesheet,
+        spriteXy1,
+        spriteXy1.add(g.spriteSheetCellSize)
+      ),
       this.#xy.sub(this.#r)
     );
 
-    // TODO: API to reset all mappings?
-    BeetPx.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
+    BeetPx.mapSpriteColors(prevMapping);
 
     if (BeetPx.debug) {
       const cc = this.collisionCircle();
-      BeetPx.ellipse(cc.center.sub(cc.r), cc.center.add(cc.r), p8c.red);
+      BeetPx.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), p8c.red);
     }
   }
 }

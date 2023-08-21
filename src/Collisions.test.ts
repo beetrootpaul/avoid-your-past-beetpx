@@ -1,9 +1,8 @@
+import { v_ } from "@beetpx/beetpx";
 import { describe, expect, test } from "@jest/globals";
-import { v_ } from "beetpx";
 import { Collisions } from "./Collisions";
 
 describe("Collisions", () => {
-  // TODO: more test cases
   test("#haveCirclesCollided", () => {
     expect(
       Collisions.haveCirclesCollided(

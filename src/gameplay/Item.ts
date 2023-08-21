@@ -1,16 +1,16 @@
-import { BeetPx, BpxVector2d, transparent_ } from "beetpx";
+import { BeetPx, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
 import { g, p8c } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
 
 type ItemParams = {
-  tile: BpxVector2d;
+  tile: Vector2d;
   collisionCircleR: number;
   animatedSprite: AnimatedSprite;
 };
 
 export class Item {
-  readonly #tile: BpxVector2d;
+  readonly #tile: Vector2d;
   readonly #collisionCircleR: number;
   readonly #animatedSprite: AnimatedSprite;
 
@@ -32,20 +32,26 @@ export class Item {
   }
 
   draw(): void {
-    BeetPx.mapSpriteColor(p8c.darkBlue, transparent_);
+    const prevMapping = BeetPx.mapSpriteColors([
+      { from: p8c.darkBlue, to: transparent_ },
+    ]);
 
     BeetPx.sprite(
-      g.assets.spritesheet,
       this.#animatedSprite.currentSprite(),
       this.#tile.sub(1).mul(g.tileSize)
     );
 
-    // TODO: API to reset all mappings?
-    BeetPx.mapSpriteColor(p8c.darkBlue, p8c.darkBlue);
+    BeetPx.mapSpriteColors(prevMapping);
 
     if (BeetPx.debug) {
       const cc = this.collisionCircle();
-      BeetPx.ellipse(cc.center.sub(cc.r), cc.center.add(cc.r), p8c.red);
+      console.log(
+        cc.center.d(),
+        cc.r * 2,
+        cc.center.sub(cc.r).d(),
+        cc.center.add(cc.r).d()
+      );
+      BeetPx.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), p8c.red);
     }
   }
 }
