@@ -45,6 +45,12 @@ export class Item {
 
     if (BeetPx.debug) {
       const cc = this.collisionCircle();
+      console.log(
+        cc.center.d(),
+        cc.r * 2,
+        cc.center.sub(cc.r).d(),
+        cc.center.add(cc.r).d()
+      );
       BeetPx.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), p8c.red);
     }
   }

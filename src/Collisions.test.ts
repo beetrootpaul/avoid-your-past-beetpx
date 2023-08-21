@@ -3,7 +3,6 @@ import { describe, expect, test } from "@jest/globals";
 import { Collisions } from "./Collisions";
 
 describe("Collisions", () => {
-  // TODO: more test cases
   test("#haveCirclesCollided", () => {
     expect(
       Collisions.haveCirclesCollided(

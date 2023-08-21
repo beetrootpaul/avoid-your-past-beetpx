@@ -69,7 +69,6 @@ export class Level {
     }
 
     if (availableTiles.length > 0) {
-      // TODO: create an util for random array pick + cover it with tests
       const coinTile =
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (coinTile) {
@@ -80,7 +79,7 @@ export class Level {
           animatedSprite: new AnimatedSprite({
             firstSpriteSheetCell: 16,
             numberOfSprites: 16,
-            framesPerSprite: 2,
+            framesPerSprite: 4,
           }),
         });
       }
@@ -92,13 +91,11 @@ export class Level {
       !this.#mode.isNoCoins() &&
       !this.#mode.isNoMemories()
     ) {
-      // TODO: create an util for random array pick + cover it with tests
       const dropletTile =
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (dropletTile) {
         const probability = Math.random();
         if (BeetPx.debug) {
-          // TODO: use some custom logger?
           console.debug("Droplet probability:", probability);
         }
         if (probability < 0.3) {

@@ -56,7 +56,6 @@ export class Memory extends Origin {
     return this.#originStateBuffer.length > this.#originStateDelay;
   }
 
-  // TODO: cover the ring-moving index logic with tests
   followOrigin(): void {
     this.#originStateBuffer[this.#originStateBufferIndex] =
       this.#origin.snapshot();

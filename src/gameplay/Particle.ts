@@ -28,7 +28,6 @@ export class Particle {
 
   draw(): void {
     const r = 0.5 + Math.floor((this.#ttl / this.#ttlMax) * (this.#rMax + 0.9));
-    // TODO: why this ellipse look strange?
     BeetPx.ellipseFilled(this.#xy.sub(r), v_(r, r).mul(2), this.#color);
   }
 }

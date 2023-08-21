@@ -4,14 +4,6 @@ import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g, p8c } from "./globals";
 
-type GameStoredState = {
-  // TODO: Is it possible to enforce optionality of every field in the framework itself?
-  // TODO: This field is used only to drive a proper framework implementation,
-  //       but it's not really used in the game itself.
-  //       Update it to something meaningful in a context of the game.
-  mostRecentFameNumber?: number;
-};
-
 export class Game {
   static playbackIds = {
     melody: -1,
@@ -26,7 +18,6 @@ export class Game {
       {
         gameCanvasSize: "128x128",
         desiredFps: g.fps,
-        // TODO: add menu and implement pause menu
         visibleTouchButtons: ["left", "right", "up", "down"],
         logActualFps: !__BEETPX_IS_PROD__,
         debug: {
@@ -56,26 +47,25 @@ export class Game {
         ],
       }
     ).then(({ startGame }) => {
-      this.#gameState = new GameStateSplash();
+      BeetPx.setOnStarted(() => {
+        BeetPx.setRepeating("left", false);
+        BeetPx.setRepeating("right", false);
+        BeetPx.setRepeating("up", false);
+        BeetPx.setRepeating("down", false);
 
-      BeetPx.setFont(g.assets.pico8FontId);
-      BeetPx.setCameraOffset(g.cameraOffset);
+        BeetPx.setFont(g.assets.pico8FontId);
+        BeetPx.setCameraOffset(g.cameraOffset);
 
-      // TODO: setOnStart
-      // TODO: button repeating false
-      // TODO: fix drawing
-      // TODO: fix music
-      // TODO: true lines
+        this.#gameState = new GameStateSplash();
+      });
 
       BeetPx.setOnUpdate(() => {
-        BeetPx.store<GameStoredState>({
-          mostRecentFameNumber: BeetPx.frameNumber,
-        });
         this.#gameState = this.#gameState?.update();
       });
 
       BeetPx.setOnDraw(() => {
         BeetPx.clearCanvas(p8c.black);
+
         this.#gameState?.draw();
 
         if (BeetPx.debug) {

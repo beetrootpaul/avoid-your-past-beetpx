@@ -24,7 +24,6 @@ export class Pico8Font implements Font {
   readonly imageUrl: ImageUrl = g.assets.pico8FontImage;
 
   static #sprites: Record<string, Sprite> = {
-    // TODO: externalize these emojis to constants for an easier re-use
     ["⬅️"]: c_(11, 8, 7),
     ["⬆️"]: c_(4, 9, 7),
     ["➡️"]: c_(1, 9, 7),
@@ -72,7 +71,6 @@ export class Pico8Font implements Font {
     ["z"]: c_(10, 7),
   };
 
-  // TODO: tests, especially to check that we iterate over emojis like "➡️" correctly
   spritesFor(text: string): CharSprite[] {
     const charSprites: CharSprite[] = [];
     let positionInText: Vector2d = Vector2d.zero;

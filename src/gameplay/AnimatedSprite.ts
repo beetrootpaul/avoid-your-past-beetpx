@@ -7,7 +7,6 @@ type AnimatedSpriteParams = {
   framesPerSprite: number;
 };
 
-// TODO: sounds like something to be moved to the framework
 export class AnimatedSprite {
   readonly #firstSpriteSheetCell: number;
   readonly #numberOfSprites: number;
