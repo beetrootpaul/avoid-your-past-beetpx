@@ -1,8 +1,8 @@
-import { BpxVector2d } from "beetpx";
+import { Vector2d } from "@beetpx/beetpx";
 import { Direction } from "./Direction";
 
 export abstract class Origin {
-  abstract center(): BpxVector2d;
+  abstract center(): Vector2d;
 
   abstract r(): number;
 
@@ -18,7 +18,7 @@ export abstract class Origin {
 }
 
 export type OriginSnapshot = {
-  center: BpxVector2d;
+  center: Vector2d;
   r: number;
   direction: Direction;
 };

@@ -1,4 +1,4 @@
-import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
@@ -10,10 +10,10 @@ export class GameStateSplash implements GameState {
     expand: false,
     drawText: (sashCenter) => {
       const title = "Avoid Your Past";
-      const titleSize = BpxUtils.measureTextSize(title);
+      const titleSize = Utils.measureTextSize(title);
       const author = "by @beetrootpaul";
-      const authorSize = BpxUtils.measureTextSize(author);
-      BpxUtils.printWithOutline(
+      const authorSize = Utils.measureTextSize(author);
+      Utils.printWithOutline(
         title,
         sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
         p8c.pink,

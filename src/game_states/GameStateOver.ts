@@ -1,4 +1,4 @@
-import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
@@ -23,15 +23,15 @@ export class GameStateOver implements GameState {
     expand: true,
     drawText: (sashCenter) => {
       const heading = "your score";
-      const headingSize = BpxUtils.measureTextSize(heading);
+      const headingSize = Utils.measureTextSize(heading);
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = BpxUtils.measureTextSize(finalScore);
+      const finalScoreSize = Utils.measureTextSize(finalScore);
       BeetPx.print(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
         p8c.white
       );
-      BpxUtils.printWithOutline(
+      Utils.printWithOutline(
         finalScore,
         sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
         p8c.pink,

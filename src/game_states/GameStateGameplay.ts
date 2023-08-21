@@ -1,4 +1,4 @@
-import { BeetPx } from "beetpx";
+import { BeetPx } from "@beetpx/beetpx";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Memories } from "../gameplay/Memories";

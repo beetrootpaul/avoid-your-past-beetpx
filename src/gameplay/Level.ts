@@ -1,4 +1,4 @@
-import { BeetPx, BpxFillPattern, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, FillPattern, Vector2d, v_ } from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
 import { g, p8c } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
@@ -49,7 +49,7 @@ export class Level {
   spawnItems(): void {
     const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
 
-    let availableTiles: BpxVector2d[] = [];
+    let availableTiles: Vector2d[] = [];
 
     const marginTiles = 1;
     for (
@@ -184,8 +184,8 @@ export class Level {
 
   drawBg(): void {
     BeetPx.setFillPattern(this.#mode.bgPattern());
-    BeetPx.rectFilled(BpxVector2d.zero, g.gameAreaSize, this.#mode.bgColor());
-    BeetPx.setFillPattern(BpxFillPattern.primaryOnly);
+    BeetPx.rectFilled(Vector2d.zero, g.gameAreaSize, this.#mode.bgColor());
+    BeetPx.setFillPattern(FillPattern.primaryOnly);
 
     if (BeetPx.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();

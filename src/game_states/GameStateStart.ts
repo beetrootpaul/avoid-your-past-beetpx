@@ -1,4 +1,4 @@
-import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Mode } from "../gameplay/Mode";
@@ -67,9 +67,9 @@ export class GameStateStart implements GameState {
     const margin = 6;
     const prompt1 = "press an arrow";
     const prompt2 = "to choose direction";
-    const prompt1Size = BpxUtils.measureTextSize(prompt1);
-    const prompt2Size = BpxUtils.measureTextSize(prompt2);
-    BpxUtils.printWithOutline(
+    const prompt1Size = Utils.measureTextSize(prompt1);
+    const prompt2Size = Utils.measureTextSize(prompt2);
+    Utils.printWithOutline(
       prompt1,
       v_(
         this.#player.center().x - prompt1Size.x / 2,
@@ -78,7 +78,7 @@ export class GameStateStart implements GameState {
       p8c.lavender,
       p8c.darkBlue
     );
-    BpxUtils.printWithOutline(
+    Utils.printWithOutline(
       prompt2,
       v_(
         this.#player.center().x - prompt2Size.x / 2,
@@ -87,29 +87,29 @@ export class GameStateStart implements GameState {
       p8c.lavender,
       p8c.darkBlue
     );
-    const timeDependentBoolean = BpxUtils.booleanChangingEveryNthFrame(
+    const timeDependentBoolean = Utils.booleanChangingEveryNthFrame(
       g.musicBeatFrames
     );
     const glyphColor = timeDependentBoolean ? p8c.blue : p8c.lavender;
-    BpxUtils.printWithOutline(
+    Utils.printWithOutline(
       "⬅️",
       v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
       p8c.darkBlue
     );
-    BpxUtils.printWithOutline(
+    Utils.printWithOutline(
       "➡️",
       v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
       p8c.darkBlue
     );
-    BpxUtils.printWithOutline(
+    Utils.printWithOutline(
       "⬆️",
       v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
       p8c.darkBlue
     );
-    BpxUtils.printWithOutline(
+    Utils.printWithOutline(
       "⬇️",
       v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,

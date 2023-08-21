@@ -1,16 +1,16 @@
-import { BeetPx, BpxVector2d, transparent_ } from "beetpx";
+import { BeetPx, Vector2d, transparent_ } from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
 import { g, p8c } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
 
 type ItemParams = {
-  tile: BpxVector2d;
+  tile: Vector2d;
   collisionCircleR: number;
   animatedSprite: AnimatedSprite;
 };
 
 export class Item {
-  readonly #tile: BpxVector2d;
+  readonly #tile: Vector2d;
   readonly #collisionCircleR: number;
   readonly #animatedSprite: AnimatedSprite;
 

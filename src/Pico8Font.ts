@@ -1,17 +1,11 @@
-import {
-  BpxCharSprite,
-  BpxSprite,
-  BpxVector2d,
-  v_,
-  type BpxFont,
-} from "beetpx";
+import { CharSprite, Sprite, Vector2d, v_, type Font } from "@beetpx/beetpx";
 
-export class Pico8Font implements BpxFont {
+export class Pico8Font implements Font {
   static #letterSpacingW = 1;
 
   static #defaultCharSpriteSize = v_(3, 5);
 
-  static #spriteSheetCells: Record<string, BpxVector2d> = {
+  static #spriteSheetCells: Record<string, Vector2d> = {
     // TODO: externalize these emojis to constants for an easier re-use
     ["⬅️"]: v_(11, 8),
     ["⬆️"]: v_(4, 9),
@@ -60,7 +54,7 @@ export class Pico8Font implements BpxFont {
     ["z"]: v_(10, 7),
   };
 
-  static #charSpriteSizes: Record<string, BpxVector2d> = {
+  static #charSpriteSizes: Record<string, Vector2d> = {
     // TODO: externalize these emojis to constants for an easier re-use
     ["⬅️"]: v_(7, 5),
     ["⬆️"]: v_(7, 5),
@@ -69,21 +63,21 @@ export class Pico8Font implements BpxFont {
     ["♪"]: v_(7, 5),
   };
 
-  static #spriteFor(char: string): BpxSprite | null {
+  static #spriteFor(char: string): Sprite | null {
     char = char.toLowerCase();
     const cell = Pico8Font.#spriteSheetCells[char];
     if (!cell) return null;
     const size = Pico8Font.#charSpriteSizes[char];
-    return new BpxSprite(
+    return new Sprite(
       cell.mul(8),
       cell.mul(8).add(size ?? Pico8Font.#defaultCharSpriteSize)
     );
   }
 
   // TODO: tests, especially to check that we iterate over emojis like "➡️" correctly
-  spritesFor(text: string): BpxCharSprite[] {
-    const charSprites: BpxCharSprite[] = [];
-    let positionInText: BpxVector2d = BpxVector2d.zero;
+  spritesFor(text: string): CharSprite[] {
+    const charSprites: CharSprite[] = [];
+    let positionInText: Vector2d = Vector2d.zero;
 
     for (let i = 0; i < text.length; i += 1) {
       let char = text[i]!;

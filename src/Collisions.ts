@@ -1,7 +1,7 @@
-import { BpxVector2d } from "beetpx";
+import { Vector2d } from "@beetpx/beetpx";
 
 export type CollisionCircle = {
-  center: BpxVector2d;
+  center: Vector2d;
   r: number;
 };
 

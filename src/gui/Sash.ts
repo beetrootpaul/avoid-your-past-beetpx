@@ -1,10 +1,10 @@
-import { BeetPx, BpxVector2d, v_ } from "beetpx";
+import { BeetPx, Vector2d, v_ } from "@beetpx/beetpx";
 import { g, p8c } from "../globals";
 
 type SashParams = {
   duration: number;
   expand: boolean;
-  drawText: (sashCenter: BpxVector2d) => void;
+  drawText: (sashCenter: Vector2d) => void;
 };
 
 export class Sash {
@@ -12,7 +12,7 @@ export class Sash {
 
   readonly #shouldExpand: boolean;
 
-  readonly #drawText: (sashCenter: BpxVector2d) => void;
+  readonly #drawText: (sashCenter: Vector2d) => void;
 
   readonly #ttlExpansionStart: number;
   readonly #ttlExpansionEnd: number;

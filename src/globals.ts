@@ -1,4 +1,4 @@
-import { v_ } from "beetpx";
+import { v_ } from "@beetpx/beetpx";
 import { Pico8Colors } from "./Pico8Color";
 
 export const p8c = Pico8Colors;

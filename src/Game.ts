@@ -1,4 +1,4 @@
-import { BeetPx, BpxUtils, v_ } from "beetpx";
+import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
 import { Pico8Font } from "./Pico8Font";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
@@ -70,7 +70,7 @@ export class Game {
             fps,
             g.cameraOffset.add(
               v_(
-                g.screenSize.x - BpxUtils.measureTextSize(fps).x - 1,
+                g.screenSize.x - Utils.measureTextSize(fps).x - 1,
                 g.screenSize.y - 6
               )
             ),

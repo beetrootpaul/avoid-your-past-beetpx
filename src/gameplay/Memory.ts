@@ -1,4 +1,4 @@
-import { BeetPx, BpxSprite, BpxVector2d, transparent_, v_ } from "beetpx";
+import { BeetPx, Sprite, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
 import { g, p8c } from "../globals";
 import { Direction } from "./Direction";
@@ -14,7 +14,7 @@ export class Memory extends Origin {
   #originStateBufferIndex: number = 0;
 
   readonly #origin: Origin;
-  #xy: BpxVector2d;
+  #xy: Vector2d;
   #r: number;
   #direction: Direction;
 
@@ -33,7 +33,7 @@ export class Memory extends Origin {
     this.#direction = this.#origin.direction();
   }
 
-  center(): BpxVector2d {
+  center(): Vector2d {
     return this.#xy;
   }
 
@@ -81,7 +81,7 @@ export class Memory extends Origin {
       const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
       BeetPx.sprite(
         g.assets.spritesheet,
-        new BpxSprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
+        new Sprite(spriteXy1, spriteXy1.add(g.spriteSheetCellSize)),
         this.#xy.sub(this.#r)
       );
     }
