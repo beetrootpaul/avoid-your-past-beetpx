@@ -1,4 +1,4 @@
-import { BeetPx, SolidColor, Vector2d } from "@beetpx/beetpx";
+import { BeetPx, SolidColor, v_, Vector2d } from "@beetpx/beetpx";
 
 type ParticleParams = {
   xy: Vector2d;
@@ -28,6 +28,7 @@ export class Particle {
 
   draw(): void {
     const r = 0.5 + Math.floor((this.#ttl / this.#ttlMax) * (this.#rMax + 0.9));
-    BeetPx.ellipseFilled(this.#xy.sub(r), this.#xy.add(r), this.#color);
+    // TODO: why this ellipse look strange?
+    BeetPx.ellipseFilled(this.#xy.sub(r), v_(r, r).mul(2), this.#color);
   }
 }

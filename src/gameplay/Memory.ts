@@ -97,7 +97,7 @@ export class Memory extends Origin {
       const cc = this.collisionCircle();
       BeetPx.ellipse(
         cc.center.sub(cc.r),
-        cc.center.add(cc.r),
+        v_(cc.r, cc.r).mul(2),
         this.isActive() ? p8c.red : p8c.darkGrey
       );
     }

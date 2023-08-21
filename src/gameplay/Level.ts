@@ -205,7 +205,7 @@ export class Level {
               v_(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),
-              v_(tileX, tileY).mul(g.tileSize),
+              g.tileSize.sub(1),
               p8c.darkPurple
             );
           }

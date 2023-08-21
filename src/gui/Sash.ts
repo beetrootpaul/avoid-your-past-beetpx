@@ -72,7 +72,7 @@ export class Sash {
     if (h > 0) {
       BeetPx.rectFilled(
         v_(0, this.#center.y - h / 2),
-        v_(g.screenSize.x, this.#center.y + h / 2),
+        v_(g.screenSize.x, h),
         p8c.darkGreen
       );
     }

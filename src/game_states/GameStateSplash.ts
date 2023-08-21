@@ -1,4 +1,5 @@
 import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { Game } from "../Game";
 import { g, p8c } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
@@ -24,11 +25,19 @@ export class GameStateSplash implements GameState {
   });
 
   constructor() {
-    // TODO: store playbackIds
     BeetPx.playSoundLooped(g.assets.musicBase);
-    BeetPx.playSoundLooped(g.assets.musicMelody, true);
-    BeetPx.playSoundLooped(g.assets.musicModeNoCoins, true);
-    BeetPx.playSoundLooped(g.assets.musicModeNoMemories, true);
+    Game.playbackIds.melody = BeetPx.playSoundLooped(
+      g.assets.musicMelody,
+      true
+    );
+    Game.playbackIds.modeNoCoins = BeetPx.playSoundLooped(
+      g.assets.musicModeNoCoins,
+      true
+    );
+    Game.playbackIds.modeNoMemories = BeetPx.playSoundLooped(
+      g.assets.musicModeNoMemories,
+      true
+    );
   }
 
   update(): GameState {
@@ -51,11 +60,7 @@ export class GameStateSplash implements GameState {
   }
 
   draw(): void {
-    BeetPx.rectFilled(
-      g.cameraOffset,
-      g.cameraOffset.add(g.screenSize),
-      g.colors.bgColorModeNormal
-    );
+    BeetPx.rectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
 
     this.#sash.draw();
   }

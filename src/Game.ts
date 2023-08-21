@@ -1,8 +1,8 @@
-import { BeetPx, Utils, v_, Vector2d } from "@beetpx/beetpx";
+import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { Pico8Font } from "./Pico8Font";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g, p8c } from "./globals";
-import { Pico8Font } from "./Pico8Font";
 
 type GameStoredState = {
   // TODO: Is it possible to enforce optionality of every field in the framework itself?
@@ -59,13 +59,13 @@ export class Game {
       this.#gameState = new GameStateSplash();
 
       BeetPx.setFont(g.assets.pico8FontId);
+      BeetPx.setCameraOffset(g.cameraOffset);
 
       // TODO: setOnStart
       // TODO: button repeating false
       // TODO: fix drawing
       // TODO: fix music
       // TODO: true lines
-      // TODO: visible touch buttons
 
       BeetPx.setOnUpdate(() => {
         BeetPx.store<GameStoredState>({
@@ -76,7 +76,6 @@ export class Game {
 
       BeetPx.setOnDraw(() => {
         BeetPx.clearCanvas(p8c.black);
-        BeetPx.setCameraOffset(g.cameraOffset);
         this.#gameState?.draw();
 
         if (BeetPx.debug) {
@@ -95,26 +94,6 @@ export class Game {
             `♪ ${BeetPx.audioContext.state}`,
             g.cameraOffset.add(v_(0, g.screenSize.y - 6)),
             p8c.darkPurple
-          );
-        }
-
-        // TODO: check if it draws OK
-        if (BeetPx.debug) {
-          const fps = BeetPx.averageFps.toFixed(0);
-          BeetPx.print(fps, Vector2d.zero, p8c.orange);
-          const audioState = BeetPx.audioContext.state;
-          const audioStateText =
-            audioState === "suspended"
-              ? "s"
-              : audioState === "running"
-              ? "r"
-              : audioState === "closed"
-              ? "c"
-              : "@";
-          BeetPx.print(
-            audioStateText,
-            v_(g.screenSize.x - Utils.measureTextSize(audioStateText).x, 0),
-            p8c.orange
           );
         }
       });

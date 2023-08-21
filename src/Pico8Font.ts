@@ -9,8 +9,13 @@ import {
 } from "@beetpx/beetpx";
 import { g } from "./globals";
 
-function c_(x1: number, y1: number, w: number = 3, h: number = 5): Sprite {
-  return spr_(g.assets.pico8FontImage)(x1, y1, w, h);
+function c_(
+  tileX1: number,
+  tileY1: number,
+  w: number = 3,
+  h: number = 5
+): Sprite {
+  return spr_(g.assets.pico8FontImage)(tileX1 * 8, tileY1 * 8, w, h);
 }
 
 export class Pico8Font implements Font {

@@ -84,7 +84,7 @@ export class Player extends Origin {
 
     if (BeetPx.debug) {
       const cc = this.collisionCircle();
-      BeetPx.ellipse(cc.center.sub(cc.r), cc.center.add(cc.r), p8c.red);
+      BeetPx.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), p8c.red);
     }
   }
 }

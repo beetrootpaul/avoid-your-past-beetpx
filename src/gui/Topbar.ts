@@ -18,11 +18,7 @@ export class Topbar {
   }
 
   draw(): void {
-    BeetPx.rectFilled(
-      g.cameraOffset,
-      g.cameraOffset.add(g.topbarSize),
-      p8c.black
-    );
+    BeetPx.rectFilled(g.cameraOffset, g.topbarSize, p8c.black);
 
     const modeLabel = this.#mode.label();
     if (modeLabel) {
@@ -38,21 +34,11 @@ export class Topbar {
       BeetPx.print(modeLabel, v_(progressX, textY), p8c.lightGrey);
 
       if (progressRemainingW > 0) {
-        // TODO: migrate from Lua
-        for (
-          let x = progressX + progressW - progressRemainingW;
-          x <= progressX + progressW - 1;
-          x += 1
-        ) {
-          BeetPx.pixel(v_(x, progressY), this.#mode.progressColor());
-        }
-        // line(
-        //   progress_x + progress_w - progress_remaining_w,
-        //   progress_y,
-        //   progress_x + progress_w - 1,
-        //   progress_y + progress_h - 1,
-        //   mode.progress_color()
-        // )
+        BeetPx.line(
+          v_(progressX + progressW - progressRemainingW, progressY),
+          v_(progressRemainingW, 1),
+          this.#mode.progressColor()
+        );
       }
     }
 
