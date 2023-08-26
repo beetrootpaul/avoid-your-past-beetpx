@@ -4,9 +4,8 @@ import { Pico8Colors } from "./Pico8Color";
 export const p8c = Pico8Colors;
 
 export const g = {
-  __quickStart: !__BEETPX_IS_PROD__,
-  //
-  fps: 30,
+  // __quickStart: !__BEETPX_IS_PROD__,
+  __quickStart: false,
   //
   screenSize: v_(128, 128),
   cameraOffset: v_(0, -16),
@@ -17,7 +16,7 @@ export const g = {
   spriteSheetCells: v_(16, 16),
   spriteSheetCellSize: v_(8, 8),
   //
-  musicBeatFrames: 24,
+  musicBeatFrames: 64,
   //
   colors: {
     bgColorModeNormal: p8c.darkBlue,

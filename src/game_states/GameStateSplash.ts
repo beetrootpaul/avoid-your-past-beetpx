@@ -7,13 +7,13 @@ import { GameStateStart } from "./GameStateStart";
 
 export class GameStateSplash implements GameState {
   readonly #sash: Sash = new Sash({
-    duration: g.__quickStart ? 0 : 10 * g.musicBeatFrames,
+    duration: g.__quickStart ? 0 : 8 * g.musicBeatFrames,
     expand: false,
     drawText: (sashCenter) => {
       const title = "Avoid Your Past";
-      const titleSize = Utils.measureTextSize(title);
+      const titleSize = Utils.measureText(title);
       const author = "by @beetrootpaul";
-      const authorSize = Utils.measureTextSize(author);
+      const authorSize = Utils.measureText(author);
       Utils.printWithOutline(
         title,
         sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),

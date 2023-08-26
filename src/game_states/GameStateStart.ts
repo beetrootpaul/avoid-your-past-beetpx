@@ -68,8 +68,8 @@ export class GameStateStart implements GameState {
     const margin = 6;
     const prompt1 = "press an arrow";
     const prompt2 = "to choose direction";
-    const prompt1Size = Utils.measureTextSize(prompt1);
-    const prompt2Size = Utils.measureTextSize(prompt2);
+    const prompt1Size = Utils.measureText(prompt1);
+    const prompt2Size = Utils.measureText(prompt2);
     Utils.printWithOutline(
       prompt1,
       v_(

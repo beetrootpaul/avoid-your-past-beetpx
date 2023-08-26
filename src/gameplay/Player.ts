@@ -6,7 +6,7 @@ import { Origin } from "./Origin";
 
 export class Player extends Origin {
   readonly #r = 3;
-  readonly #speed = 2;
+  readonly #speed = 0.5;
 
   #xy: Vector2d = g.gameAreaSize.div(2);
 

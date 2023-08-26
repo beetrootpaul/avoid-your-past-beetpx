@@ -17,9 +17,7 @@ export class Game {
     BeetPx.init(
       {
         gameCanvasSize: "128x128",
-        desiredFps: g.fps,
         visibleTouchButtons: ["left", "right", "up", "down"],
-        logActualFps: !__BEETPX_IS_PROD__,
         debug: {
           available: !__BEETPX_IS_PROD__,
           toggleKey: ";",
@@ -74,7 +72,7 @@ export class Game {
             fps,
             g.cameraOffset.add(
               v_(
-                g.screenSize.x - Utils.measureTextSize(fps).x - 1,
+                g.screenSize.x - Utils.measureText(fps).x - 1,
                 g.screenSize.y - 6
               )
             ),

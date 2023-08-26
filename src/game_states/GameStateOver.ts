@@ -20,13 +20,13 @@ export class GameStateOver implements GameState {
   readonly #player: Player;
 
   readonly #sash: Sash = new Sash({
-    duration: 10 * g.musicBeatFrames,
+    duration: 8 * g.musicBeatFrames,
     expand: true,
     drawText: (sashCenter) => {
       const heading = "your score";
-      const headingSize = Utils.measureTextSize(heading);
+      const headingSize = Utils.measureText(heading);
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = Utils.measureTextSize(finalScore);
+      const finalScoreSize = Utils.measureText(finalScore);
       BeetPx.print(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),

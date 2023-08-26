@@ -11,7 +11,7 @@ export class Trail {
   readonly #origin: Origin;
   readonly #color: SolidColor;
 
-  readonly #framesBetweenParticles = 4;
+  readonly #framesBetweenParticles = 16;
   #frameCounter = this.#framesBetweenParticles;
 
   #particles: Particle[] = [];

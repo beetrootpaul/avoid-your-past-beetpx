@@ -79,7 +79,7 @@ export class Level {
           animatedSprite: new AnimatedSprite({
             firstSpriteSheetCell: 16,
             numberOfSprites: 16,
-            framesPerSprite: 4,
+            framesPerSprite: (2 * g.musicBeatFrames) / 16,
           }),
         });
       }
@@ -95,9 +95,7 @@ export class Level {
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (dropletTile) {
         const probability = Math.random();
-        if (BeetPx.debug) {
-          console.debug("Droplet probability:", probability);
-        }
+        BeetPx.logDebug("Droplet probability:", probability);
         if (probability < 0.3) {
           this.#dropletNoCoins = new Item({
             tile: dropletTile,

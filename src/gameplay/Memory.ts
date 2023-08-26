@@ -9,7 +9,7 @@ type MemoryParams = {
 };
 
 export class Memory extends Origin {
-  readonly #originStateDelay = 40;
+  readonly #originStateDelay = 160;
   readonly #originStateBuffer: OriginSnapshot[] = [];
   #originStateBufferIndex: number = 0;
 
