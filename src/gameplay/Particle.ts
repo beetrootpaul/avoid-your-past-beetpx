@@ -10,7 +10,7 @@ export class Particle {
   readonly #color: SolidColor;
 
   readonly #rMax = 2;
-  readonly #ttlMax = 56;
+  readonly #ttlMax = 14;
   #ttl = this.#ttlMax;
 
   constructor(params: ParticleParams) {
