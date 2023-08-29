@@ -4,6 +4,11 @@ import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g, p8c } from "./globals";
 
+const averageRenderFps = {
+  history: Array.from({ length: 8 }, () => 0),
+  index: 0,
+};
+
 export class Game {
   static playbackIds = {
     melody: -1,
@@ -17,6 +22,7 @@ export class Game {
     BeetPx.init(
       {
         gameCanvasSize: "128x128",
+        desiredUpdateFps: 30,
         visibleTouchButtons: ["left", "right", "up", "down"],
         debug: {
           available: !__BEETPX_IS_PROD__,
@@ -62,12 +68,18 @@ export class Game {
       });
 
       BeetPx.setOnDraw(() => {
+        averageRenderFps.history[averageRenderFps.index++] = BeetPx.renderFps;
+        averageRenderFps.index %= averageRenderFps.history.length;
+
         BeetPx.clearCanvas(p8c.black);
 
         this.#gameState?.draw();
 
         if (BeetPx.debug) {
-          const fps = BeetPx.averageFps.toFixed(0);
+          const fps = (
+            averageRenderFps.history.reduce((sum, fps) => sum + fps, 0) /
+            averageRenderFps.history.length
+          ).toFixed(0);
           BeetPx.print(
             fps,
             g.cameraOffset.add(
@@ -78,6 +90,7 @@ export class Game {
             ),
             p8c.darkGrey
           );
+
           BeetPx.print(
             `♪ ${BeetPx.audioContext.state}`,
             g.cameraOffset.add(v_(0, g.screenSize.y - 6)),

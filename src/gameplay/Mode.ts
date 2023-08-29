@@ -9,9 +9,9 @@ export class Mode {
   #ttlMax(): number {
     switch (this.#current) {
       case "no_coins":
-        return 360;
+        return 90;
       case "no_memories":
-        return 600;
+        return 150;
       default:
         // Any value, safe to use as in divisions. In theory, this code won't be reached.
         return 1;

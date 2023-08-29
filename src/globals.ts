@@ -16,7 +16,7 @@ export const g = {
   spriteSheetCells: v_(16, 16),
   spriteSheetCellSize: v_(8, 8),
   //
-  musicBeatFrames: 64,
+  musicBeatFrames: 16,
   //
   colors: {
     bgColorModeNormal: p8c.darkBlue,
