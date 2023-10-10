@@ -1,4 +1,4 @@
-import { b_, BpxFillPattern, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { b_, BpxFillPattern, BpxVector2d, u_, v_ } from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
 import { c, g } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
@@ -91,8 +91,7 @@ export class Level {
       !this.#mode.isNoCoins() &&
       !this.#mode.isNoMemories()
     ) {
-      const dropletTile =
-        availableTiles[Math.floor(Math.random() * availableTiles.length)];
+      const dropletTile = u_.randomElementOf(availableTiles);
       if (dropletTile) {
         const probability = Math.random();
         b_.logDebug("Droplet probability:", probability);

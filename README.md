@@ -2,7 +2,7 @@
 
 > a snake-like [BeetPx](https://github.com/beetrootpaul/beetpx) game where each collected coin brings a harmful memory of your past steps
 
-The original version was created by [Beetroot Paul](https://beetrootpaul.com) in PICO-8 and submitted for the [Mini Jam 111: Colors²](https://itch.io/jam/mini-jam-111-colors)
+The previous version was created by [Beetroot Paul](https://beetrootpaul.com) in PICO-8 and submitted for the [Mini Jam 111: Colors²](https://itch.io/jam/mini-jam-111-colors).
 
 ---
 

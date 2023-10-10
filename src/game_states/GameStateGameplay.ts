@@ -127,11 +127,12 @@ export class GameStateGameplay implements GameState {
     this.#level.drawItems();
 
     this.#playerTrail.draw();
-    this.#player.draw();
 
-    if (!this.#mode.isNoMemories()) {
-      this.#memories.draw();
-    }
+    this.#memories.draw({
+      noMemoriesModeFramesLeft: this.#mode.noMemoriesModeFramesLeft(),
+    });
+
+    this.#player.draw();
 
     this.#topbar.draw();
   }

@@ -30,6 +30,10 @@ export class Mode {
     return this.#current === "no_memories";
   }
 
+  noMemoriesModeFramesLeft(): number {
+    return this.#current === "no_memories" ? this.#ttl : 0;
+  }
+
   startNoCoins(): void {
     this.#current = "no_coins";
     this.#ttl = this.#ttlMax();

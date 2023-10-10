@@ -1,4 +1,11 @@
-import { b_, BpxSprite, BpxVector2d, transparent_, v_ } from "@beetpx/beetpx";
+import {
+  b_,
+  BpxFillPattern,
+  BpxSprite,
+  BpxVector2d,
+  transparent_,
+  v_,
+} from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
 import { c, g } from "../globals";
 import { Direction } from "./Direction";
@@ -81,15 +88,32 @@ export class Memory extends Origin {
       (this.#originStateBufferIndex + 1) % bufferSize;
   }
 
-  draw(): void {
+  draw(opts: { noMemoriesModeFramesLeft: number }): void {
     const prevMapping = b_.mapSpriteColors([
       { from: c.darkBlue, to: transparent_ },
+      ...(opts.noMemoriesModeFramesLeft > 0
+        ? [
+            { from: c.red, to: c.darkGrey },
+            { from: c.black, to: c.darkGrey },
+            { from: c.pink, to: c.lightGrey },
+            { from: c.brown, to: c.lightGrey },
+            { from: c.darkPurple, to: c.lightGrey },
+          ]
+        : []),
     ]);
 
-    if (this.isActive()) {
+    if (opts.noMemoriesModeFramesLeft > 0) {
+      b_.setFillPattern(
+        this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft)
+      );
+      this.#drawAboutToAppearIndicator();
+      b_.setFillPattern(BpxFillPattern.primaryOnly);
+    } else if (this.isActive()) {
       this.#drawMemory();
     } else if (this.isAboutToBecomeActive()) {
-      this.#drawAboutToAppearIndicator();
+      if ((this.#originStateDelay - this.#originStateBuffer.length) % 8 < 4) {
+        this.#drawAboutToAppearIndicator();
+      }
     }
 
     b_.mapSpriteColors(prevMapping);
@@ -117,16 +141,37 @@ export class Memory extends Origin {
   }
 
   #drawAboutToAppearIndicator(): void {
-    if ((this.#originStateDelay - this.#originStateBuffer.length) % 8 < 4) {
-      const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-      b_.sprite(
-        new BpxSprite(
-          g.assets.spritesheet,
-          spriteXy1,
-          spriteXy1.add(g.spriteSheetCellSize)
-        ),
-        this.#xy.sub(this.#r)
-      );
+    const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
+    b_.sprite(
+      new BpxSprite(
+        g.assets.spritesheet,
+        spriteXy1,
+        spriteXy1.add(g.spriteSheetCellSize)
+      ),
+      this.#xy.sub(this.#r)
+    );
+  }
+
+  #indicatorFillPattern(framesLeft: number): BpxFillPattern {
+    const base = 20;
+    if (framesLeft < base) {
+      return BpxFillPattern.primaryOnly;
     }
+    if (framesLeft < base + 4) {
+      return BpxFillPattern.of(0b0000_0000_0000_0001);
+    }
+    if (framesLeft < base + 8) {
+      return BpxFillPattern.of(0b0000_0101_0000_0101);
+    }
+    if (framesLeft < base + 12) {
+      return BpxFillPattern.of(0b1010_0101_1010_0101);
+    }
+    if (framesLeft < base + 16) {
+      return BpxFillPattern.of(0b1010_1111_1010_1111);
+    }
+    if (framesLeft < base + 20) {
+      return BpxFillPattern.of(0b1111_1111_1011_1111);
+    }
+    return BpxFillPattern.secondaryOnly;
   }
 }
