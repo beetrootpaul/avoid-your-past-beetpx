@@ -1,6 +1,6 @@
-import { BeetPx, FillPattern, Vector2d, v_ } from "@beetpx/beetpx";
+import { b_, BpxFillPattern, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
 import { Item } from "./Item";
 import { Mode } from "./Mode";
@@ -49,7 +49,7 @@ export class Level {
   spawnItems(): void {
     const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
 
-    let availableTiles: Vector2d[] = [];
+    let availableTiles: BpxVector2d[] = [];
 
     const marginTiles = 1;
     for (
@@ -95,7 +95,7 @@ export class Level {
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (dropletTile) {
         const probability = Math.random();
-        BeetPx.logDebug("Droplet probability:", probability);
+        b_.logDebug("Droplet probability:", probability);
         if (probability < 0.3) {
           this.#dropletNoCoins = new Item({
             tile: dropletTile,
@@ -178,11 +178,11 @@ export class Level {
   }
 
   drawBg(): void {
-    BeetPx.setFillPattern(this.#mode.bgPattern());
-    BeetPx.rectFilled(Vector2d.zero, g.gameAreaSize, this.#mode.bgColor());
-    BeetPx.setFillPattern(FillPattern.primaryOnly);
+    b_.setFillPattern(this.#mode.bgPattern());
+    b_.rectFilled(BpxVector2d.zero, g.gameAreaSize, this.#mode.bgColor());
+    b_.setFillPattern(BpxFillPattern.primaryOnly);
 
-    if (BeetPx.debug) {
+    if (b_.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
       for (
         let tileX = 1;
@@ -194,14 +194,14 @@ export class Level {
           tileY <= g.gameAreaSize.div(g.tileSize).y;
           tileY += 1
         ) {
-          BeetPx.pixel(v_(tileX, tileY).sub(1).mul(g.tileSize), p8c.lavender);
+          b_.pixel(v_(tileX, tileY).sub(1).mul(g.tileSize), c.lavender);
           if (tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-            BeetPx.rectFilled(
+            b_.rectFilled(
               v_(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),
               g.tileSize.sub(1),
-              p8c.darkPurple
+              c.darkPurple
             );
           }
         }

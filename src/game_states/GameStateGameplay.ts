@@ -1,4 +1,4 @@
-import { BeetPx } from "@beetpx/beetpx";
+import { b_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
@@ -7,7 +7,7 @@ import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
 import { Trail } from "../gameplay/Trail";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 import { Topbar } from "../gui/Topbar";
 import { GameState } from "./GameState";
 import { GameStateOver } from "./GameStateOver";
@@ -40,15 +40,15 @@ export class GameStateGameplay implements GameState {
     });
     this.#playerTrail = new Trail({
       origin: this.#player,
-      color: p8c.darkGreen,
+      color: c.darkGreen,
     });
 
-    BeetPx.unmuteSound(Game.playbackIds.melody);
+    b_.unmuteSound(Game.playbackIds.melody);
   }
 
   #onBackToRegularMode(): void {
-    BeetPx.muteSound(Game.playbackIds.modeNoCoins);
-    BeetPx.muteSound(Game.playbackIds.modeNoMemories);
+    b_.muteSound(Game.playbackIds.modeNoCoins);
+    b_.muteSound(Game.playbackIds.modeNoMemories);
   }
 
   #onCoinCollision(): void {
@@ -56,7 +56,7 @@ export class GameStateGameplay implements GameState {
       return;
     }
 
-    BeetPx.playSoundOnce(g.assets.coinSfx);
+    b_.playSoundOnce(g.assets.coinSfx);
 
     this.#score.add(10);
 
@@ -68,14 +68,14 @@ export class GameStateGameplay implements GameState {
   }
 
   #onDropletNoCoinsCollision(): void {
-    BeetPx.unmuteSound(Game.playbackIds.modeNoCoins);
+    b_.unmuteSound(Game.playbackIds.modeNoCoins);
     this.#score.add(3);
     this.#mode.startNoCoins();
     this.#level.removeDropletNoCoins();
   }
 
   #onDropletNoMemoriesCollision(): void {
-    BeetPx.unmuteSound(Game.playbackIds.modeNoMemories);
+    b_.unmuteSound(Game.playbackIds.modeNoMemories);
     this.#score.add(1);
     this.#mode.startNoMemories();
     this.#level.removeDropletNoMemories();
@@ -83,10 +83,10 @@ export class GameStateGameplay implements GameState {
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (BeetPx.wasJustPressed("left")) detectedDirections.push("l");
-    if (BeetPx.wasJustPressed("right")) detectedDirections.push("r");
-    if (BeetPx.wasJustPressed("up")) detectedDirections.push("u");
-    if (BeetPx.wasJustPressed("down")) detectedDirections.push("d");
+    if (b_.wasJustPressed("left")) detectedDirections.push("l");
+    if (b_.wasJustPressed("right")) detectedDirections.push("r");
+    if (b_.wasJustPressed("up")) detectedDirections.push("u");
+    if (b_.wasJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }

@@ -1,6 +1,6 @@
-import { BeetPx, Sprite, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
+import { b_, BpxSprite, BpxVector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 import { Direction } from "./Direction";
 import { Origin, OriginSnapshot } from "./Origin";
 
@@ -14,7 +14,7 @@ export class Memory extends Origin {
   #originStateBufferIndex: number = 0;
 
   readonly #origin: Origin;
-  #xy: Vector2d;
+  #xy: BpxVector2d;
   #r: number;
   #direction: Direction;
 
@@ -33,7 +33,7 @@ export class Memory extends Origin {
     this.#direction = this.#origin.direction();
   }
 
-  center(): Vector2d {
+  center(): BpxVector2d {
     return this.#xy;
   }
 
@@ -74,14 +74,14 @@ export class Memory extends Origin {
   }
 
   draw(): void {
-    const prevMapping = BeetPx.mapSpriteColors([
-      { from: p8c.darkBlue, to: transparent_ },
+    const prevMapping = b_.mapSpriteColors([
+      { from: c.darkBlue, to: transparent_ },
     ]);
 
     if (this.isActive()) {
       const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-      BeetPx.sprite(
-        new Sprite(
+      b_.sprite(
+        new BpxSprite(
           g.assets.spritesheet,
           spriteXy1,
           spriteXy1.add(g.spriteSheetCellSize)
@@ -90,14 +90,14 @@ export class Memory extends Origin {
       );
     }
 
-    BeetPx.mapSpriteColors(prevMapping);
+    b_.mapSpriteColors(prevMapping);
 
-    if (BeetPx.debug) {
+    if (b_.debug) {
       const cc = this.collisionCircle();
-      BeetPx.ellipse(
+      b_.ellipse(
         cc.center.sub(cc.r),
         v_(cc.r, cc.r).mul(2),
-        this.isActive() ? p8c.red : p8c.darkGrey
+        this.isActive() ? c.red : c.darkGrey
       );
     }
   }

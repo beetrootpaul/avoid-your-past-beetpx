@@ -1,6 +1,6 @@
-import { BeetPx, Sprite, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
+import { b_, BpxSprite, BpxVector2d, transparent_, v_ } from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 import { Direction } from "./Direction";
 import { Origin } from "./Origin";
 
@@ -8,7 +8,7 @@ export class Player extends Origin {
   readonly #r = 3;
   readonly #speed = 2;
 
-  #xy: Vector2d = g.gameAreaSize.div(2);
+  #xy: BpxVector2d = g.gameAreaSize.div(2);
 
   // Let's start right (but it's effectively unused, because we
   //   let the user to choose the direction at the game's start).
@@ -22,7 +22,7 @@ export class Player extends Origin {
     l: v_(10, 2).mul(g.spriteSheetCellSize),
   };
 
-  center(): Vector2d {
+  center(): BpxVector2d {
     return this.#xy;
   }
 
@@ -34,11 +34,11 @@ export class Player extends Origin {
     return this.#direction;
   }
 
-  xy1(): Vector2d {
+  xy1(): BpxVector2d {
     return this.#xy.sub(this.#r);
   }
 
-  xy2(): Vector2d {
+  xy2(): BpxVector2d {
     return this.#xy.add(this.#r);
   }
 
@@ -66,13 +66,13 @@ export class Player extends Origin {
   }
 
   draw(): void {
-    const prevMapping = BeetPx.mapSpriteColors([
-      { from: p8c.darkBlue, to: transparent_ },
+    const prevMapping = b_.mapSpriteColors([
+      { from: c.darkBlue, to: transparent_ },
     ]);
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    BeetPx.sprite(
-      new Sprite(
+    b_.sprite(
+      new BpxSprite(
         g.assets.spritesheet,
         spriteXy1,
         spriteXy1.add(g.spriteSheetCellSize)
@@ -80,11 +80,11 @@ export class Player extends Origin {
       this.#xy.sub(this.#r)
     );
 
-    BeetPx.mapSpriteColors(prevMapping);
+    b_.mapSpriteColors(prevMapping);
 
-    if (BeetPx.debug) {
+    if (b_.debug) {
       const cc = this.collisionCircle();
-      BeetPx.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), p8c.red);
+      b_.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), c.red);
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Collisions } from "../Collisions";
-import { p8c } from "../globals";
+import { c } from "../globals";
 import { Memory } from "./Memory";
 import { Player } from "./Player";
 import { Trail } from "./Trail";
@@ -33,7 +33,7 @@ export class Memories {
     this.#trails.push(
       new Trail({
         origin: memory,
-        color: p8c.darkPurple,
+        color: c.darkPurple,
       })
     );
   }

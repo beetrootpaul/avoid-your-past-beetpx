@@ -1,4 +1,4 @@
-import { Sprite, v_ } from "@beetpx/beetpx";
+import { BpxSprite, v_ } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 type AnimatedSpriteParams = {
@@ -28,7 +28,7 @@ export class AnimatedSprite {
     this.#frameCounter = (this.#frameCounter + 1) % this.#loopLengthFrames;
   }
 
-  currentSprite(): Sprite {
+  currentSprite(): BpxSprite {
     let spriteIndex =
       this.#firstSpriteSheetCell +
       Math.floor(this.#frameCounter / this.#framesPerSprite);
@@ -36,7 +36,7 @@ export class AnimatedSprite {
       spriteIndex % g.spriteSheetCells.x,
       Math.floor(spriteIndex / g.spriteSheetCells.x)
     ).mul(g.spriteSheetCellSize);
-    return new Sprite(
+    return new BpxSprite(
       g.assets.spritesheet,
       spriteXy1,
       spriteXy1.add(g.spriteSheetCellSize)

@@ -1,10 +1,10 @@
-import { BeetPx, Vector2d, v_ } from "@beetpx/beetpx";
-import { g, p8c } from "../globals";
+import { b_, BpxVector2d, v_ } from "@beetpx/beetpx";
+import { c, g } from "../globals";
 
 type SashParams = {
   duration: number;
   expand: boolean;
-  drawText: (sashCenter: Vector2d) => void;
+  drawText: (sashCenter: BpxVector2d) => void;
 };
 
 export class Sash {
@@ -12,7 +12,7 @@ export class Sash {
 
   readonly #shouldExpand: boolean;
 
-  readonly #drawText: (sashCenter: Vector2d) => void;
+  readonly #drawText: (sashCenter: BpxVector2d) => void;
 
   readonly #ttlExpansionStart: number;
   readonly #ttlExpansionEnd: number;
@@ -70,10 +70,10 @@ export class Sash {
     }
 
     if (h > 0) {
-      BeetPx.rectFilled(
+      b_.rectFilled(
         v_(0, this.#center.y - h / 2),
         v_(g.screenSize.x, h),
-        p8c.darkGreen
+        c.darkGreen
       );
     }
 
