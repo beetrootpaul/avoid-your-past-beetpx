@@ -10,6 +10,7 @@ type MemoryParams = {
 
 export class Memory extends Origin {
   readonly #originStateDelay = 40;
+  readonly #aboutToBeActiveFrames = 20;
   readonly #originStateBuffer: OriginSnapshot[] = [];
   #originStateBufferIndex: number = 0;
 
@@ -52,6 +53,13 @@ export class Memory extends Origin {
     };
   }
 
+  isAboutToBecomeActive(): boolean {
+    return (
+      this.#originStateBuffer.length >
+      this.#originStateDelay - this.#aboutToBeActiveFrames
+    );
+  }
+
   isActive(): boolean {
     return this.#originStateBuffer.length > this.#originStateDelay;
   }
@@ -79,15 +87,9 @@ export class Memory extends Origin {
     ]);
 
     if (this.isActive()) {
-      const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-      b_.sprite(
-        new BpxSprite(
-          g.assets.spritesheet,
-          spriteXy1,
-          spriteXy1.add(g.spriteSheetCellSize)
-        ),
-        this.#xy.sub(this.#r)
-      );
+      this.#drawMemory();
+    } else if (this.isAboutToBecomeActive()) {
+      this.#drawAboutToAppearIndicator();
     }
 
     b_.mapSpriteColors(prevMapping);
@@ -98,6 +100,32 @@ export class Memory extends Origin {
         cc.center.sub(cc.r),
         v_(cc.r, cc.r).mul(2),
         this.isActive() ? c.red : c.darkGrey
+      );
+    }
+  }
+
+  #drawMemory(): void {
+    const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
+    b_.sprite(
+      new BpxSprite(
+        g.assets.spritesheet,
+        spriteXy1,
+        spriteXy1.add(g.spriteSheetCellSize)
+      ),
+      this.#xy.sub(this.#r)
+    );
+  }
+
+  #drawAboutToAppearIndicator(): void {
+    if ((this.#originStateDelay - this.#originStateBuffer.length) % 8 < 4) {
+      const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
+      b_.sprite(
+        new BpxSprite(
+          g.assets.spritesheet,
+          spriteXy1,
+          spriteXy1.add(g.spriteSheetCellSize)
+        ),
+        this.#xy.sub(this.#r)
       );
     }
   }

@@ -42,8 +42,10 @@ export class Trail {
   }
 
   draw(): void {
-    this.#particles.forEach((particle) => {
-      particle.draw();
-    });
+    if (this.#origin.isActive()) {
+      this.#particles.forEach((particle) => {
+        particle.draw();
+      });
+    }
   }
 }

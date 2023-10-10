@@ -8,6 +8,8 @@ export abstract class Origin {
 
   abstract direction(): Direction;
 
+  abstract isActive(): boolean;
+
   snapshot(): OriginSnapshot {
     return {
       center: this.center(),

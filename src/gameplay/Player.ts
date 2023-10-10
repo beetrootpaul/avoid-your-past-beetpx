@@ -34,6 +34,10 @@ export class Player extends Origin {
     return this.#direction;
   }
 
+  isActive(): boolean {
+    return true;
+  }
+
   xy1(): BpxVector2d {
     return this.#xy.sub(this.#r);
   }
