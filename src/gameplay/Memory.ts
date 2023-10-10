@@ -1,6 +1,13 @@
-import { BeetPx, Sprite, Vector2d, transparent_, v_ } from "@beetpx/beetpx";
+import {
+  b_,
+  BpxFillPattern,
+  BpxSprite,
+  BpxVector2d,
+  transparent_,
+  v_,
+} from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 import { Direction } from "./Direction";
 import { Origin, OriginSnapshot } from "./Origin";
 
@@ -10,11 +17,12 @@ type MemoryParams = {
 
 export class Memory extends Origin {
   readonly #originStateDelay = 40;
+  readonly #aboutToBeActiveFrames = 20;
   readonly #originStateBuffer: OriginSnapshot[] = [];
   #originStateBufferIndex: number = 0;
 
   readonly #origin: Origin;
-  #xy: Vector2d;
+  #xy: BpxVector2d;
   #r: number;
   #direction: Direction;
 
@@ -33,7 +41,7 @@ export class Memory extends Origin {
     this.#direction = this.#origin.direction();
   }
 
-  center(): Vector2d {
+  center(): BpxVector2d {
     return this.#xy;
   }
 
@@ -50,6 +58,13 @@ export class Memory extends Origin {
       center: this.#xy,
       r: this.#r,
     };
+  }
+
+  isAboutToBecomeActive(): boolean {
+    return (
+      this.#originStateBuffer.length >
+      this.#originStateDelay - this.#aboutToBeActiveFrames
+    );
   }
 
   isActive(): boolean {
@@ -73,32 +88,90 @@ export class Memory extends Origin {
       (this.#originStateBufferIndex + 1) % bufferSize;
   }
 
-  draw(): void {
-    const prevMapping = BeetPx.mapSpriteColors([
-      { from: p8c.darkBlue, to: transparent_ },
+  draw(opts: { noMemoriesModeFramesLeft: number }): void {
+    const prevMapping = b_.mapSpriteColors([
+      { from: c.darkBlue, to: transparent_ },
+      ...(opts.noMemoriesModeFramesLeft > 0
+        ? [
+            { from: c.red, to: c.darkGrey },
+            { from: c.black, to: c.darkGrey },
+            { from: c.pink, to: c.lightGrey },
+            { from: c.brown, to: c.lightGrey },
+            { from: c.darkPurple, to: c.lightGrey },
+          ]
+        : []),
     ]);
 
-    if (this.isActive()) {
-      const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-      BeetPx.sprite(
-        new Sprite(
-          g.assets.spritesheet,
-          spriteXy1,
-          spriteXy1.add(g.spriteSheetCellSize)
-        ),
-        this.#xy.sub(this.#r)
+    if (opts.noMemoriesModeFramesLeft > 0) {
+      b_.setFillPattern(
+        this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft)
       );
+      this.#drawAboutToAppearIndicator();
+      b_.setFillPattern(BpxFillPattern.primaryOnly);
+    } else if (this.isActive()) {
+      this.#drawMemory();
+    } else if (this.isAboutToBecomeActive()) {
+      if ((this.#originStateDelay - this.#originStateBuffer.length) % 8 < 4) {
+        this.#drawAboutToAppearIndicator();
+      }
     }
 
-    BeetPx.mapSpriteColors(prevMapping);
+    b_.mapSpriteColors(prevMapping);
 
-    if (BeetPx.debug) {
+    if (b_.debug) {
       const cc = this.collisionCircle();
-      BeetPx.ellipse(
+      b_.ellipse(
         cc.center.sub(cc.r),
         v_(cc.r, cc.r).mul(2),
-        this.isActive() ? p8c.red : p8c.darkGrey
+        this.isActive() ? c.red : c.darkGrey
       );
     }
+  }
+
+  #drawMemory(): void {
+    const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
+    b_.sprite(
+      new BpxSprite(
+        g.assets.spritesheet,
+        spriteXy1,
+        spriteXy1.add(g.spriteSheetCellSize)
+      ),
+      this.#xy.sub(this.#r)
+    );
+  }
+
+  #drawAboutToAppearIndicator(): void {
+    const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
+    b_.sprite(
+      new BpxSprite(
+        g.assets.spritesheet,
+        spriteXy1,
+        spriteXy1.add(g.spriteSheetCellSize)
+      ),
+      this.#xy.sub(this.#r)
+    );
+  }
+
+  #indicatorFillPattern(framesLeft: number): BpxFillPattern {
+    const base = 20;
+    if (framesLeft < base) {
+      return BpxFillPattern.primaryOnly;
+    }
+    if (framesLeft < base + 4) {
+      return BpxFillPattern.of(0b0000_0000_0000_0001);
+    }
+    if (framesLeft < base + 8) {
+      return BpxFillPattern.of(0b0000_0101_0000_0101);
+    }
+    if (framesLeft < base + 12) {
+      return BpxFillPattern.of(0b1010_0101_1010_0101);
+    }
+    if (framesLeft < base + 16) {
+      return BpxFillPattern.of(0b1010_1111_1010_1111);
+    }
+    if (framesLeft < base + 20) {
+      return BpxFillPattern.of(0b1111_1111_1011_1111);
+    }
+    return BpxFillPattern.secondaryOnly;
   }
 }

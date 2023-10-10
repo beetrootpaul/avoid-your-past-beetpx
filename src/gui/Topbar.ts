@@ -1,7 +1,7 @@
-import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { b_, u_, v_ } from "@beetpx/beetpx";
 import { Mode } from "../gameplay/Mode";
 import { Score } from "../gameplay/Score";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 
 type TopbarParams = {
   score: Score;
@@ -18,12 +18,12 @@ export class Topbar {
   }
 
   draw(): void {
-    BeetPx.rectFilled(g.cameraOffset, g.topbarSize, p8c.black);
+    b_.rectFilled(g.cameraOffset, g.topbarSize, c.black);
 
     const modeLabel = this.#mode.label();
     if (modeLabel) {
       const textY = g.cameraOffset.y + 4;
-      const modeLabelSize = Utils.measureText(modeLabel);
+      const modeLabelSize = u_.measureText(modeLabel);
       const progressW = modeLabelSize.x;
       const progressRemainingW = Math.floor(
         (this.#mode.percentageLeft() / 100) * progressW
@@ -31,10 +31,10 @@ export class Topbar {
       const progressX = g.cameraOffset.x + g.screenSize.x - progressW - 1;
       const progressY = textY + modeLabelSize.y + 2;
 
-      BeetPx.print(modeLabel, v_(progressX, textY), p8c.lightGrey);
+      b_.print(modeLabel, v_(progressX, textY), c.lightGrey);
 
       if (progressRemainingW > 0) {
-        BeetPx.line(
+        b_.line(
           v_(progressX + progressW - progressRemainingW, progressY),
           v_(progressRemainingW, 1),
           this.#mode.progressColor()
@@ -42,10 +42,10 @@ export class Topbar {
       }
     }
 
-    BeetPx.print(
+    b_.print(
       `score ${this.#score.value()}`,
       g.cameraOffset.add(v_(1, 4)),
-      p8c.lightGrey
+      c.lightGrey
     );
   }
 }

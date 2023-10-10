@@ -1,7 +1,7 @@
 import { v_ } from "@beetpx/beetpx";
 import { Pico8Colors } from "./Pico8Color";
 
-export const p8c = Pico8Colors;
+export const c = Pico8Colors;
 
 export const g = {
   // __quickStart: !__BEETPX_IS_PROD__,
@@ -19,9 +19,9 @@ export const g = {
   musicBeatFrames: 16,
   //
   colors: {
-    bgColorModeNormal: p8c.darkBlue,
-    bgColorModeNoCoins: p8c.orange,
-    bgColorModeNoMemories: p8c.pink,
+    bgColorModeNormal: c.darkBlue,
+    bgColorModeNoCoins: c.orange,
+    bgColorModeNoMemories: c.pink,
   },
   //
   assets: {

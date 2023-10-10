@@ -1,15 +1,15 @@
-import { SolidColor } from "@beetpx/beetpx";
+import { BpxSolidColor } from "@beetpx/beetpx";
 import { Origin } from "./Origin";
 import { Particle } from "./Particle";
 
 type TrailParams = {
   origin: Origin;
-  color: SolidColor;
+  color: BpxSolidColor;
 };
 
 export class Trail {
   readonly #origin: Origin;
-  readonly #color: SolidColor;
+  readonly #color: BpxSolidColor;
 
   readonly #framesBetweenParticles = 4;
   #frameCounter = this.#framesBetweenParticles;
@@ -42,8 +42,10 @@ export class Trail {
   }
 
   draw(): void {
-    this.#particles.forEach((particle) => {
-      particle.draw();
-    });
+    if (this.#origin.isActive()) {
+      this.#particles.forEach((particle) => {
+        particle.draw();
+      });
+    }
   }
 }

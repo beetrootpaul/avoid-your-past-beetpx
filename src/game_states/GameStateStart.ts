@@ -1,11 +1,11 @@
-import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { b_, u_, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 import { Topbar } from "../gui/Topbar";
 import { GameState } from "./GameState";
 import { GameStateGameplay } from "./GameStateGameplay";
@@ -24,19 +24,19 @@ export class GameStateStart implements GameState {
   });
 
   constructor() {
-    BeetPx.muteSound(Game.playbackIds.melody);
-    BeetPx.muteSound(Game.playbackIds.modeNoCoins);
-    BeetPx.muteSound(Game.playbackIds.modeNoMemories);
+    b_.muteSound(Game.playbackIds.melody);
+    b_.muteSound(Game.playbackIds.modeNoCoins);
+    b_.muteSound(Game.playbackIds.modeNoMemories);
 
     this.#level.spawnItems();
   }
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (BeetPx.wasJustPressed("left")) detectedDirections.push("l");
-    if (BeetPx.wasJustPressed("right")) detectedDirections.push("r");
-    if (BeetPx.wasJustPressed("up")) detectedDirections.push("u");
-    if (BeetPx.wasJustPressed("down")) detectedDirections.push("d");
+    if (b_.wasJustPressed("left")) detectedDirections.push("l");
+    if (b_.wasJustPressed("right")) detectedDirections.push("r");
+    if (b_.wasJustPressed("up")) detectedDirections.push("u");
+    if (b_.wasJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
@@ -68,53 +68,53 @@ export class GameStateStart implements GameState {
     const margin = 6;
     const prompt1 = "press an arrow";
     const prompt2 = "to choose direction";
-    const prompt1Size = Utils.measureText(prompt1);
-    const prompt2Size = Utils.measureText(prompt2);
-    Utils.printWithOutline(
+    const prompt1Size = u_.measureText(prompt1);
+    const prompt2Size = u_.measureText(prompt2);
+    u_.printWithOutline(
       prompt1,
       v_(
         this.#player.center().x - prompt1Size.x / 2,
         this.#player.xy1().y - margin - 26
       ),
-      p8c.lavender,
-      p8c.darkBlue
+      c.lavender,
+      c.darkBlue
     );
-    Utils.printWithOutline(
+    u_.printWithOutline(
       prompt2,
       v_(
         this.#player.center().x - prompt2Size.x / 2,
         this.#player.xy1().y - margin - 17
       ),
-      p8c.lavender,
-      p8c.darkBlue
+      c.lavender,
+      c.darkBlue
     );
-    const timeDependentBoolean = Utils.booleanChangingEveryNthFrame(
+    const timeDependentBoolean = u_.booleanChangingEveryNthFrame(
       g.musicBeatFrames
     );
-    const glyphColor = timeDependentBoolean ? p8c.blue : p8c.lavender;
-    Utils.printWithOutline(
+    const glyphColor = timeDependentBoolean ? c.blue : c.lavender;
+    u_.printWithOutline(
       "⬅️",
       v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
-      p8c.darkBlue
+      c.darkBlue
     );
-    Utils.printWithOutline(
+    u_.printWithOutline(
       "➡️",
       v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
-      p8c.darkBlue
+      c.darkBlue
     );
-    Utils.printWithOutline(
+    u_.printWithOutline(
       "⬆️",
       v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
-      p8c.darkBlue
+      c.darkBlue
     );
-    Utils.printWithOutline(
+    u_.printWithOutline(
       "⬇️",
       v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,
-      p8c.darkBlue
+      c.darkBlue
     );
   }
 }

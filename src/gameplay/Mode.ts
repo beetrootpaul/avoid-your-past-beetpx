@@ -1,4 +1,8 @@
-import { CompositeColor, FillPattern, SolidColor } from "@beetpx/beetpx";
+import {
+  BpxCompositeColor,
+  BpxFillPattern,
+  BpxSolidColor,
+} from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class Mode {
@@ -26,6 +30,10 @@ export class Mode {
     return this.#current === "no_memories";
   }
 
+  noMemoriesModeFramesLeft(): number {
+    return this.#current === "no_memories" ? this.#ttl : 0;
+  }
+
   startNoCoins(): void {
     this.#current = "no_coins";
     this.#ttl = this.#ttlMax();
@@ -47,7 +55,7 @@ export class Mode {
     }
   }
 
-  progressColor(): SolidColor {
+  progressColor(): BpxSolidColor {
     switch (this.#current) {
       case "no_coins":
         return g.colors.bgColorModeNoCoins;
@@ -58,15 +66,15 @@ export class Mode {
     }
   }
 
-  bgColor(): SolidColor | CompositeColor {
+  bgColor(): BpxSolidColor | BpxCompositeColor {
     switch (this.#current) {
       case "no_coins":
-        return new CompositeColor(
+        return new BpxCompositeColor(
           g.colors.bgColorModeNoCoins,
           g.colors.bgColorModeNormal
         );
       case "no_memories":
-        return new CompositeColor(
+        return new BpxCompositeColor(
           g.colors.bgColorModeNoMemories,
           g.colors.bgColorModeNormal
         );
@@ -75,9 +83,9 @@ export class Mode {
     }
   }
 
-  bgPattern(): FillPattern {
+  bgPattern(): BpxFillPattern {
     if (this.#current == "regular") {
-      return FillPattern.primaryOnly;
+      return BpxFillPattern.primaryOnly;
     }
 
     const ttlMax = this.#ttlMax();
@@ -85,17 +93,17 @@ export class Mode {
 
     switch (ttlDistanceFromStartToEnd) {
       case 0:
-        return FillPattern.of(0b1111_1111_1011_1111);
+        return BpxFillPattern.of(0b1111_1111_1011_1111);
       case 1:
-        return FillPattern.of(0b1010_1111_1010_1111);
+        return BpxFillPattern.of(0b1010_1111_1010_1111);
       case 2:
-        return FillPattern.of(0b1010_0101_1010_0101);
+        return BpxFillPattern.of(0b1010_0101_1010_0101);
       case 3:
-        return FillPattern.of(0b0000_0101_0000_0101);
+        return BpxFillPattern.of(0b0000_0101_0000_0101);
       case 4:
-        return FillPattern.of(0b0000_0000_0000_0001);
+        return BpxFillPattern.of(0b0000_0000_0000_0001);
       default:
-        return FillPattern.primaryOnly;
+        return BpxFillPattern.primaryOnly;
     }
   }
 

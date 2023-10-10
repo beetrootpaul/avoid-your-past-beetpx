@@ -1,9 +1,9 @@
-import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { b_, u_, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
-import { g, p8c } from "../globals";
+import { c, g } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
 import { GameStateStart } from "./GameStateStart";
@@ -24,19 +24,19 @@ export class GameStateOver implements GameState {
     expand: true,
     drawText: (sashCenter) => {
       const heading = "your score";
-      const headingSize = Utils.measureText(heading);
+      const headingSize = u_.measureText(heading);
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = Utils.measureText(finalScore);
-      BeetPx.print(
+      const finalScoreSize = u_.measureText(finalScore);
+      b_.print(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
-        p8c.white
+        c.white
       );
-      Utils.printWithOutline(
+      u_.printWithOutline(
         finalScore,
         sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
-        p8c.pink,
-        p8c.black
+        c.pink,
+        c.black
       );
     },
   });
@@ -46,9 +46,9 @@ export class GameStateOver implements GameState {
     this.#level = params.level;
     this.#player = params.player;
 
-    BeetPx.muteSound(Game.playbackIds.melody);
-    BeetPx.muteSound(Game.playbackIds.modeNoCoins);
-    BeetPx.muteSound(Game.playbackIds.modeNoMemories);
+    b_.muteSound(Game.playbackIds.melody);
+    b_.muteSound(Game.playbackIds.modeNoCoins);
+    b_.muteSound(Game.playbackIds.modeNoMemories);
   }
 
   update(): GameState {
@@ -58,10 +58,10 @@ export class GameStateOver implements GameState {
 
     if (this.#sash.hasExpanded()) {
       if (
-        BeetPx.wasJustPressed("left") ||
-        BeetPx.wasJustPressed("right") ||
-        BeetPx.wasJustPressed("up") ||
-        BeetPx.wasJustPressed("down")
+        b_.wasJustPressed("left") ||
+        b_.wasJustPressed("right") ||
+        b_.wasJustPressed("up") ||
+        b_.wasJustPressed("down")
       ) {
         this.#sash.collapse();
       }

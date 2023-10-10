@@ -1,8 +1,8 @@
-import { BeetPx, Utils, v_ } from "@beetpx/beetpx";
+import { b_, u_, v_ } from "@beetpx/beetpx";
 import { Pico8Font } from "./Pico8Font";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
-import { g, p8c } from "./globals";
+import { c, g } from "./globals";
 
 const averageRenderFps = {
   history: Array.from({ length: 8 }, () => 0),
@@ -19,27 +19,20 @@ export class Game {
   #gameState: GameState | undefined;
 
   start(): void {
-    BeetPx.init(
+    b_.init(
       {
         gameCanvasSize: "128x128",
         desiredUpdateFps: 30,
         visibleTouchButtons: ["left", "right", "up", "down"],
-        debug: {
-          available: !__BEETPX_IS_PROD__,
-          toggleKey: ";",
-          frameByFrame: {
-            activateKey: ",",
-            stepKey: ".",
-          },
-        },
+        debugFeatures: !__BEETPX_IS_PROD__,
       },
       {
         images: [{ url: g.assets.spritesheet }],
         fonts: [
           {
             font: new Pico8Font(),
-            imageTextColor: p8c.white,
-            imageBgColor: p8c.black,
+            imageTextColor: c.white,
+            imageBgColor: c.black,
           },
         ],
         sounds: [
@@ -49,52 +42,50 @@ export class Game {
           { url: g.assets.musicModeNoCoins },
           { url: g.assets.musicModeNoMemories },
         ],
+        jsons: [],
       }
     ).then(({ startGame }) => {
-      BeetPx.setOnStarted(() => {
-        BeetPx.setRepeating("left", false);
-        BeetPx.setRepeating("right", false);
-        BeetPx.setRepeating("up", false);
-        BeetPx.setRepeating("down", false);
+      b_.setOnStarted(() => {
+        b_.setRepeating("left", false);
+        b_.setRepeating("right", false);
+        b_.setRepeating("up", false);
+        b_.setRepeating("down", false);
 
-        BeetPx.setFont(g.assets.pico8FontId);
-        BeetPx.setCameraOffset(g.cameraOffset);
+        b_.setFont(g.assets.pico8FontId);
+        b_.setCameraOffset(g.cameraOffset);
 
         this.#gameState = new GameStateSplash();
       });
 
-      BeetPx.setOnUpdate(() => {
+      b_.setOnUpdate(() => {
         this.#gameState = this.#gameState?.update();
       });
 
-      BeetPx.setOnDraw(() => {
-        averageRenderFps.history[averageRenderFps.index++] = BeetPx.renderFps;
+      b_.setOnDraw(() => {
+        averageRenderFps.history[averageRenderFps.index++] = b_.renderFps;
         averageRenderFps.index %= averageRenderFps.history.length;
 
-        BeetPx.clearCanvas(p8c.black);
+        b_.clearCanvas(c.black);
 
         this.#gameState?.draw();
 
-        if (BeetPx.debug) {
+        if (b_.debug) {
           const fps = (
             averageRenderFps.history.reduce((sum, fps) => sum + fps, 0) /
             averageRenderFps.history.length
           ).toFixed(0);
-          BeetPx.print(
+          b_.print(
             fps,
             g.cameraOffset.add(
-              v_(
-                g.screenSize.x - Utils.measureText(fps).x - 1,
-                g.screenSize.y - 6
-              )
+              v_(g.screenSize.x - u_.measureText(fps).x - 1, g.screenSize.y - 6)
             ),
-            p8c.darkGrey
+            c.darkGrey
           );
 
-          BeetPx.print(
-            `♪ ${BeetPx.audioContext.state}`,
+          b_.print(
+            `♪ ${b_.audioContext.state}`,
             g.cameraOffset.add(v_(0, g.screenSize.y - 6)),
-            p8c.darkPurple
+            c.darkPurple
           );
         }
       });
