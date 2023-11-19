@@ -2,9 +2,9 @@ import {
   BpxCharSprite,
   BpxFontId,
   BpxImageUrl,
-  BpxSprite,
   BpxVector2d,
-  spr_,
+  v_,
+  v_0_0_,
   type BpxFont,
 } from "@beetpx/beetpx";
 import { g } from "./globals";
@@ -14,8 +14,8 @@ function c_(
   tileY1: number,
   w: number = 3,
   h: number = 5
-): BpxSprite {
-  return spr_(g.assets.pico8FontImage)(tileX1 * 8, tileY1 * 8, w, h);
+): [BpxVector2d, BpxVector2d] {
+  return [v_(tileX1 * 8, tileY1 * 8), v_(w, h)];
 }
 
 export class Pico8Font implements BpxFont {
@@ -23,7 +23,7 @@ export class Pico8Font implements BpxFont {
 
   readonly imageUrl: BpxImageUrl = g.assets.pico8FontImage;
 
-  static #sprites: Record<string, BpxSprite> = {
+  static #sprites: Record<string, [BpxVector2d, BpxVector2d]> = {
     ["⬅️"]: c_(11, 8, 7),
     ["⬆️"]: c_(4, 9, 7),
     ["➡️"]: c_(1, 9, 7),
@@ -73,7 +73,7 @@ export class Pico8Font implements BpxFont {
 
   spritesFor(text: string): BpxCharSprite[] {
     const charSprites: BpxCharSprite[] = [];
-    let positionInText: BpxVector2d = BpxVector2d.zero;
+    let positionInText: BpxVector2d = v_0_0_;
 
     for (let i = 0; i < text.length; i += 1) {
       let char = text[i]!.toLowerCase();
@@ -86,9 +86,14 @@ export class Pico8Font implements BpxFont {
       }
 
       if (sprite) {
-        charSprites.push({ positionInText, sprite, char });
+        charSprites.push({
+          char,
+          positionInText,
+          type: "image",
+          spriteXyWh: sprite,
+        });
       }
-      const jumpX = (sprite ?? c_(-1, -1)).size().x + 1;
+      const jumpX = (sprite ?? c_(-1, -1))[1].x + 1;
       positionInText = positionInText.add(jumpX, 0);
     }
 

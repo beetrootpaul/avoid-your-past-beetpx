@@ -11,9 +11,9 @@ export class GameStateSplash implements GameState {
     expand: false,
     drawText: (sashCenter) => {
       const title = "Avoid Your Past";
-      const titleSize = u_.measureText(title);
+      const titleSize = u_.measureText(title)[1];
       const author = "by @beetrootpaul";
-      const authorSize = u_.measureText(author);
+      const authorSize = u_.measureText(author)[1];
       u_.printWithOutline(
         title,
         sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),

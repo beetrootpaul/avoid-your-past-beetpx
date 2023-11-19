@@ -1,9 +1,9 @@
 import {
   b_,
-  BpxFillPattern,
+  BpxPattern,
   BpxSprite,
+  BpxSpriteColorMapping,
   BpxVector2d,
-  transparent_,
   v_,
 } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
@@ -89,25 +89,26 @@ export class Memory extends Origin {
   }
 
   draw(opts: { noMemoriesModeFramesLeft: number }): void {
-    const prevMapping = b_.mapSpriteColors([
-      { from: c.darkBlue, to: transparent_ },
-      ...(opts.noMemoriesModeFramesLeft > 0
-        ? [
-            { from: c.red, to: c.darkGrey },
-            { from: c.black, to: c.darkGrey },
-            { from: c.pink, to: c.lightGrey },
-            { from: c.brown, to: c.lightGrey },
-            { from: c.darkPurple, to: c.lightGrey },
-          ]
-        : []),
-    ]);
+    const prevMapping =
+      opts.noMemoriesModeFramesLeft > 0
+        ? b_.setSpriteColorMapping(
+            BpxSpriteColorMapping.from([
+              [c.darkBlue, null],
+              [c.red, c.darkGrey],
+              [c.black, c.darkGrey],
+              [c.pink, c.lightGrey],
+              [c.brown, c.lightGrey],
+              [c.darkPurple, c.lightGrey],
+            ])
+          )
+        : b_.setSpriteColorMapping(
+            BpxSpriteColorMapping.from([[c.darkBlue, null]])
+          );
 
     if (opts.noMemoriesModeFramesLeft > 0) {
-      b_.setFillPattern(
-        this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft)
-      );
+      b_.setPattern(this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft));
       this.#drawAboutToAppearIndicator();
-      b_.setFillPattern(BpxFillPattern.primaryOnly);
+      b_.setPattern(BpxPattern.primaryOnly);
     } else if (this.isActive()) {
       this.#drawMemory();
     } else if (this.isAboutToBecomeActive()) {
@@ -116,7 +117,7 @@ export class Memory extends Origin {
       }
     }
 
-    b_.mapSpriteColors(prevMapping);
+    b_.setSpriteColorMapping(prevMapping);
 
     if (b_.debug) {
       const cc = this.collisionCircle();
@@ -152,26 +153,51 @@ export class Memory extends Origin {
     );
   }
 
-  #indicatorFillPattern(framesLeft: number): BpxFillPattern {
+  #indicatorFillPattern(framesLeft: number): BpxPattern {
     const base = 20;
     if (framesLeft < base) {
-      return BpxFillPattern.primaryOnly;
+      return BpxPattern.primaryOnly;
     }
     if (framesLeft < base + 4) {
-      return BpxFillPattern.of(0b0000_0000_0000_0001);
+      return BpxPattern.from(`
+        ####
+        ####
+        ####
+        ###-
+      `);
     }
     if (framesLeft < base + 8) {
-      return BpxFillPattern.of(0b0000_0101_0000_0101);
+      return BpxPattern.from(`
+        ####
+        #-#-
+        ####
+        #-#-
+      `);
     }
     if (framesLeft < base + 12) {
-      return BpxFillPattern.of(0b1010_0101_1010_0101);
+      return BpxPattern.from(`
+        -#-#
+        #-#-
+        -#-#
+        #-#-
+      `);
     }
     if (framesLeft < base + 16) {
-      return BpxFillPattern.of(0b1010_1111_1010_1111);
+      return BpxPattern.from(`
+        -#-#
+        ----
+        -#-#
+        ----
+      `);
     }
     if (framesLeft < base + 20) {
-      return BpxFillPattern.of(0b1111_1111_1011_1111);
+      return BpxPattern.from(`
+        ----
+        ----
+        -#--
+        ----
+      `);
     }
-    return BpxFillPattern.secondaryOnly;
+    return BpxPattern.secondaryOnly;
   }
 }

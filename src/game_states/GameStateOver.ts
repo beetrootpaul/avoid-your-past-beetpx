@@ -24,9 +24,9 @@ export class GameStateOver implements GameState {
     expand: true,
     drawText: (sashCenter) => {
       const heading = "your score";
-      const headingSize = u_.measureText(heading);
+      const headingSize = u_.measureText(heading)[1];
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = u_.measureText(finalScore);
+      const finalScoreSize = u_.measureText(finalScore)[1];
       b_.print(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
@@ -46,9 +46,9 @@ export class GameStateOver implements GameState {
     this.#level = params.level;
     this.#player = params.player;
 
-    b_.muteSound(Game.playbackIds.melody);
-    b_.muteSound(Game.playbackIds.modeNoCoins);
-    b_.muteSound(Game.playbackIds.modeNoMemories);
+    b_.mutePlayback(Game.playbackIds.melody);
+    b_.mutePlayback(Game.playbackIds.modeNoCoins);
+    b_.mutePlayback(Game.playbackIds.modeNoMemories);
   }
 
   update(): GameState {

@@ -1,4 +1,4 @@
-import { b_, BpxVector2d, transparent_, v_ } from "@beetpx/beetpx";
+import { b_, BpxSpriteColorMapping, BpxVector2d, v_ } from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
 import { c, g } from "../globals";
 import { AnimatedSprite } from "./AnimatedSprite";
@@ -32,16 +32,16 @@ export class Item {
   }
 
   draw(): void {
-    const prevMapping = b_.mapSpriteColors([
-      { from: c.darkBlue, to: transparent_ },
-    ]);
+    const prevMapping = b_.setSpriteColorMapping(
+      BpxSpriteColorMapping.from([[c.darkBlue, null]])
+    );
 
     b_.sprite(
       this.#animatedSprite.currentSprite(),
       this.#tile.sub(1).mul(g.tileSize)
     );
 
-    b_.mapSpriteColors(prevMapping);
+    b_.setSpriteColorMapping(prevMapping);
 
     if (b_.debug) {
       const cc = this.collisionCircle();
