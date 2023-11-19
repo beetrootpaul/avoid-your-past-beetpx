@@ -24,9 +24,9 @@ export class GameStateStart implements GameState {
   });
 
   constructor() {
-    b_.muteSound(Game.playbackIds.melody);
-    b_.muteSound(Game.playbackIds.modeNoCoins);
-    b_.muteSound(Game.playbackIds.modeNoMemories);
+    b_.mutePlayback(Game.playbackIds.melody);
+    b_.mutePlayback(Game.playbackIds.modeNoCoins);
+    b_.mutePlayback(Game.playbackIds.modeNoMemories);
 
     this.#level.spawnItems();
   }
@@ -68,8 +68,8 @@ export class GameStateStart implements GameState {
     const margin = 6;
     const prompt1 = "press an arrow";
     const prompt2 = "to choose direction";
-    const prompt1Size = u_.measureText(prompt1);
-    const prompt2Size = u_.measureText(prompt2);
+    const prompt1Size = u_.measureText(prompt1)[1];
+    const prompt2Size = u_.measureText(prompt2)[1];
     u_.printWithOutline(
       prompt1,
       v_(

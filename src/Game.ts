@@ -23,16 +23,14 @@ export class Game {
       {
         gameCanvasSize: "128x128",
         desiredUpdateFps: 30,
-        visibleTouchButtons: ["left", "right", "up", "down"],
-        debugFeatures: !__BEETPX_IS_PROD__,
+        debugFeatures: !BEETPX__IS_PROD,
       },
       {
         images: [{ url: g.assets.spritesheet }],
         fonts: [
           {
             font: new Pico8Font(),
-            imageTextColor: c.white,
-            imageBgColor: c.black,
+            spriteTextColor: c.white,
           },
         ],
         sounds: [
@@ -52,7 +50,7 @@ export class Game {
         b_.setRepeating("down", false);
 
         b_.setFont(g.assets.pico8FontId);
-        b_.setCameraOffset(g.cameraOffset);
+        b_.setCameraXy(g.cameraOffset);
 
         this.#gameState = new GameStateSplash();
       });
@@ -77,13 +75,16 @@ export class Game {
           b_.print(
             fps,
             g.cameraOffset.add(
-              v_(g.screenSize.x - u_.measureText(fps).x - 1, g.screenSize.y - 6)
+              v_(
+                g.screenSize.x - u_.measureText(fps)[1].x - 1,
+                g.screenSize.y - 6
+              )
             ),
             c.darkGrey
           );
 
           b_.print(
-            `♪ ${b_.audioContext.state}`,
+            `♪ ${b_.__internal__audioContext().state}`,
             g.cameraOffset.add(v_(0, g.screenSize.y - 6)),
             c.darkPurple
           );

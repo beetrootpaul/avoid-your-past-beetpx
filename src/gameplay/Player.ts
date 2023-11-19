@@ -1,4 +1,10 @@
-import { b_, BpxSprite, BpxVector2d, transparent_, v_ } from "@beetpx/beetpx";
+import {
+  b_,
+  BpxSprite,
+  BpxSpriteColorMapping,
+  BpxVector2d,
+  v_,
+} from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
 import { c, g } from "../globals";
 import { Direction } from "./Direction";
@@ -70,9 +76,9 @@ export class Player extends Origin {
   }
 
   draw(): void {
-    const prevMapping = b_.mapSpriteColors([
-      { from: c.darkBlue, to: transparent_ },
-    ]);
+    const prevMapping = b_.setSpriteColorMapping(
+      BpxSpriteColorMapping.from([[c.darkBlue, null]])
+    );
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
     b_.sprite(
@@ -84,7 +90,7 @@ export class Player extends Origin {
       this.#xy.sub(this.#r)
     );
 
-    b_.mapSpriteColors(prevMapping);
+    b_.setSpriteColorMapping(prevMapping);
 
     if (b_.debug) {
       const cc = this.collisionCircle();

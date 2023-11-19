@@ -23,7 +23,7 @@ export class Topbar {
     const modeLabel = this.#mode.label();
     if (modeLabel) {
       const textY = g.cameraOffset.y + 4;
-      const modeLabelSize = u_.measureText(modeLabel);
+      const modeLabelSize = u_.measureText(modeLabel)[1];
       const progressW = modeLabelSize.x;
       const progressRemainingW = Math.floor(
         (this.#mode.percentageLeft() / 100) * progressW

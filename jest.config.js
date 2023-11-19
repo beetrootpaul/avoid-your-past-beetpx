@@ -1,6 +1,7 @@
 module.exports = {
   rootDir: "./src/",
   passWithNoTests: true,
+  testEnvironment: "jsdom",
   // This entry does NOT ignore `node_modules`, which is required for tests in this project to not fail due to EMS modules used in BeetPx
   transformIgnorePatterns: [],
   transform: {
@@ -17,6 +18,7 @@ module.exports = {
     ],
   },
   globals: {
-    __BEETPX_IS_PROD__: false,
+    __BEETPX__IS_PROD__: false,
+    __BEETPX__VERSION__: "v0.0.0-test",
   },
 };

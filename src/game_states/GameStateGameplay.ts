@@ -43,12 +43,12 @@ export class GameStateGameplay implements GameState {
       color: c.darkGreen,
     });
 
-    b_.unmuteSound(Game.playbackIds.melody);
+    b_.unmutePlayback(Game.playbackIds.melody);
   }
 
   #onBackToRegularMode(): void {
-    b_.muteSound(Game.playbackIds.modeNoCoins);
-    b_.muteSound(Game.playbackIds.modeNoMemories);
+    b_.mutePlayback(Game.playbackIds.modeNoCoins);
+    b_.mutePlayback(Game.playbackIds.modeNoMemories);
   }
 
   #onCoinCollision(): void {
@@ -68,14 +68,14 @@ export class GameStateGameplay implements GameState {
   }
 
   #onDropletNoCoinsCollision(): void {
-    b_.unmuteSound(Game.playbackIds.modeNoCoins);
+    b_.unmutePlayback(Game.playbackIds.modeNoCoins);
     this.#score.add(3);
     this.#mode.startNoCoins();
     this.#level.removeDropletNoCoins();
   }
 
   #onDropletNoMemoriesCollision(): void {
-    b_.unmuteSound(Game.playbackIds.modeNoMemories);
+    b_.unmutePlayback(Game.playbackIds.modeNoMemories);
     this.#score.add(1);
     this.#mode.startNoMemories();
     this.#level.removeDropletNoMemories();

@@ -1,13 +1,13 @@
-import { BpxSolidColor, BpxVector2d, b_, v_ } from "@beetpx/beetpx";
+import { BpxRgbColor, BpxVector2d, b_, v_ } from "@beetpx/beetpx";
 
 type ParticleParams = {
   xy: BpxVector2d;
-  color: BpxSolidColor;
+  color: BpxRgbColor;
 };
 
 export class Particle {
   readonly #xy: BpxVector2d;
-  readonly #color: BpxSolidColor;
+  readonly #color: BpxRgbColor;
 
   readonly #rMax = 2;
   readonly #ttlMax = 14;
