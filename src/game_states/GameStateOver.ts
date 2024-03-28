@@ -27,12 +27,12 @@ export class GameStateOver implements GameState {
       const headingSize = u_.measureText(heading)[1];
       const finalScore = this.#score.value().toFixed(0);
       const finalScoreSize = u_.measureText(finalScore)[1];
-      b_.print(
+      b_.drawText(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
         c.white
       );
-      u_.printWithOutline(
+      u_.drawTextWithOutline(
         finalScore,
         sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
         c.pink,
@@ -58,10 +58,10 @@ export class GameStateOver implements GameState {
 
     if (this.#sash.hasExpanded()) {
       if (
-        b_.wasJustPressed("left") ||
-        b_.wasJustPressed("right") ||
-        b_.wasJustPressed("up") ||
-        b_.wasJustPressed("down")
+        b_.wasButtonJustPressed("left") ||
+        b_.wasButtonJustPressed("right") ||
+        b_.wasButtonJustPressed("up") ||
+        b_.wasButtonJustPressed("down")
       ) {
         this.#sash.collapse();
       }

@@ -33,10 +33,10 @@ export class GameStateStart implements GameState {
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (b_.wasJustPressed("left")) detectedDirections.push("l");
-    if (b_.wasJustPressed("right")) detectedDirections.push("r");
-    if (b_.wasJustPressed("up")) detectedDirections.push("u");
-    if (b_.wasJustPressed("down")) detectedDirections.push("d");
+    if (b_.wasButtonJustPressed("left")) detectedDirections.push("l");
+    if (b_.wasButtonJustPressed("right")) detectedDirections.push("r");
+    if (b_.wasButtonJustPressed("up")) detectedDirections.push("u");
+    if (b_.wasButtonJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
@@ -70,7 +70,7 @@ export class GameStateStart implements GameState {
     const prompt2 = "to choose direction";
     const prompt1Size = u_.measureText(prompt1)[1];
     const prompt2Size = u_.measureText(prompt2)[1];
-    u_.printWithOutline(
+    u_.drawTextWithOutline(
       prompt1,
       v_(
         this.#player.center().x - prompt1Size.x / 2,
@@ -79,7 +79,7 @@ export class GameStateStart implements GameState {
       c.lavender,
       c.darkBlue
     );
-    u_.printWithOutline(
+    u_.drawTextWithOutline(
       prompt2,
       v_(
         this.#player.center().x - prompt2Size.x / 2,
@@ -92,25 +92,25 @@ export class GameStateStart implements GameState {
       g.musicBeatFrames
     );
     const glyphColor = timeDependentBoolean ? c.blue : c.lavender;
-    u_.printWithOutline(
+    u_.drawTextWithOutline(
       "⬅️",
       v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
       c.darkBlue
     );
-    u_.printWithOutline(
+    u_.drawTextWithOutline(
       "➡️",
       v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
       c.darkBlue
     );
-    u_.printWithOutline(
+    u_.drawTextWithOutline(
       "⬆️",
       v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
       c.darkBlue
     );
-    u_.printWithOutline(
+    u_.drawTextWithOutline(
       "⬇️",
       v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,

@@ -14,26 +14,29 @@ export class GameStateSplash implements GameState {
       const titleSize = u_.measureText(title)[1];
       const author = "by @beetrootpaul";
       const authorSize = u_.measureText(author)[1];
-      u_.printWithOutline(
+      u_.drawTextWithOutline(
         title,
         sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
         c.pink,
         c.black
       );
-      b_.print(author, sashCenter.add(v_(-authorSize.x / 2, 2)), c.white);
+      b_.drawText(author, sashCenter.add(v_(-authorSize.x / 2, 2)), c.white);
     },
   });
 
   constructor() {
-    b_.playSoundLooped(g.assets.musicBase);
-    Game.playbackIds.melody = b_.playSoundLooped(g.assets.musicMelody, true);
-    Game.playbackIds.modeNoCoins = b_.playSoundLooped(
+    // TODO: why do I need to unmute immediately?
+    b_.unmutePlayback(b_.startPlaybackLooped(g.assets.musicBase));
+    Game.playbackIds.melody = b_.startPlaybackLooped(g.assets.musicMelody, {
+      muteOnStart: true,
+    });
+    Game.playbackIds.modeNoCoins = b_.startPlaybackLooped(
       g.assets.musicModeNoCoins,
-      true
+      { muteOnStart: true }
     );
-    Game.playbackIds.modeNoMemories = b_.playSoundLooped(
+    Game.playbackIds.modeNoMemories = b_.startPlaybackLooped(
       g.assets.musicModeNoMemories,
-      true
+      { muteOnStart: true }
     );
   }
 
@@ -43,10 +46,10 @@ export class GameStateSplash implements GameState {
     }
 
     if (
-      b_.wasJustPressed("left") ||
-      b_.wasJustPressed("right") ||
-      b_.wasJustPressed("up") ||
-      b_.wasJustPressed("down")
+      b_.wasButtonJustPressed("left") ||
+      b_.wasButtonJustPressed("right") ||
+      b_.wasButtonJustPressed("up") ||
+      b_.wasButtonJustPressed("down")
     ) {
       this.#sash.collapse();
     }
@@ -57,7 +60,7 @@ export class GameStateSplash implements GameState {
   }
 
   draw(): void {
-    b_.rectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
+    b_.drawRectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
 
     this.#sash.draw();
   }

@@ -70,7 +70,7 @@ export class Sash {
     }
 
     if (h > 0) {
-      b_.rectFilled(
+      b_.drawRectFilled(
         v_(0, this.#center.y - h / 2),
         v_(g.screenSize.x, h),
         c.darkGreen

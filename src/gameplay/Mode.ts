@@ -1,4 +1,8 @@
-import { BpxPattern, BpxPatternColors, BpxRgbColor } from "@beetpx/beetpx";
+import {
+  BpxDrawingPattern,
+  BpxPatternColors,
+  BpxRgbColor,
+} from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class Mode {
@@ -79,9 +83,9 @@ export class Mode {
     }
   }
 
-  bgPattern(): BpxPattern {
+  bgPattern(): BpxDrawingPattern {
     if (this.#current == "regular") {
-      return BpxPattern.primaryOnly;
+      return BpxDrawingPattern.primaryOnly;
     }
 
     const ttlMax = this.#ttlMax();
@@ -89,42 +93,42 @@ export class Mode {
 
     switch (ttlDistanceFromStartToEnd) {
       case 0:
-        return BpxPattern.from(`
+        return BpxDrawingPattern.from(`
           ----
           ----
           -#--
           ----
         `);
       case 1:
-        return BpxPattern.from(`
+        return BpxDrawingPattern.from(`
           -#-#
           ----
           -#-#
           ----
         `);
       case 2:
-        return BpxPattern.from(`
+        return BpxDrawingPattern.from(`
           -#-#
           #-#-
           -#-#
           #-#-
         `);
       case 3:
-        return BpxPattern.from(`
+        return BpxDrawingPattern.from(`
           ####
           #-#-
           ####
           #-#-
         `);
       case 4:
-        return BpxPattern.from(`
+        return BpxDrawingPattern.from(`
           ####
           ####
           ####
           ###-
         `);
       default:
-        return BpxPattern.primaryOnly;
+        return BpxDrawingPattern.primaryOnly;
     }
   }
 

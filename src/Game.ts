@@ -44,10 +44,10 @@ export class Game {
       }
     ).then(({ startGame }) => {
       b_.setOnStarted(() => {
-        b_.setRepeating("left", false);
-        b_.setRepeating("right", false);
-        b_.setRepeating("up", false);
-        b_.setRepeating("down", false);
+        b_.setButtonRepeating("left", false);
+        b_.setButtonRepeating("right", false);
+        b_.setButtonRepeating("up", false);
+        b_.setButtonRepeating("down", false);
 
         b_.setFont(g.assets.pico8FontId);
         b_.setCameraXy(g.cameraOffset);
@@ -60,7 +60,7 @@ export class Game {
       });
 
       b_.setOnDraw(() => {
-        averageRenderFps.history[averageRenderFps.index++] = b_.renderFps;
+        averageRenderFps.history[averageRenderFps.index++] = b_.renderingFps;
         averageRenderFps.index %= averageRenderFps.history.length;
 
         b_.clearCanvas(c.black);
@@ -72,7 +72,7 @@ export class Game {
             averageRenderFps.history.reduce((sum, fps) => sum + fps, 0) /
             averageRenderFps.history.length
           ).toFixed(0);
-          b_.print(
+          b_.drawText(
             fps,
             g.cameraOffset.add(
               v_(
@@ -83,8 +83,8 @@ export class Game {
             c.darkGrey
           );
 
-          b_.print(
-            `♪ ${b_.__internal__audioContext().state}`,
+          b_.drawText(
+            `♪ ${b_.getAudioContext().state}`,
             g.cameraOffset.add(v_(0, g.screenSize.y - 6)),
             c.darkPurple
           );

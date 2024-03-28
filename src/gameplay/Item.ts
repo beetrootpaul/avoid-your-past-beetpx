@@ -36,7 +36,7 @@ export class Item {
       BpxSpriteColorMapping.from([[c.darkBlue, null]])
     );
 
-    b_.sprite(
+    b_.drawSprite(
       this.#animatedSprite.currentSprite(),
       this.#tile.sub(1).mul(g.tileSize)
     );
@@ -45,7 +45,7 @@ export class Item {
 
     if (b_.debug) {
       const cc = this.collisionCircle();
-      b_.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), c.red);
+      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), c.red);
     }
   }
 }

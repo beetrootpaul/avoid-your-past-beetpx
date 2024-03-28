@@ -177,9 +177,9 @@ export class Level {
   }
 
   drawBg(): void {
-    const prevPattern = b_.setPattern(this.#mode.bgPattern());
-    b_.rectFilled(v_0_0_, g.gameAreaSize, this.#mode.bgColor());
-    b_.setPattern(prevPattern);
+    const prevPattern = b_.setDrawingPattern(this.#mode.bgPattern());
+    b_.drawRectFilled(v_0_0_, g.gameAreaSize, this.#mode.bgColor());
+    b_.setDrawingPattern(prevPattern);
 
     if (b_.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
@@ -193,9 +193,9 @@ export class Level {
           tileY <= g.gameAreaSize.div(g.tileSize).y;
           tileY += 1
         ) {
-          b_.pixel(v_(tileX, tileY).sub(1).mul(g.tileSize), c.lavender);
+          b_.drawPixel(v_(tileX, tileY).sub(1).mul(g.tileSize), c.lavender);
           if (tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-            b_.rectFilled(
+            b_.drawRectFilled(
               v_(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),

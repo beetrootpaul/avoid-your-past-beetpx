@@ -1,6 +1,6 @@
 import {
   b_,
-  BpxPattern,
+  BpxDrawingPattern,
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
@@ -106,9 +106,11 @@ export class Memory extends Origin {
           );
 
     if (opts.noMemoriesModeFramesLeft > 0) {
-      b_.setPattern(this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft));
+      b_.setDrawingPattern(
+        this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft)
+      );
       this.#drawAboutToAppearIndicator();
-      b_.setPattern(BpxPattern.primaryOnly);
+      b_.setDrawingPattern(BpxDrawingPattern.primaryOnly);
     } else if (this.isActive()) {
       this.#drawMemory();
     } else if (this.isAboutToBecomeActive()) {
@@ -121,7 +123,7 @@ export class Memory extends Origin {
 
     if (b_.debug) {
       const cc = this.collisionCircle();
-      b_.ellipse(
+      b_.drawEllipse(
         cc.center.sub(cc.r),
         v_(cc.r, cc.r).mul(2),
         this.isActive() ? c.red : c.darkGrey
@@ -131,8 +133,8 @@ export class Memory extends Origin {
 
   #drawMemory(): void {
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.sprite(
-      new BpxSprite(
+    b_.drawSprite(
+      BpxSprite.of(
         g.assets.spritesheet,
         spriteXy1,
         spriteXy1.add(g.spriteSheetCellSize)
@@ -143,8 +145,8 @@ export class Memory extends Origin {
 
   #drawAboutToAppearIndicator(): void {
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.sprite(
-      new BpxSprite(
+    b_.drawSprite(
+      BpxSprite.of(
         g.assets.spritesheet,
         spriteXy1,
         spriteXy1.add(g.spriteSheetCellSize)
@@ -153,13 +155,13 @@ export class Memory extends Origin {
     );
   }
 
-  #indicatorFillPattern(framesLeft: number): BpxPattern {
+  #indicatorFillPattern(framesLeft: number): BpxDrawingPattern {
     const base = 20;
     if (framesLeft < base) {
-      return BpxPattern.primaryOnly;
+      return BpxDrawingPattern.primaryOnly;
     }
     if (framesLeft < base + 4) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         ####
         ####
         ####
@@ -167,7 +169,7 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 8) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         ####
         #-#-
         ####
@@ -175,7 +177,7 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 12) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         -#-#
         #-#-
         -#-#
@@ -183,7 +185,7 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 16) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         -#-#
         ----
         -#-#
@@ -191,13 +193,13 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 20) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         ----
         ----
         -#--
         ----
       `);
     }
-    return BpxPattern.secondaryOnly;
+    return BpxDrawingPattern.secondaryOnly;
   }
 }

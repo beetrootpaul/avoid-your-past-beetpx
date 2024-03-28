@@ -56,7 +56,8 @@ export class GameStateGameplay implements GameState {
       return;
     }
 
-    b_.playSoundOnce(g.assets.coinSfx);
+    // TODO: why do I need to unmute immediately?
+    b_.unmutePlayback(b_.startPlayback(g.assets.coinSfx));
 
     this.#score.add(10);
 
@@ -83,10 +84,10 @@ export class GameStateGameplay implements GameState {
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (b_.wasJustPressed("left")) detectedDirections.push("l");
-    if (b_.wasJustPressed("right")) detectedDirections.push("r");
-    if (b_.wasJustPressed("up")) detectedDirections.push("u");
-    if (b_.wasJustPressed("down")) detectedDirections.push("d");
+    if (b_.wasButtonJustPressed("left")) detectedDirections.push("l");
+    if (b_.wasButtonJustPressed("right")) detectedDirections.push("r");
+    if (b_.wasButtonJustPressed("up")) detectedDirections.push("u");
+    if (b_.wasButtonJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }

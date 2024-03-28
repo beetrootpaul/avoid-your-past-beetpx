@@ -81,8 +81,8 @@ export class Player extends Origin {
     );
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.sprite(
-      new BpxSprite(
+    b_.drawSprite(
+      BpxSprite.of(
         g.assets.spritesheet,
         spriteXy1,
         spriteXy1.add(g.spriteSheetCellSize)
@@ -94,7 +94,7 @@ export class Player extends Origin {
 
     if (b_.debug) {
       const cc = this.collisionCircle();
-      b_.ellipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), c.red);
+      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), c.red);
     }
   }
 }
