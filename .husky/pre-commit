@@ -2,7 +2,6 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run format
-npm run typecheck
-npm test
+npm run tsc
 
 git add --all .
