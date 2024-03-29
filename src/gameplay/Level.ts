@@ -1,7 +1,13 @@
-import { b_, BpxVector2d, u_, v_, v_0_0_ } from "@beetpx/beetpx";
+import {
+  b_,
+  BpxAnimatedSprite,
+  BpxVector2d,
+  u_,
+  v_,
+  v_0_0_,
+} from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
 import { c, g } from "../globals";
-import { AnimatedSprite } from "./AnimatedSprite";
 import { Item } from "./Item";
 import { Mode } from "./Mode";
 import { Player } from "./Player";
@@ -76,11 +82,15 @@ export class Level {
         this.#coin = new Item({
           tile: coinTile,
           collisionCircleR: 2.5,
-          animatedSprite: new AnimatedSprite({
-            firstSpriteSheetCell: 16,
-            numberOfSprites: 16,
-            framesPerSprite: (2 * g.musicBeatFrames) / 16,
-          }),
+          animatedSprite: BpxAnimatedSprite.from(
+            g.assets.spritesheet,
+            g.spriteSheetCellSize.x,
+            g.spriteSheetCellSize.y,
+            u_.repeatEachElement(
+              2,
+              u_.range(16).map((i) => [i * 8, 8])
+            )
+          ),
         });
       }
     }
@@ -99,21 +109,23 @@ export class Level {
           this.#dropletNoCoins = new Item({
             tile: dropletTile,
             collisionCircleR: 3.5,
-            animatedSprite: new AnimatedSprite({
-              firstSpriteSheetCell: 32,
-              numberOfSprites: 1,
-              framesPerSprite: 1,
-            }),
+            animatedSprite: BpxAnimatedSprite.from(
+              g.assets.spritesheet,
+              g.spriteSheetCellSize.x,
+              g.spriteSheetCellSize.y,
+              [[0, 16]]
+            ),
           });
         } else if (probability > 0.7) {
           this.#dropletNoMemories = new Item({
             tile: dropletTile,
             collisionCircleR: 3.5,
-            animatedSprite: new AnimatedSprite({
-              firstSpriteSheetCell: 48,
-              numberOfSprites: 1,
-              framesPerSprite: 1,
-            }),
+            animatedSprite: BpxAnimatedSprite.from(
+              g.assets.spritesheet,
+              g.spriteSheetCellSize.x,
+              g.spriteSheetCellSize.y,
+              [[0, 24]]
+            ),
           });
         }
       }
@@ -168,12 +180,6 @@ export class Level {
         callbacks.onDropletNoMemories();
       }
     }
-  }
-
-  animate(): void {
-    this.#coin?.animate();
-    this.#dropletNoCoins?.animate();
-    this.#dropletNoMemories?.animate();
   }
 
   drawBg(): void {

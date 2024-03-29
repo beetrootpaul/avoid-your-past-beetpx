@@ -102,8 +102,6 @@ export class GameStateGameplay implements GameState {
       onDropletNoMemories: this.#onDropletNoMemoriesCollision.bind(this),
     });
 
-    this.#level.animate();
-
     this.#playerTrail.update();
     this.#player.move();
 

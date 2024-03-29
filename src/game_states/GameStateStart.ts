@@ -41,8 +41,6 @@ export class GameStateStart implements GameState {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
 
-    this.#level.animate();
-
     if (detectedDirections.length === 1) {
       return new GameStateGameplay({
         mode: this.#mode,

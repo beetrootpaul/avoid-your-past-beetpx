@@ -82,10 +82,12 @@ export class Player extends Origin {
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
     b_.drawSprite(
-      BpxSprite.of(
+      BpxSprite.from(
         g.assets.spritesheet,
-        spriteXy1,
-        spriteXy1.add(g.spriteSheetCellSize)
+        g.spriteSheetCellSize.x,
+        g.spriteSheetCellSize.y,
+        spriteXy1.x,
+        spriteXy1.y
       ),
       this.#xy.sub(this.#r)
     );

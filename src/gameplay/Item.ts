@@ -1,18 +1,23 @@
-import { b_, BpxSpriteColorMapping, BpxVector2d, v_ } from "@beetpx/beetpx";
+import {
+  b_,
+  BpxAnimatedSprite,
+  BpxSpriteColorMapping,
+  BpxVector2d,
+  v_,
+} from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
 import { c, g } from "../globals";
-import { AnimatedSprite } from "./AnimatedSprite";
 
 type ItemParams = {
   tile: BpxVector2d;
   collisionCircleR: number;
-  animatedSprite: AnimatedSprite;
+  animatedSprite: BpxAnimatedSprite;
 };
 
 export class Item {
   readonly #tile: BpxVector2d;
   readonly #collisionCircleR: number;
-  readonly #animatedSprite: AnimatedSprite;
+  readonly #animatedSprite: BpxAnimatedSprite;
 
   constructor(params: ItemParams) {
     this.#tile = params.tile;
@@ -27,17 +32,13 @@ export class Item {
     };
   }
 
-  animate(): void {
-    this.#animatedSprite.advance1Frame();
-  }
-
   draw(): void {
     const prevMapping = b_.setSpriteColorMapping(
       BpxSpriteColorMapping.from([[c.darkBlue, null]])
     );
 
     b_.drawSprite(
-      this.#animatedSprite.currentSprite(),
+      this.#animatedSprite.current,
       this.#tile.sub(1).mul(g.tileSize)
     );
 
