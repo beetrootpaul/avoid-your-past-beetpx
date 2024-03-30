@@ -25,8 +25,7 @@ export class GameStateSplash implements GameState {
   });
 
   constructor() {
-    // TODO: why do I need to unmute immediately?
-    b_.unmutePlayback(b_.startPlaybackLooped(g.assets.musicBase));
+    b_.startPlaybackLooped(g.assets.musicBase);
     Game.playbackIds.melody = b_.startPlaybackLooped(g.assets.musicMelody, {
       muteOnStart: true,
     });

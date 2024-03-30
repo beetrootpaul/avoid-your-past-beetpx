@@ -56,8 +56,7 @@ export class GameStateGameplay implements GameState {
       return;
     }
 
-    // TODO: why do I need to unmute immediately?
-    b_.unmutePlayback(b_.startPlayback(g.assets.coinSfx));
+    b_.startPlayback(g.assets.coinSfx);
 
     this.#score.add(10);
 
