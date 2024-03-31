@@ -1,4 +1,4 @@
-import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_, v_ } from "@beetpx/beetpx";
 import { Pico8Font } from "./Pico8Font";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
@@ -23,23 +23,14 @@ export class Game {
       gameCanvasSize: "128x128",
       fixedTimestep: "30fps",
       debugMode: !BEETPX__IS_PROD,
-      assets: {
-        images: [{ url: g.assets.spritesheet }],
-        fonts: [
-          {
-            font: new Pico8Font(),
-            spriteTextColor: rgb_p8_.white,
-          },
-        ],
-        sounds: [
-          { url: g.assets.coinSfx },
-          { url: g.assets.musicBase },
-          { url: g.assets.musicMelody },
-          { url: g.assets.musicModeNoCoins },
-          { url: g.assets.musicModeNoMemories },
-        ],
-        jsons: [],
-      },
+      assets: [
+        g.assets.spritesheet,
+        g.assets.coinSfx,
+        g.assets.musicBase,
+        g.assets.musicMelody,
+        g.assets.musicModeNoCoins,
+        g.assets.musicModeNoMemories,
+      ],
     }).then(({ startGame }) => {
       b_.setOnStarted(() => {
         b_.setButtonRepeating("left", false);
@@ -47,7 +38,7 @@ export class Game {
         b_.setButtonRepeating("up", false);
         b_.setButtonRepeating("down", false);
 
-        b_.setFont(g.assets.pico8FontId);
+        b_.useFont(new Pico8Font());
         b_.setCameraXy(g.cameraOffset);
 
         this.#gameState = new GameStateSplash();
@@ -74,7 +65,7 @@ export class Game {
             fps,
             g.cameraOffset.add(
               v_(
-                g.screenSize.x - u_.measureText(fps)[1].x - 1,
+                g.screenSize.x - b_.measureText(fps).wh.x - 1,
                 g.screenSize.y - 6
               )
             ),

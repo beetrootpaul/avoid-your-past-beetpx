@@ -24,9 +24,9 @@ export class GameStateOver implements GameState {
     expand: true,
     drawText: (sashCenter) => {
       const heading = "your score";
-      const headingSize = u_.measureText(heading)[1];
+      const headingSize = b_.measureText(heading).wh;
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = u_.measureText(finalScore)[1];
+      const finalScoreSize = b_.measureText(finalScore).wh;
       b_.drawText(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),

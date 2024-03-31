@@ -66,8 +66,8 @@ export class GameStateStart implements GameState {
     const margin = 6;
     const prompt1 = "press an arrow";
     const prompt2 = "to choose direction";
-    const prompt1Size = u_.measureText(prompt1)[1];
-    const prompt2Size = u_.measureText(prompt2)[1];
+    const prompt1Size = b_.measureText(prompt1).wh;
+    const prompt2Size = b_.measureText(prompt2).wh;
     u_.drawTextWithOutline(
       prompt1,
       v_(
@@ -91,25 +91,25 @@ export class GameStateStart implements GameState {
     );
     const glyphColor = timeDependentBoolean ? rgb_p8_.sky : rgb_p8_.dusk;
     u_.drawTextWithOutline(
-      "⬅️",
+      "⬅",
       v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
       rgb_p8_.storm
     );
     u_.drawTextWithOutline(
-      "➡️",
+      "➡",
       v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
       rgb_p8_.storm
     );
     u_.drawTextWithOutline(
-      "⬆️",
+      "⬆",
       v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
       rgb_p8_.storm
     );
     u_.drawTextWithOutline(
-      "⬇️",
+      "⬇",
       v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,
       rgb_p8_.storm

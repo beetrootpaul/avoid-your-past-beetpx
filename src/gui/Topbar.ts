@@ -1,4 +1,4 @@
-import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_, v_ } from "@beetpx/beetpx";
 import { Mode } from "../gameplay/Mode";
 import { Score } from "../gameplay/Score";
 import { g } from "../globals";
@@ -23,7 +23,7 @@ export class Topbar {
     const modeLabel = this.#mode.label();
     if (modeLabel) {
       const textY = g.cameraOffset.y + 4;
-      const modeLabelSize = u_.measureText(modeLabel)[1];
+      const modeLabelSize = b_.measureText(modeLabel).wh;
       const progressW = modeLabelSize.x;
       const progressRemainingW = Math.floor(
         (this.#mode.percentageLeft() / 100) * progressW
