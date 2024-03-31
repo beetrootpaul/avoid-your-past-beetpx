@@ -7,14 +7,14 @@ export const g = {
   // __quickStart: !__BEETPX_IS_PROD__,
   __quickStart: false,
   //
-  screenSize: v_(128, 128),
+  screenSize: v_(128),
   cameraOffset: v_(0, -16),
   topbarSize: v_(128, 16),
-  gameAreaSize: v_(128, 112),
-  tileSize: v_(8, 8),
+  gameAreaSize: v_(128),
+  tileSize: v_(8),
   //
-  spriteSheetCells: v_(16, 16),
-  spriteSheetCellSize: v_(8, 8),
+  spriteSheetCells: v_(16),
+  spriteSheetCellSize: v_(8),
   //
   musicBeatFrames: 16,
   //
