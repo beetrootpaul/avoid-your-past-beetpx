@@ -19,13 +19,11 @@ export class Game {
   #gameState: GameState | undefined;
 
   start(): void {
-    b_.init(
-      {
-        gameCanvasSize: "128x128",
-        desiredUpdateFps: 30,
-        debugFeatures: !BEETPX__IS_PROD,
-      },
-      {
+    b_.init({
+      gameCanvasSize: "128x128",
+      fixedTimestep: "30fps",
+      debugMode: !BEETPX__IS_PROD,
+      assets: {
         images: [{ url: g.assets.spritesheet }],
         fonts: [
           {
@@ -41,8 +39,8 @@ export class Game {
           { url: g.assets.musicModeNoMemories },
         ],
         jsons: [],
-      }
-    ).then(({ startGame }) => {
+      },
+    }).then(({ startGame }) => {
       b_.setOnStarted(() => {
         b_.setButtonRepeating("left", false);
         b_.setButtonRepeating("right", false);
