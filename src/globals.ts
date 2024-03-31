@@ -7,7 +7,7 @@ export const g = {
   screenSize: v_(128),
   cameraOffset: v_(0, -16),
   topbarSize: v_(128, 16),
-  gameAreaSize: v_(128),
+  gameAreaSize: v_(128, 112),
   tileSize: v_(8),
   //
   spriteSheetCells: v_(16),
