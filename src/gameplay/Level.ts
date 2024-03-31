@@ -2,12 +2,13 @@ import {
   b_,
   BpxAnimatedSprite,
   BpxVector2d,
+  rgb_p8_,
   u_,
   v_,
   v_0_0_,
 } from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Item } from "./Item";
 import { Mode } from "./Mode";
 import { Player } from "./Player";
@@ -199,14 +200,14 @@ export class Level {
           tileY <= g.gameAreaSize.div(g.tileSize).y;
           tileY += 1
         ) {
-          b_.drawPixel(v_(tileX, tileY).sub(1).mul(g.tileSize), c.lavender);
+          b_.drawPixel(v_(tileX, tileY).sub(1).mul(g.tileSize), rgb_p8_.dusk);
           if (tilesCloseToPlayer[`${tileX}_${tileY}`]) {
             b_.drawRectFilled(
               v_(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),
               g.tileSize.sub(1),
-              c.darkPurple
+              rgb_p8_.wine
             );
           }
         }

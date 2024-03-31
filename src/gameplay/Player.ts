@@ -3,10 +3,11 @@ import {
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
+  rgb_p8_,
   v_,
 } from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Direction } from "./Direction";
 import { Origin } from "./Origin";
 
@@ -77,7 +78,7 @@ export class Player extends Origin {
 
   draw(): void {
     const prevMapping = b_.setSpriteColorMapping(
-      BpxSpriteColorMapping.from([[c.darkBlue, null]])
+      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]])
     );
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
@@ -96,7 +97,7 @@ export class Player extends Origin {
 
     if (b_.debug) {
       const cc = this.collisionCircle();
-      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), c.red);
+      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), rgb_p8_.ember);
     }
   }
 }

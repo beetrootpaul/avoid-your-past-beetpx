@@ -1,7 +1,7 @@
-import { b_, u_, v_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
 import { Mode } from "../gameplay/Mode";
 import { Score } from "../gameplay/Score";
-import { c, g } from "../globals";
+import { g } from "../globals";
 
 type TopbarParams = {
   score: Score;
@@ -18,7 +18,7 @@ export class Topbar {
   }
 
   draw(): void {
-    b_.drawRectFilled(g.cameraOffset, g.topbarSize, c.black);
+    b_.drawRectFilled(g.cameraOffset, g.topbarSize, rgb_p8_.black);
 
     const modeLabel = this.#mode.label();
     if (modeLabel) {
@@ -31,7 +31,7 @@ export class Topbar {
       const progressX = g.cameraOffset.x + g.screenSize.x - progressW - 1;
       const progressY = textY + modeLabelSize.y + 2;
 
-      b_.drawText(modeLabel, v_(progressX, textY), c.lightGrey);
+      b_.drawText(modeLabel, v_(progressX, textY), rgb_p8_.silver);
 
       if (progressRemainingW > 0) {
         b_.drawLine(
@@ -45,7 +45,7 @@ export class Topbar {
     b_.drawText(
       `score ${this.#score.value()}`,
       g.cameraOffset.add(v_(1, 4)),
-      c.lightGrey
+      rgb_p8_.silver
     );
   }
 }

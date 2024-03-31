@@ -1,6 +1,6 @@
-import { b_, u_, v_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
 import { GameStateStart } from "./GameStateStart";
@@ -17,10 +17,14 @@ export class GameStateSplash implements GameState {
       u_.drawTextWithOutline(
         title,
         sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
-        c.pink,
-        c.black
+        rgb_p8_.pink,
+        rgb_p8_.black
       );
-      b_.drawText(author, sashCenter.add(v_(-authorSize.x / 2, 2)), c.white);
+      b_.drawText(
+        author,
+        sashCenter.add(v_(-authorSize.x / 2, 2)),
+        rgb_p8_.white
+      );
     },
   });
 

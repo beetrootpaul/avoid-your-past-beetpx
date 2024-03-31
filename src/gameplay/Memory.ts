@@ -4,10 +4,11 @@ import {
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
+  rgb_p8_,
   v_,
 } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Direction } from "./Direction";
 import { Origin, OriginSnapshot } from "./Origin";
 
@@ -93,16 +94,16 @@ export class Memory extends Origin {
       opts.noMemoriesModeFramesLeft > 0
         ? b_.setSpriteColorMapping(
             BpxSpriteColorMapping.from([
-              [c.darkBlue, null],
-              [c.red, c.darkGrey],
-              [c.black, c.darkGrey],
-              [c.pink, c.lightGrey],
-              [c.brown, c.lightGrey],
-              [c.darkPurple, c.lightGrey],
+              [rgb_p8_.storm, null],
+              [rgb_p8_.ember, rgb_p8_.slate],
+              [rgb_p8_.black, rgb_p8_.slate],
+              [rgb_p8_.pink, rgb_p8_.silver],
+              [rgb_p8_.tan, rgb_p8_.silver],
+              [rgb_p8_.wine, rgb_p8_.silver],
             ])
           )
         : b_.setSpriteColorMapping(
-            BpxSpriteColorMapping.from([[c.darkBlue, null]])
+            BpxSpriteColorMapping.from([[rgb_p8_.storm, null]])
           );
 
     if (opts.noMemoriesModeFramesLeft > 0) {
@@ -126,7 +127,7 @@ export class Memory extends Origin {
       b_.drawEllipse(
         cc.center.sub(cc.r),
         v_(cc.r, cc.r).mul(2),
-        this.isActive() ? c.red : c.darkGrey
+        this.isActive() ? rgb_p8_.ember : rgb_p8_.slate
       );
     }
   }

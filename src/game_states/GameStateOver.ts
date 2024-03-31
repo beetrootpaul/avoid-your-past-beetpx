@@ -1,9 +1,9 @@
-import { b_, u_, v_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
 import { GameStateStart } from "./GameStateStart";
@@ -30,13 +30,13 @@ export class GameStateOver implements GameState {
       b_.drawText(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
-        c.white
+        rgb_p8_.white
       );
       u_.drawTextWithOutline(
         finalScore,
         sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
-        c.pink,
-        c.black
+        rgb_p8_.pink,
+        rgb_p8_.black
       );
     },
   });

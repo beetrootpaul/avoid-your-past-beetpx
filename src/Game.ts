@@ -1,8 +1,8 @@
-import { b_, u_, v_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
 import { Pico8Font } from "./Pico8Font";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
-import { c, g } from "./globals";
+import { g } from "./globals";
 
 const averageRenderFps = {
   history: Array.from({ length: 8 }, () => 0),
@@ -28,7 +28,7 @@ export class Game {
         fonts: [
           {
             font: new Pico8Font(),
-            spriteTextColor: c.white,
+            spriteTextColor: rgb_p8_.white,
           },
         ],
         sounds: [
@@ -61,7 +61,7 @@ export class Game {
         averageRenderFps.history[averageRenderFps.index++] = b_.renderingFps;
         averageRenderFps.index %= averageRenderFps.history.length;
 
-        b_.clearCanvas(c.black);
+        b_.clearCanvas(rgb_p8_.black);
 
         this.#gameState?.draw();
 
@@ -78,13 +78,13 @@ export class Game {
                 g.screenSize.y - 6
               )
             ),
-            c.darkGrey
+            rgb_p8_.slate
           );
 
           b_.drawText(
             `♪ ${b_.getAudioContext().state}`,
             g.cameraOffset.add(v_(0, g.screenSize.y - 6)),
-            c.darkPurple
+            rgb_p8_.wine
           );
         }
       });

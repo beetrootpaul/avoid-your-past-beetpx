@@ -1,5 +1,5 @@
-import { b_, BpxVector2d, v_ } from "@beetpx/beetpx";
-import { c, g } from "../globals";
+import { b_, BpxVector2d, rgb_p8_, v_ } from "@beetpx/beetpx";
+import { g } from "../globals";
 
 type SashParams = {
   duration: number;
@@ -73,7 +73,7 @@ export class Sash {
       b_.drawRectFilled(
         v_(0, this.#center.y - h / 2),
         v_(g.screenSize.x, h),
-        c.darkGreen
+        rgb_p8_.moss
       );
     }
 

@@ -3,10 +3,11 @@ import {
   BpxAnimatedSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
+  rgb_p8_,
   v_,
 } from "@beetpx/beetpx";
-import { type CollisionCircle } from "../Collisions";
-import { c, g } from "../globals";
+import { CollisionCircle } from "../Collisions";
+import { g } from "../globals";
 
 type ItemParams = {
   tile: BpxVector2d;
@@ -34,7 +35,7 @@ export class Item {
 
   draw(): void {
     const prevMapping = b_.setSpriteColorMapping(
-      BpxSpriteColorMapping.from([[c.darkBlue, null]])
+      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]])
     );
 
     b_.drawSprite(
@@ -46,7 +47,7 @@ export class Item {
 
     if (b_.debug) {
       const cc = this.collisionCircle();
-      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), c.red);
+      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), rgb_p8_.ember);
     }
   }
 }

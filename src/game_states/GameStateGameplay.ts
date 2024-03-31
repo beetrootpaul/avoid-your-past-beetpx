@@ -1,4 +1,4 @@
-import { b_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
@@ -7,7 +7,7 @@ import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
 import { Trail } from "../gameplay/Trail";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Topbar } from "../gui/Topbar";
 import { GameState } from "./GameState";
 import { GameStateOver } from "./GameStateOver";
@@ -40,7 +40,7 @@ export class GameStateGameplay implements GameState {
     });
     this.#playerTrail = new Trail({
       origin: this.#player,
-      color: c.darkGreen,
+      color: rgb_p8_.moss,
     });
 
     b_.unmutePlayback(Game.playbackIds.melody);

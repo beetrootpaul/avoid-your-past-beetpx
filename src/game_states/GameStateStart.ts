@@ -1,11 +1,11 @@
-import { b_, u_, v_ } from "@beetpx/beetpx";
+import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
 import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Topbar } from "../gui/Topbar";
 import { GameState } from "./GameState";
 import { GameStateGameplay } from "./GameStateGameplay";
@@ -74,8 +74,8 @@ export class GameStateStart implements GameState {
         this.#player.center().x - prompt1Size.x / 2,
         this.#player.xy1().y - margin - 26
       ),
-      c.lavender,
-      c.darkBlue
+      rgb_p8_.dusk,
+      rgb_p8_.storm
     );
     u_.drawTextWithOutline(
       prompt2,
@@ -83,36 +83,36 @@ export class GameStateStart implements GameState {
         this.#player.center().x - prompt2Size.x / 2,
         this.#player.xy1().y - margin - 17
       ),
-      c.lavender,
-      c.darkBlue
+      rgb_p8_.dusk,
+      rgb_p8_.storm
     );
     const timeDependentBoolean = u_.booleanChangingEveryNthFrame(
       g.musicBeatFrames
     );
-    const glyphColor = timeDependentBoolean ? c.blue : c.lavender;
+    const glyphColor = timeDependentBoolean ? rgb_p8_.sky : rgb_p8_.dusk;
     u_.drawTextWithOutline(
       "⬅️",
       v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
-      c.darkBlue
+      rgb_p8_.storm
     );
     u_.drawTextWithOutline(
       "➡️",
       v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
-      c.darkBlue
+      rgb_p8_.storm
     );
     u_.drawTextWithOutline(
       "⬆️",
       v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
-      c.darkBlue
+      rgb_p8_.storm
     );
     u_.drawTextWithOutline(
       "⬇️",
       v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,
-      c.darkBlue
+      rgb_p8_.storm
     );
   }
 }
