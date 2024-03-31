@@ -2,25 +2,15 @@ import {
   BpxDrawingPattern,
   BpxPatternColors,
   BpxRgbColor,
+  BpxTimer,
+  timer_,
 } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 export class Mode {
   #current: "regular" | "no_coins" | "no_memories" = "regular";
 
-  #ttl = 0;
-
-  #ttlMax(): number {
-    switch (this.#current) {
-      case "no_coins":
-        return 90;
-      case "no_memories":
-        return 150;
-      default:
-        // Any value, safe to use as in divisions. In theory, this code won't be reached.
-        return 1;
-    }
-  }
+  #timer: BpxTimer | null = null;
 
   isNoCoins(): boolean {
     return this.#current === "no_coins";
@@ -31,17 +21,17 @@ export class Mode {
   }
 
   noMemoriesModeFramesLeft(): number {
-    return this.#current === "no_memories" ? this.#ttl : 0;
+    return this.#current === "no_memories" ? this.#timer?.framesLeft ?? 0 : 0;
   }
 
   startNoCoins(): void {
     this.#current = "no_coins";
-    this.#ttl = this.#ttlMax();
+    this.#timer = timer_(90);
   }
 
   startNoMemories(): void {
     this.#current = "no_memories";
-    this.#ttl = this.#ttlMax();
+    this.#timer = timer_(150);
   }
 
   label(): string | null {
@@ -88,8 +78,10 @@ export class Mode {
       return BpxDrawingPattern.primaryOnly;
     }
 
-    const ttlMax = this.#ttlMax();
-    let ttlDistanceFromStartToEnd = Math.min(this.#ttl, ttlMax - this.#ttl);
+    let ttlDistanceFromStartToEnd = Math.min(
+      this.#timer?.t ?? 9999,
+      this.#timer?.framesLeft ?? 9999
+    );
 
     switch (ttlDistanceFromStartToEnd) {
       case 0:
@@ -135,21 +127,17 @@ export class Mode {
   percentageLeft(): number {
     switch (this.#current) {
       case "no_coins":
-        return (100 * this.#ttl) / this.#ttlMax();
       case "no_memories":
-        return (100 * this.#ttl) / this.#ttlMax();
+        return 100 * (1 - (this.#timer?.progress ?? 1));
       default:
         return 0;
     }
   }
 
   update(callbacks: { onBackToRegularMode: () => void }): void {
-    if (this.#current != "regular" && this.#ttl <= 0) {
+    if (this.#timer?.hasJustFinished) {
       this.#current = "regular";
       callbacks.onBackToRegularMode();
-    }
-    if (this.#ttl > 0) {
-      this.#ttl -= 1;
     }
   }
 }
