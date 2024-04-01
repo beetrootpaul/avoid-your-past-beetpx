@@ -1,8 +1,7 @@
 import { rgb_p8_, v_ } from "@beetpx/beetpx";
 
 export const g = {
-  // __quickStart: !__BEETPX_IS_PROD__,
-  __quickStart: false,
+  __quickStart: !BEETPX__IS_PROD,
   //
   screenSize: v_(128),
   cameraOffset: v_(0, -16),
@@ -24,7 +23,6 @@ export const g = {
   assets: {
     spritesheet: "spritesheet.png",
     pico8FontId: "pico8",
-    pico8FontImage: "pico-8-font.png",
     coinSfx: "sfx_coin_collected.wav",
     musicBase: "music_base.wav",
     musicMelody: "music_melody.wav",
