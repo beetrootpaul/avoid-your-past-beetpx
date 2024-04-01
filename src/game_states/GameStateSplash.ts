@@ -18,12 +18,12 @@ export class GameStateSplash implements GameState {
         title,
         sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
         rgb_p8_.pink,
-        rgb_p8_.black
+        rgb_p8_.black,
       );
       b_.drawText(
         author,
         sashCenter.add(v_(-authorSize.x / 2, 2)),
-        rgb_p8_.white
+        rgb_p8_.white,
       );
     },
   });
@@ -35,11 +35,11 @@ export class GameStateSplash implements GameState {
     });
     Game.playbackIds.modeNoCoins = b_.startPlaybackLooped(
       g.assets.musicModeNoCoins,
-      { muteOnStart: true }
+      { muteOnStart: true },
     );
     Game.playbackIds.modeNoMemories = b_.startPlaybackLooped(
       g.assets.musicModeNoMemories,
-      { muteOnStart: true }
+      { muteOnStart: true },
     );
   }
 

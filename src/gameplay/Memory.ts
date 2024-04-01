@@ -100,15 +100,15 @@ export class Memory extends Origin {
               [rgb_p8_.pink, rgb_p8_.silver],
               [rgb_p8_.tan, rgb_p8_.silver],
               [rgb_p8_.wine, rgb_p8_.silver],
-            ])
+            ]),
           )
         : b_.setSpriteColorMapping(
-            BpxSpriteColorMapping.from([[rgb_p8_.storm, null]])
+            BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
           );
 
     if (opts.noMemoriesModeFramesLeft > 0) {
       b_.setDrawingPattern(
-        this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft)
+        this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft),
       );
       this.#drawAboutToAppearIndicator();
       b_.setDrawingPattern(BpxDrawingPattern.primaryOnly);
@@ -127,7 +127,7 @@ export class Memory extends Origin {
       b_.drawEllipse(
         cc.center.sub(cc.r),
         v_(cc.r, cc.r).mul(2),
-        this.isActive() ? rgb_p8_.ember : rgb_p8_.slate
+        this.isActive() ? rgb_p8_.ember : rgb_p8_.slate,
       );
     }
   }
@@ -140,9 +140,9 @@ export class Memory extends Origin {
         g.spriteSheetCellSize.x,
         g.spriteSheetCellSize.y,
         spriteXy1.x,
-        spriteXy1.y
+        spriteXy1.y,
       ),
-      this.#xy.sub(this.#r)
+      this.#xy.sub(this.#r),
     );
   }
 
@@ -154,9 +154,9 @@ export class Memory extends Origin {
         g.spriteSheetCellSize.x,
         g.spriteSheetCellSize.y,
         spriteXy1.x,
-        spriteXy1.y
+        spriteXy1.y,
       ),
-      this.#xy.sub(this.#r)
+      this.#xy.sub(this.#r),
     );
   }
 

@@ -35,12 +35,12 @@ export class Item {
 
   draw(): void {
     const prevMapping = b_.setSpriteColorMapping(
-      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]])
+      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
     );
 
     b_.drawSprite(
       this.#animatedSprite.current,
-      this.#tile.sub(1).mul(g.tileSize)
+      this.#tile.sub(1).mul(g.tileSize),
     );
 
     b_.setSpriteColorMapping(prevMapping);

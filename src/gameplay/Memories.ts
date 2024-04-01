@@ -34,7 +34,7 @@ export class Memories {
       new Trail({
         origin: memory,
         color: rgb_p8_.wine,
-      })
+      }),
     );
   }
 
@@ -53,8 +53,8 @@ export class Memories {
         memory.isActive() &&
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
-          memory.collisionCircle()
-        )
+          memory.collisionCircle(),
+        ),
     );
   }
 

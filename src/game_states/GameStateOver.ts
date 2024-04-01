@@ -30,13 +30,13 @@ export class GameStateOver implements GameState {
       b_.drawText(
         heading,
         sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
-        rgb_p8_.white
+        rgb_p8_.white,
       );
       u_.drawTextWithOutline(
         finalScore,
         sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
         rgb_p8_.pink,
-        rgb_p8_.black
+        rgb_p8_.black,
       );
     },
   });

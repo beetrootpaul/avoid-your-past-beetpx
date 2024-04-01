@@ -26,7 +26,7 @@ export class Topbar {
       const modeLabelSize = b_.measureText(modeLabel).wh;
       const progressW = modeLabelSize.x;
       const progressRemainingW = Math.floor(
-        (this.#mode.percentageLeft() / 100) * progressW
+        (this.#mode.percentageLeft() / 100) * progressW,
       );
       const progressX = g.cameraOffset.x + g.screenSize.x - progressW - 1;
       const progressY = textY + modeLabelSize.y + 2;
@@ -37,7 +37,7 @@ export class Topbar {
         b_.drawLine(
           v_(progressX + progressW - progressRemainingW, progressY),
           v_(progressRemainingW, 1),
-          this.#mode.progressColor()
+          this.#mode.progressColor(),
         );
       }
     }
@@ -45,7 +45,7 @@ export class Topbar {
     b_.drawText(
       `score ${this.#score.value()}`,
       g.cameraOffset.add(v_(1, 4)),
-      rgb_p8_.silver
+      rgb_p8_.silver,
     );
   }
 }

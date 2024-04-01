@@ -73,7 +73,7 @@ export class Sash {
       b_.drawRectFilled(
         v_(0, this.#center.y - h / 2),
         v_(g.screenSize.x, h),
-        rgb_p8_.moss
+        rgb_p8_.moss,
       );
     }
 

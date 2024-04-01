@@ -26,7 +26,7 @@ export class Trail {
       particle.age();
     });
     this.#particles = this.#particles.filter(
-      (particle) => !particle.shouldDisappear()
+      (particle) => !particle.shouldDisappear(),
     );
 
     if (this.#frameCounter <= 0) {
@@ -34,7 +34,7 @@ export class Trail {
         new Particle({
           xy: this.#origin.center(),
           color: this.#color,
-        })
+        }),
       );
     }
     this.#frameCounter =

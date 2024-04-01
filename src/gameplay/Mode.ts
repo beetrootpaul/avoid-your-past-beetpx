@@ -61,12 +61,12 @@ export class Mode {
       case "no_coins":
         return BpxPatternColors.of(
           g.colors.bgColorModeNoCoins,
-          g.colors.bgColorModeNormal
+          g.colors.bgColorModeNormal,
         );
       case "no_memories":
         return BpxPatternColors.of(
           g.colors.bgColorModeNoMemories,
-          g.colors.bgColorModeNormal
+          g.colors.bgColorModeNormal,
         );
       default:
         return g.colors.bgColorModeNormal;
@@ -80,7 +80,7 @@ export class Mode {
 
     let ttlDistanceFromStartToEnd = Math.min(
       this.#timer?.t ?? 9999,
-      this.#timer?.framesLeft ?? 9999
+      this.#timer?.framesLeft ?? 9999,
     );
 
     switch (ttlDistanceFromStartToEnd) {

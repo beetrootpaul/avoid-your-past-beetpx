@@ -89,8 +89,8 @@ export class Level {
             g.spriteSheetCellSize.y,
             u_.repeatEachElement(
               2,
-              u_.range(16).map((i) => [i * 8, 8])
-            )
+              u_.range(16).map((i) => [i * 8, 8]),
+            ),
           ),
         });
       }
@@ -114,7 +114,7 @@ export class Level {
               g.assets.spritesheet,
               g.spriteSheetCellSize.x,
               g.spriteSheetCellSize.y,
-              [[0, 16]]
+              [[0, 16]],
             ),
           });
         } else if (probability > 0.7) {
@@ -125,7 +125,7 @@ export class Level {
               g.assets.spritesheet,
               g.spriteSheetCellSize.x,
               g.spriteSheetCellSize.y,
-              [[0, 24]]
+              [[0, 24]],
             ),
           });
         }
@@ -154,7 +154,7 @@ export class Level {
       if (
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
-          this.#coin.collisionCircle()
+          this.#coin.collisionCircle(),
         )
       ) {
         callbacks.onCoin();
@@ -165,7 +165,7 @@ export class Level {
       if (
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
-          this.#dropletNoCoins.collisionCircle()
+          this.#dropletNoCoins.collisionCircle(),
         )
       ) {
         callbacks.onDropletNoCoins();
@@ -175,7 +175,7 @@ export class Level {
       if (
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
-          this.#dropletNoMemories.collisionCircle()
+          this.#dropletNoMemories.collisionCircle(),
         )
       ) {
         callbacks.onDropletNoMemories();
@@ -207,7 +207,7 @@ export class Level {
                 .mul(g.tileSize)
                 .add(1),
               g.tileSize.sub(1),
-              rgb_p8_.wine
+              rgb_p8_.wine,
             );
           }
         }

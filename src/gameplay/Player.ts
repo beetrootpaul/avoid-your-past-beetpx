@@ -63,7 +63,7 @@ export class Player extends Origin {
   direct(direction: Direction): void {
     this.#dXy = v_(
       direction === "l" ? -this.#speed : direction === "r" ? this.#speed : 0,
-      direction === "u" ? -this.#speed : direction === "d" ? this.#speed : 0
+      direction === "u" ? -this.#speed : direction === "d" ? this.#speed : 0,
     );
     this.#direction = direction;
   }
@@ -72,13 +72,13 @@ export class Player extends Origin {
     this.#xy = this.#xy.add(this.#dXy);
     this.#xy = this.#xy.clamp(
       v_(this.#r, this.#r),
-      g.gameAreaSize.sub(this.#r + 1)
+      g.gameAreaSize.sub(this.#r + 1),
     );
   }
 
   draw(): void {
     const prevMapping = b_.setSpriteColorMapping(
-      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]])
+      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
     );
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
@@ -88,9 +88,9 @@ export class Player extends Origin {
         g.spriteSheetCellSize.x,
         g.spriteSheetCellSize.y,
         spriteXy1.x,
-        spriteXy1.y
+        spriteXy1.y,
       ),
-      this.#xy.sub(this.#r)
+      this.#xy.sub(this.#r),
     );
 
     b_.setSpriteColorMapping(prevMapping);

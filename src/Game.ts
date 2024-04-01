@@ -61,7 +61,7 @@ export class Game {
           b_.drawText(
             `♪ ${b_.getAudioContext().state}`,
             g.cameraOffset.add(v_(0, g.screenSize.y - 6)),
-            rgb_p8_.wine
+            rgb_p8_.wine,
           );
         }
       },

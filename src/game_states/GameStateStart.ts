@@ -72,47 +72,47 @@ export class GameStateStart implements GameState {
       prompt1,
       v_(
         this.#player.center().x - prompt1Size.x / 2,
-        this.#player.xy1().y - margin - 26
+        this.#player.xy1().y - margin - 26,
       ),
       rgb_p8_.dusk,
-      rgb_p8_.storm
+      rgb_p8_.storm,
     );
     u_.drawTextWithOutline(
       prompt2,
       v_(
         this.#player.center().x - prompt2Size.x / 2,
-        this.#player.xy1().y - margin - 17
+        this.#player.xy1().y - margin - 17,
       ),
       rgb_p8_.dusk,
-      rgb_p8_.storm
+      rgb_p8_.storm,
     );
     const timeDependentBoolean = u_.booleanChangingEveryNthFrame(
-      g.musicBeatFrames
+      g.musicBeatFrames,
     );
     const glyphColor = timeDependentBoolean ? rgb_p8_.sky : rgb_p8_.dusk;
     u_.drawTextWithOutline(
       "⬅",
       v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
-      rgb_p8_.storm
+      rgb_p8_.storm,
     );
     u_.drawTextWithOutline(
       "➡",
       v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
-      rgb_p8_.storm
+      rgb_p8_.storm,
     );
     u_.drawTextWithOutline(
       "⬆",
       v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
-      rgb_p8_.storm
+      rgb_p8_.storm,
     );
     u_.drawTextWithOutline(
       "⬇",
       v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,
-      rgb_p8_.storm
+      rgb_p8_.storm,
     );
   }
 }
