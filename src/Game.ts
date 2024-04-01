@@ -14,44 +14,48 @@ export class Game {
   #gameState: GameState | undefined;
 
   start(): void {
+    const self = this;
+
     b_.init({
-      gameCanvasSize: "128x128",
-      fixedTimestep: "30fps",
-      assets: [
-        g.assets.spritesheet,
-        g.assets.coinSfx,
-        g.assets.musicBase,
-        g.assets.musicMelody,
-        g.assets.musicModeNoCoins,
-        g.assets.musicModeNoMemories,
-      ],
-      debugMode: {
-        available: !window.BEETPX__IS_PROD,
-        fpsDisplay: {
-          enabled: true,
-          placement: "bottom-right",
-          color: rgb_p8_.slate,
+      config: {
+        gameCanvasSize: "128x128",
+        fixedTimestep: "30fps",
+        assets: [
+          g.assets.spritesheet,
+          g.assets.coinSfx,
+          g.assets.musicBase,
+          g.assets.musicMelody,
+          g.assets.musicModeNoCoins,
+          g.assets.musicModeNoMemories,
+        ],
+        debugMode: {
+          available: !window.BEETPX__IS_PROD,
+          fpsDisplay: {
+            enabled: true,
+            placement: "bottom-right",
+            color: rgb_p8_.slate,
+          },
+        },
+        frameByFrame: {
+          available: !window.BEETPX__IS_PROD,
         },
       },
-      frameByFrame: {
-        available: !window.BEETPX__IS_PROD,
-      },
-    }).then(({ startGame }) => {
-      b_.setOnStarted(() => {
+
+      onStarted() {
         b_.useFont(new Pico8Font());
         b_.setCameraXy(g.cameraOffset);
 
-        this.#gameState = new GameStateSplash();
-      });
+        self.#gameState = new GameStateSplash();
+      },
 
-      b_.setOnUpdate(() => {
-        this.#gameState = this.#gameState?.update();
-      });
+      onUpdate() {
+        self.#gameState = self.#gameState?.update();
+      },
 
-      b_.setOnDraw(() => {
+      onDraw() {
         b_.clearCanvas(rgb_p8_.black);
 
-        this.#gameState?.draw();
+        self.#gameState?.draw();
 
         if (b_.debug) {
           b_.drawText(
@@ -60,9 +64,7 @@ export class Game {
             rgb_p8_.wine
           );
         }
-      });
-
-      startGame();
+      },
     });
   }
 }
