@@ -22,7 +22,7 @@ export class Game {
     b_.init({
       gameCanvasSize: "128x128",
       fixedTimestep: "30fps",
-      debugMode: !BEETPX__IS_PROD,
+      debugMode: !window.BEETPX__IS_PROD,
       assets: [
         g.assets.spritesheet,
         g.assets.coinSfx,

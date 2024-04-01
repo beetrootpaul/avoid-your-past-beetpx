@@ -1,7 +1,7 @@
 import { rgb_p8_, v_ } from "@beetpx/beetpx";
 
 export const g = {
-  __quickStart: !BEETPX__IS_PROD,
+  __quickStart: !window.BEETPX__IS_PROD,
   //
   screenSize: v_(128),
   cameraOffset: v_(0, -16),
