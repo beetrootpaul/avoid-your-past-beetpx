@@ -38,11 +38,6 @@ export class Game {
       },
     }).then(({ startGame }) => {
       b_.setOnStarted(() => {
-        b_.setButtonRepeating("left", false);
-        b_.setButtonRepeating("right", false);
-        b_.setButtonRepeating("up", false);
-        b_.setButtonRepeating("down", false);
-
         b_.useFont(new Pico8Font());
         b_.setCameraXy(g.cameraOffset);
 
