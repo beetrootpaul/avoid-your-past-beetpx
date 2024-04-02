@@ -17,7 +17,7 @@
     "prepare": "husky install",
     "checkForDepedencyUpdates": "npx npm-check-updates",
     "cleanup": "rimraf ./.beetpx/ ./index.html ./itch_io_simulation.html",
-    "format": "prettier --ignore-path .gitignore --write src/",
+    "format": "prettier --ignore-path .gitignore --write src/ README.md",
     "tsc": "tsc",
     "tsc:watch": "tsc --watch",
     "start": "beetpx dev --open --htmlTitle \"[dev] Avoid Your Past\"",
