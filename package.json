@@ -11,26 +11,24 @@
     "url": "git+https://github.com/beetrootpaul/avoid-your-past-beetpx.git"
   },
   "engines": {
-    "node": ">=14.18.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
     "prepare": "husky",
-    "checkForDepedencyUpdates": "npx npm-check-updates",
-    "cleanup": "rimraf ./.beetpx/ ./index.html ./itch_io_simulation.html",
+    "start": "beetpx dev --open --htmlTitle \"[dev] Avoid Your Past\"",
+    "build": "npm run tsc && beetpx build --htmlTitle \"Avoid Your Past\"",
+    "prod": "npm run build && beetpx preview --open",
+    "itch": "npm run build && beetpx zip",
     "format": "prettier --ignore-path .gitignore --write src/ README.md",
     "tsc": "tsc",
     "tsc:watch": "tsc --watch",
-    "start": "beetpx dev --open --htmlTitle \"[dev] Avoid Your Past\"",
-    "build": "npm run cleanup && npm run tsc && beetpx build --htmlTitle \"[dev] Avoid Your Past\"",
-    "prod": "npm run build && beetpx preview --open",
-    "itch": "npm run build && beetpx zip"
+    "checkForDepedencyUpdates": "npx npm-check-updates"
   },
   "devDependencies": {
     "@beetpx/beetpx": "0.37.0-fix1",
     "husky": "9.0.11",
     "prettier": "3.2.5",
     "prettier-plugin-organize-imports": "3.2.4",
-    "rimraf": "5.0.5",
     "typescript": "5.4.3"
   }
 }
