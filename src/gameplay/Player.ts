@@ -62,8 +62,12 @@ export class Player extends Origin {
 
   direct(direction: Direction): void {
     this.#dXy = v_(
-      direction === "l" ? -this.#speed : direction === "r" ? this.#speed : 0,
-      direction === "u" ? -this.#speed : direction === "d" ? this.#speed : 0,
+      direction === "l" ? -this.#speed
+      : direction === "r" ? this.#speed
+      : 0,
+      direction === "u" ? -this.#speed
+      : direction === "d" ? this.#speed
+      : 0,
     );
     this.#direction = direction;
   }

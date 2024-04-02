@@ -31,11 +31,11 @@ export class Sash {
 
     this.#drawText = params.drawText;
 
-    this.#ttlExpansionStart = this.#shouldExpand
-      ? this.#ttlMax - g.musicBeatFrames
-      : this.#ttlMax;
-    this.#ttlExpansionEnd = this.#shouldExpand
-      ? this.#ttlExpansionStart - g.musicBeatFrames / 4
+    this.#ttlExpansionStart =
+      this.#shouldExpand ? this.#ttlMax - g.musicBeatFrames : this.#ttlMax;
+    this.#ttlExpansionEnd =
+      this.#shouldExpand ?
+        this.#ttlExpansionStart - g.musicBeatFrames / 4
       : this.#ttlMax;
   }
 

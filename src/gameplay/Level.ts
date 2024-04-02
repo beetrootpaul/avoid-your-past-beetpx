@@ -79,7 +79,7 @@ export class Level {
       const coinTile =
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (coinTile) {
-        availableTiles = availableTiles.filter((tile) => !tile.eq(coinTile));
+        availableTiles = availableTiles.filter(tile => !tile.eq(coinTile));
         this.#coin = new Item({
           tile: coinTile,
           collisionCircleR: 2.5,
@@ -89,7 +89,7 @@ export class Level {
             g.spriteSheetCellSize.y,
             u_.repeatEachElement(
               2,
-              u_.range(16).map((i) => [i * 8, 8]),
+              u_.range(16).map(i => [i * 8, 8]),
             ),
           ),
         });

@@ -91,20 +91,20 @@ export class Memory extends Origin {
 
   draw(opts: { noMemoriesModeFramesLeft: number }): void {
     const prevMapping =
-      opts.noMemoriesModeFramesLeft > 0
-        ? b_.setSpriteColorMapping(
-            BpxSpriteColorMapping.from([
-              [rgb_p8_.storm, null],
-              [rgb_p8_.ember, rgb_p8_.slate],
-              [rgb_p8_.black, rgb_p8_.slate],
-              [rgb_p8_.pink, rgb_p8_.silver],
-              [rgb_p8_.tan, rgb_p8_.silver],
-              [rgb_p8_.wine, rgb_p8_.silver],
-            ]),
-          )
-        : b_.setSpriteColorMapping(
-            BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
-          );
+      opts.noMemoriesModeFramesLeft > 0 ?
+        b_.setSpriteColorMapping(
+          BpxSpriteColorMapping.from([
+            [rgb_p8_.storm, null],
+            [rgb_p8_.ember, rgb_p8_.slate],
+            [rgb_p8_.black, rgb_p8_.slate],
+            [rgb_p8_.pink, rgb_p8_.silver],
+            [rgb_p8_.tan, rgb_p8_.silver],
+            [rgb_p8_.wine, rgb_p8_.silver],
+          ]),
+        )
+      : b_.setSpriteColorMapping(
+          BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
+        );
 
     if (opts.noMemoriesModeFramesLeft > 0) {
       b_.setDrawingPattern(

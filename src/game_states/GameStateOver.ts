@@ -22,7 +22,7 @@ export class GameStateOver implements GameState {
   readonly #sash: Sash = new Sash({
     duration: 8 * g.musicBeatFrames,
     expand: true,
-    drawText: (sashCenter) => {
+    drawText: sashCenter => {
       const heading = "your score";
       const headingSize = b_.measureText(heading).wh;
       const finalScore = this.#score.value().toFixed(0);

@@ -21,11 +21,11 @@ export class Memories {
   addMemory(): void {
     const memory = new Memory({
       origin:
-        this.#memoriesFromFirstToLast.length > 0
-          ? this.#memoriesFromFirstToLast[
-              this.#memoriesFromFirstToLast.length - 1
-            ]!
-          : this.#player,
+        this.#memoriesFromFirstToLast.length > 0 ?
+          this.#memoriesFromFirstToLast[
+            this.#memoriesFromFirstToLast.length - 1
+          ]!
+        : this.#player,
     });
 
     this.#memoriesFromFirstToLast.push(memory);
@@ -39,17 +39,17 @@ export class Memories {
   }
 
   move(): void {
-    this.#trails.forEach((trail) => {
+    this.#trails.forEach(trail => {
       trail.update();
     });
-    this.#memoriesFromFirstToLast.forEach((memory) => {
+    this.#memoriesFromFirstToLast.forEach(memory => {
       memory.followOrigin();
     });
   }
 
   hasPlayerCollidedWithMemory(): boolean {
     return this.#memoriesFromFirstToLast.some(
-      (memory) =>
+      memory =>
         memory.isActive() &&
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
@@ -60,12 +60,12 @@ export class Memories {
 
   draw(opts: { noMemoriesModeFramesLeft: number }): void {
     if (opts.noMemoriesModeFramesLeft <= 0) {
-      this.#trails.forEach((trail) => {
+      this.#trails.forEach(trail => {
         trail.draw();
       });
     }
 
-    this.#memoriesFromFirstToLast.forEach((memory) => {
+    this.#memoriesFromFirstToLast.forEach(memory => {
       memory.draw(opts);
     });
   }

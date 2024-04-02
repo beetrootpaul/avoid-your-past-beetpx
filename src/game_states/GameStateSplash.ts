@@ -9,7 +9,7 @@ export class GameStateSplash implements GameState {
   readonly #sash: Sash = new Sash({
     duration: g.__quickStart ? 0 : 8 * g.musicBeatFrames,
     expand: false,
-    drawText: (sashCenter) => {
+    drawText: sashCenter => {
       const title = "Avoid Your Past";
       const titleSize = b_.measureText(title).wh;
       const author = "by @beetrootpaul";
