@@ -1,5 +1,4 @@
-import { b_, rgb_p8_, v_ } from "@beetpx/beetpx";
-import { Pico8Font } from "./Pico8Font";
+import { b_, font_pico8_, rgb_p8_, v_ } from "@beetpx/beetpx";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g } from "./globals";
@@ -38,7 +37,7 @@ export class Game {
       },
     }).then(async ({ startGame }) => {
       b_.setOnStarted(() => {
-        b_.useFont(new Pico8Font());
+        b_.useFont(font_pico8_);
         b_.setCameraXy(g.cameraOffset);
 
         this.#gameState = new GameStateSplash();

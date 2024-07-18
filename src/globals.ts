@@ -22,7 +22,6 @@ export const g = {
   //
   assets: {
     spritesheet: "spritesheet.png",
-    pico8FontId: "pico8",
     coinSfx: "sfx_coin_collected.wav",
     musicBase: "music_base.wav",
     musicMelody: "music_melody.wav",
