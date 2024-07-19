@@ -1,10 +1,11 @@
 import {
-  b_,
+  $,
+  $d,
+  $rgb_p8,
+  $v,
   BpxAnimatedSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
-  rgb_p8_,
-  v_,
 } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
 import { g } from "../globals";
@@ -34,20 +35,17 @@ export class Item {
   }
 
   draw(): void {
-    const prevMapping = b_.setSpriteColorMapping(
-      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
+    const prevMapping = $d.setSpriteColorMapping(
+      BpxSpriteColorMapping.from([[$rgb_p8.storm, null]]),
     );
 
-    b_.drawSprite(
-      this.#animatedSprite.current,
-      this.#tile.sub(1).mul(g.tileSize),
-    );
+    $d.sprite(this.#animatedSprite.current, this.#tile.sub(1).mul(g.tileSize));
 
-    b_.setSpriteColorMapping(prevMapping);
+    $d.setSpriteColorMapping(prevMapping);
 
-    if (b_.debug) {
+    if ($.debug) {
       const cc = this.collisionCircle();
-      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), rgb_p8_.ember);
+      $d.ellipse(cc.center.sub(cc.r), $v(cc.r, cc.r).mul(2), $rgb_p8.ember);
     }
   }
 }

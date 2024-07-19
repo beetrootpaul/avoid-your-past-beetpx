@@ -1,4 +1,4 @@
-import { b_, BpxVector2d, rgb_p8_, v_ } from "@beetpx/beetpx";
+import { $d, $rgb_p8, $v, BpxVector2d } from "@beetpx/beetpx";
 import { g } from "../globals";
 
 type SashParams = {
@@ -70,10 +70,10 @@ export class Sash {
     }
 
     if (h > 0) {
-      b_.drawRectFilled(
-        v_(0, this.#center.y - h / 2),
-        v_(g.screenSize.x, h),
-        rgb_p8_.moss,
+      $d.rectFilled(
+        $v(0, this.#center.y - h / 2),
+        $v(g.screenSize.x, h),
+        $rgb_p8.moss,
       );
     }
 

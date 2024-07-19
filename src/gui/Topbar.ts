@@ -1,4 +1,4 @@
-import { b_, rgb_p8_, v_ } from "@beetpx/beetpx";
+import { $d, $rgb_p8, $v } from "@beetpx/beetpx";
 import { Mode } from "../gameplay/Mode";
 import { Score } from "../gameplay/Score";
 import { g } from "../globals";
@@ -18,12 +18,12 @@ export class Topbar {
   }
 
   draw(): void {
-    b_.drawRectFilled(g.cameraOffset, g.topbarSize, rgb_p8_.black);
+    $d.rectFilled(g.cameraOffset, g.topbarSize, $rgb_p8.black);
 
     const modeLabel = this.#mode.label();
     if (modeLabel) {
       const textY = g.cameraOffset.y + 4;
-      const modeLabelSize = b_.measureText(modeLabel).wh;
+      const modeLabelSize = $d.measureText(modeLabel).wh;
       const progressW = modeLabelSize.x;
       const progressRemainingW = Math.floor(
         (this.#mode.percentageLeft() / 100) * progressW,
@@ -31,21 +31,21 @@ export class Topbar {
       const progressX = g.cameraOffset.x + g.screenSize.x - progressW - 1;
       const progressY = textY + modeLabelSize.y + 2;
 
-      b_.drawText(modeLabel, v_(progressX, textY), rgb_p8_.silver);
+      $d.text(modeLabel, $v(progressX, textY), $rgb_p8.silver);
 
       if (progressRemainingW > 0) {
-        b_.drawLine(
-          v_(progressX + progressW - progressRemainingW, progressY),
-          v_(progressRemainingW, 1),
+        $d.line(
+          $v(progressX + progressW - progressRemainingW, progressY),
+          $v(progressRemainingW, 1),
           this.#mode.progressColor(),
         );
       }
     }
 
-    b_.drawText(
+    $d.text(
       `score ${this.#score.value()}`,
-      g.cameraOffset.add(v_(1, 4)),
-      rgb_p8_.silver,
+      g.cameraOffset.add($v(1, 4)),
+      $rgb_p8.silver,
     );
   }
 }

@@ -1,4 +1,4 @@
-import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
+import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { g } from "../globals";
 import { Sash } from "../gui/Sash";
@@ -11,33 +11,29 @@ export class GameStateSplash implements GameState {
     expand: false,
     drawText: sashCenter => {
       const title = "Avoid Your Past";
-      const titleSize = b_.measureText(title).wh;
+      const titleSize = $d.measureText(title).wh;
       const author = "by @beetrootpaul";
-      const authorSize = b_.measureText(author).wh;
-      u_.drawTextWithOutline(
+      const authorSize = $d.measureText(author).wh;
+      $u.drawTextWithOutline(
         title,
-        sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
-        rgb_p8_.pink,
-        rgb_p8_.black,
+        sashCenter.add($v(-titleSize.x / 2, -authorSize.y - 3)),
+        $rgb_p8.pink,
+        $rgb_p8.black,
       );
-      b_.drawText(
-        author,
-        sashCenter.add(v_(-authorSize.x / 2, 2)),
-        rgb_p8_.white,
-      );
+      $d.text(author, sashCenter.add($v(-authorSize.x / 2, 2)), $rgb_p8.white);
     },
   });
 
   constructor() {
-    b_.startPlaybackLooped(g.assets.musicBase);
-    Game.playbackIds.melody = b_.startPlaybackLooped(g.assets.musicMelody, {
+    $.startPlaybackLooped(g.assets.musicBase);
+    Game.playbackIds.melody = $.startPlaybackLooped(g.assets.musicMelody, {
       muteOnStart: true,
     });
-    Game.playbackIds.modeNoCoins = b_.startPlaybackLooped(
+    Game.playbackIds.modeNoCoins = $.startPlaybackLooped(
       g.assets.musicModeNoCoins,
       { muteOnStart: true },
     );
-    Game.playbackIds.modeNoMemories = b_.startPlaybackLooped(
+    Game.playbackIds.modeNoMemories = $.startPlaybackLooped(
       g.assets.musicModeNoMemories,
       { muteOnStart: true },
     );
@@ -49,10 +45,10 @@ export class GameStateSplash implements GameState {
     }
 
     if (
-      b_.wasButtonJustPressed("left") ||
-      b_.wasButtonJustPressed("right") ||
-      b_.wasButtonJustPressed("up") ||
-      b_.wasButtonJustPressed("down")
+      $.wasButtonJustPressed("left") ||
+      $.wasButtonJustPressed("right") ||
+      $.wasButtonJustPressed("up") ||
+      $.wasButtonJustPressed("down")
     ) {
       this.#sash.collapse();
     }
@@ -63,7 +59,7 @@ export class GameStateSplash implements GameState {
   }
 
   draw(): void {
-    b_.drawRectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
+    $d.rectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
 
     this.#sash.draw();
   }

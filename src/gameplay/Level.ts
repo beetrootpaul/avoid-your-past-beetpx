@@ -1,11 +1,12 @@
 import {
-  b_,
+  $,
+  $d,
+  $rgb_p8,
+  $u,
+  $v,
+  $v_0_0,
   BpxAnimatedSprite,
   BpxVector2d,
-  rgb_p8_,
-  u_,
-  v_,
-  v_0_0_,
 } from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
 import { g } from "../globals";
@@ -70,7 +71,7 @@ export class Level {
         tileY += 1
       ) {
         if (!tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-          availableTiles.push(v_(tileX, tileY));
+          availableTiles.push($v(tileX, tileY));
         }
       }
     }
@@ -87,9 +88,9 @@ export class Level {
             g.assets.spritesheet,
             g.spriteSheetCellSize.x,
             g.spriteSheetCellSize.y,
-            u_.repeatEachElement(
+            $u.repeatEachElement(
               2,
-              u_.range(16).map(i => [i * 8, 8]),
+              $u.range(16).map(i => [i * 8, 8]),
             ),
           ),
         });
@@ -102,10 +103,10 @@ export class Level {
       !this.#mode.isNoCoins() &&
       !this.#mode.isNoMemories()
     ) {
-      const dropletTile = u_.randomElementOf(availableTiles);
+      const dropletTile = $u.randomElementOf(availableTiles);
       if (dropletTile) {
         const probability = Math.random();
-        b_.logDebug("Droplet probability:", probability);
+        $.logDebug("Droplet probability:", probability);
         if (probability < 0.3) {
           this.#dropletNoCoins = new Item({
             tile: dropletTile,
@@ -184,11 +185,11 @@ export class Level {
   }
 
   drawBg(): void {
-    const prevPattern = b_.setDrawingPattern(this.#mode.bgPattern());
-    b_.drawRectFilled(v_0_0_, g.gameAreaSize, this.#mode.bgColor());
-    b_.setDrawingPattern(prevPattern);
+    const prevPattern = $d.setDrawingPattern(this.#mode.bgPattern());
+    $d.rectFilled($v_0_0, g.gameAreaSize, this.#mode.bgColor());
+    $d.setDrawingPattern(prevPattern);
 
-    if (b_.debug) {
+    if ($.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
       for (
         let tileX = 1;
@@ -200,14 +201,14 @@ export class Level {
           tileY <= g.gameAreaSize.div(g.tileSize).y;
           tileY += 1
         ) {
-          b_.drawPixel(v_(tileX, tileY).sub(1).mul(g.tileSize), rgb_p8_.dusk);
+          $d.pixel($v(tileX, tileY).sub(1).mul(g.tileSize), $rgb_p8.dusk);
           if (tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-            b_.drawRectFilled(
-              v_(tileX - 1, tileY - 1)
+            $d.rectFilled(
+              $v(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),
               g.tileSize.sub(1),
-              rgb_p8_.wine,
+              $rgb_p8.wine,
             );
           }
         }

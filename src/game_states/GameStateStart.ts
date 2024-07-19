@@ -1,4 +1,4 @@
-import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
+import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
@@ -24,19 +24,19 @@ export class GameStateStart implements GameState {
   });
 
   constructor() {
-    b_.mutePlayback(Game.playbackIds.melody);
-    b_.mutePlayback(Game.playbackIds.modeNoCoins);
-    b_.mutePlayback(Game.playbackIds.modeNoMemories);
+    $.mutePlayback(Game.playbackIds.melody);
+    $.mutePlayback(Game.playbackIds.modeNoCoins);
+    $.mutePlayback(Game.playbackIds.modeNoMemories);
 
     this.#level.spawnItems();
   }
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (b_.wasButtonJustPressed("left")) detectedDirections.push("l");
-    if (b_.wasButtonJustPressed("right")) detectedDirections.push("r");
-    if (b_.wasButtonJustPressed("up")) detectedDirections.push("u");
-    if (b_.wasButtonJustPressed("down")) detectedDirections.push("d");
+    if ($.wasButtonJustPressed("left")) detectedDirections.push("l");
+    if ($.wasButtonJustPressed("right")) detectedDirections.push("r");
+    if ($.wasButtonJustPressed("up")) detectedDirections.push("u");
+    if ($.wasButtonJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
@@ -66,53 +66,53 @@ export class GameStateStart implements GameState {
     const margin = 6;
     const prompt1 = "press an arrow";
     const prompt2 = "to choose direction";
-    const prompt1Size = b_.measureText(prompt1).wh;
-    const prompt2Size = b_.measureText(prompt2).wh;
-    u_.drawTextWithOutline(
+    const prompt1Size = $d.measureText(prompt1).wh;
+    const prompt2Size = $d.measureText(prompt2).wh;
+    $u.drawTextWithOutline(
       prompt1,
-      v_(
+      $v(
         this.#player.center().x - prompt1Size.x / 2,
         this.#player.xy1().y - margin - 26,
       ),
-      rgb_p8_.dusk,
-      rgb_p8_.storm,
+      $rgb_p8.dusk,
+      $rgb_p8.storm,
     );
-    u_.drawTextWithOutline(
+    $u.drawTextWithOutline(
       prompt2,
-      v_(
+      $v(
         this.#player.center().x - prompt2Size.x / 2,
         this.#player.xy1().y - margin - 17,
       ),
-      rgb_p8_.dusk,
-      rgb_p8_.storm,
+      $rgb_p8.dusk,
+      $rgb_p8.storm,
     );
-    const timeDependentBoolean = u_.booleanChangingEveryNthFrame(
+    const timeDependentBoolean = $u.booleanChangingEveryNthFrame(
       g.musicBeatFrames,
     );
-    const glyphColor = timeDependentBoolean ? rgb_p8_.sky : rgb_p8_.dusk;
-    u_.drawTextWithOutline(
+    const glyphColor = timeDependentBoolean ? $rgb_p8.sky : $rgb_p8.dusk;
+    $u.drawTextWithOutline(
       "⬅",
-      v_(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
+      $v(this.#player.xy1().x - margin - 8, this.#player.center().y - 2),
       glyphColor,
-      rgb_p8_.storm,
+      $rgb_p8.storm,
     );
-    u_.drawTextWithOutline(
+    $u.drawTextWithOutline(
       "➡",
-      v_(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
+      $v(this.#player.xy2().x + margin + 2, this.#player.center().y - 2),
       glyphColor,
-      rgb_p8_.storm,
+      $rgb_p8.storm,
     );
-    u_.drawTextWithOutline(
+    $u.drawTextWithOutline(
       "⬆",
-      v_(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
+      $v(this.#player.center().x - 3, this.#player.xy1().y - margin - 6),
       glyphColor,
-      rgb_p8_.storm,
+      $rgb_p8.storm,
     );
-    u_.drawTextWithOutline(
+    $u.drawTextWithOutline(
       "⬇",
-      v_(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
+      $v(this.#player.center().x - 3, this.#player.xy2().y + margin + 2),
       glyphColor,
-      rgb_p8_.storm,
+      $rgb_p8.storm,
     );
   }
 }

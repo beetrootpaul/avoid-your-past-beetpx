@@ -1,10 +1,11 @@
 import {
-  b_,
+  $,
+  $d,
+  $rgb_p8,
+  $v,
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
-  rgb_p8_,
-  v_,
 } from "@beetpx/beetpx";
 import { type CollisionCircle } from "../Collisions";
 import { g } from "../globals";
@@ -20,13 +21,13 @@ export class Player extends Origin {
   // Let's start right (but it's effectively unused, because we
   //   let the user to choose the direction at the game's start).
   #direction: Direction = "r";
-  #dXy = v_(this.#speed, 0);
+  #dXy = $v(this.#speed, 0);
 
   readonly #spriteXy1ForDirection = {
-    u: v_(7, 2).mul(g.spriteSheetCellSize),
-    r: v_(8, 2).mul(g.spriteSheetCellSize),
-    d: v_(9, 2).mul(g.spriteSheetCellSize),
-    l: v_(10, 2).mul(g.spriteSheetCellSize),
+    u: $v(7, 2).mul(g.spriteSheetCellSize),
+    r: $v(8, 2).mul(g.spriteSheetCellSize),
+    d: $v(9, 2).mul(g.spriteSheetCellSize),
+    l: $v(10, 2).mul(g.spriteSheetCellSize),
   };
 
   center(): BpxVector2d {
@@ -61,7 +62,7 @@ export class Player extends Origin {
   }
 
   direct(direction: Direction): void {
-    this.#dXy = v_(
+    this.#dXy = $v(
       direction === "l" ? -this.#speed
       : direction === "r" ? this.#speed
       : 0,
@@ -75,18 +76,18 @@ export class Player extends Origin {
   move(): void {
     this.#xy = this.#xy.add(this.#dXy);
     this.#xy = this.#xy.clamp(
-      v_(this.#r, this.#r),
+      $v(this.#r, this.#r),
       g.gameAreaSize.sub(this.#r + 1),
     );
   }
 
   draw(): void {
-    const prevMapping = b_.setSpriteColorMapping(
-      BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
+    const prevMapping = $d.setSpriteColorMapping(
+      BpxSpriteColorMapping.from([[$rgb_p8.storm, null]]),
     );
 
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.drawSprite(
+    $d.sprite(
       BpxSprite.from(
         g.assets.spritesheet,
         g.spriteSheetCellSize.x,
@@ -97,11 +98,11 @@ export class Player extends Origin {
       this.#xy.sub(this.#r),
     );
 
-    b_.setSpriteColorMapping(prevMapping);
+    $d.setSpriteColorMapping(prevMapping);
 
-    if (b_.debug) {
+    if ($.debug) {
       const cc = this.collisionCircle();
-      b_.drawEllipse(cc.center.sub(cc.r), v_(cc.r, cc.r).mul(2), rgb_p8_.ember);
+      $d.ellipse(cc.center.sub(cc.r), $v(cc.r, cc.r).mul(2), $rgb_p8.ember);
     }
   }
 }

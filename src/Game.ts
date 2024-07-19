@@ -1,4 +1,4 @@
-import { b_, font_pico8_, rgb_p8_, v_ } from "@beetpx/beetpx";
+import { $, $d, $font_pico8, $rgb_p8, $v } from "@beetpx/beetpx";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g } from "./globals";
@@ -13,7 +13,7 @@ export class Game {
   #gameState: GameState | undefined;
 
   start(): void {
-    b_.init({
+    $.init({
       canvasSize: "128x128",
       fixedTimestep: "30fps",
       assets: [
@@ -29,34 +29,34 @@ export class Game {
         fpsDisplay: {
           enabled: true,
           placement: "bottom-right",
-          color: rgb_p8_.slate,
+          color: $rgb_p8.slate,
         },
       },
       frameByFrame: {
         available: !window.BEETPX__IS_PROD,
       },
     }).then(async ({ startGame }) => {
-      b_.setOnStarted(() => {
-        b_.useFont(font_pico8_);
-        b_.setCameraXy(g.cameraOffset);
+      $.setOnStarted(() => {
+        $d.useFont($font_pico8);
+        $d.setCameraXy(g.cameraOffset);
 
         this.#gameState = new GameStateSplash();
       });
 
-      b_.setOnUpdate(() => {
+      $.setOnUpdate(() => {
         this.#gameState = this.#gameState?.update();
       });
 
-      b_.setOnDraw(() => {
-        b_.clearCanvas(rgb_p8_.black);
+      $.setOnDraw(() => {
+        $d.clearCanvas($rgb_p8.black);
 
         this.#gameState?.draw();
 
-        if (b_.debug) {
-          b_.drawText(
-            `♪ ${b_.getAudioContext().state}`,
-            g.cameraOffset.add(v_(0, g.screenSize.y - 6)),
-            rgb_p8_.wine,
+        if ($.debug) {
+          $d.text(
+            `♪ ${$.getAudioContext().state}`,
+            g.cameraOffset.add($v(0, g.screenSize.y - 6)),
+            $rgb_p8.wine,
           );
         }
       });

@@ -1,11 +1,12 @@
 import {
-  b_,
+  $,
+  $d,
+  $rgb_p8,
+  $v,
   BpxDrawingPattern,
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
-  rgb_p8_,
-  v_,
 } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
 import { g } from "../globals";
@@ -28,10 +29,10 @@ export class Memory extends Origin {
   #direction: Direction;
 
   readonly #spriteXy1ForDirection = {
-    u: v_(7, 3).mul(g.spriteSheetCellSize),
-    r: v_(8, 3).mul(g.spriteSheetCellSize),
-    d: v_(9, 3).mul(g.spriteSheetCellSize),
-    l: v_(10, 3).mul(g.spriteSheetCellSize),
+    u: $v(7, 3).mul(g.spriteSheetCellSize),
+    r: $v(8, 3).mul(g.spriteSheetCellSize),
+    d: $v(9, 3).mul(g.spriteSheetCellSize),
+    l: $v(10, 3).mul(g.spriteSheetCellSize),
   };
 
   constructor(params: MemoryParams) {
@@ -92,26 +93,26 @@ export class Memory extends Origin {
   draw(opts: { noMemoriesModeFramesLeft: number }): void {
     const prevMapping =
       opts.noMemoriesModeFramesLeft > 0 ?
-        b_.setSpriteColorMapping(
+        $d.setSpriteColorMapping(
           BpxSpriteColorMapping.from([
-            [rgb_p8_.storm, null],
-            [rgb_p8_.ember, rgb_p8_.slate],
-            [rgb_p8_.black, rgb_p8_.slate],
-            [rgb_p8_.pink, rgb_p8_.silver],
-            [rgb_p8_.tan, rgb_p8_.silver],
-            [rgb_p8_.wine, rgb_p8_.silver],
+            [$rgb_p8.storm, null],
+            [$rgb_p8.ember, $rgb_p8.slate],
+            [$rgb_p8.black, $rgb_p8.slate],
+            [$rgb_p8.pink, $rgb_p8.silver],
+            [$rgb_p8.tan, $rgb_p8.silver],
+            [$rgb_p8.wine, $rgb_p8.silver],
           ]),
         )
-      : b_.setSpriteColorMapping(
-          BpxSpriteColorMapping.from([[rgb_p8_.storm, null]]),
+      : $d.setSpriteColorMapping(
+          BpxSpriteColorMapping.from([[$rgb_p8.storm, null]]),
         );
 
     if (opts.noMemoriesModeFramesLeft > 0) {
-      b_.setDrawingPattern(
+      $d.setDrawingPattern(
         this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft),
       );
       this.#drawAboutToAppearIndicator();
-      b_.setDrawingPattern(BpxDrawingPattern.primaryOnly);
+      $d.setDrawingPattern(BpxDrawingPattern.primaryOnly);
     } else if (this.isActive()) {
       this.#drawMemory();
     } else if (this.isAboutToBecomeActive()) {
@@ -120,21 +121,21 @@ export class Memory extends Origin {
       }
     }
 
-    b_.setSpriteColorMapping(prevMapping);
+    $d.setSpriteColorMapping(prevMapping);
 
-    if (b_.debug) {
+    if ($.debug) {
       const cc = this.collisionCircle();
-      b_.drawEllipse(
+      $d.ellipse(
         cc.center.sub(cc.r),
-        v_(cc.r, cc.r).mul(2),
-        this.isActive() ? rgb_p8_.ember : rgb_p8_.slate,
+        $v(cc.r, cc.r).mul(2),
+        this.isActive() ? $rgb_p8.ember : $rgb_p8.slate,
       );
     }
   }
 
   #drawMemory(): void {
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.drawSprite(
+    $d.sprite(
       BpxSprite.from(
         g.assets.spritesheet,
         g.spriteSheetCellSize.x,
@@ -148,7 +149,7 @@ export class Memory extends Origin {
 
   #drawAboutToAppearIndicator(): void {
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.drawSprite(
+    $d.sprite(
       BpxSprite.from(
         g.assets.spritesheet,
         g.spriteSheetCellSize.x,

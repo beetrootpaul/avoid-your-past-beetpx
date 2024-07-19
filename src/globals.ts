@@ -1,23 +1,23 @@
-import { rgb_p8_, v_ } from "@beetpx/beetpx";
+import { $rgb_p8, $v } from "@beetpx/beetpx";
 
 export const g = {
   __quickStart: !window.BEETPX__IS_PROD,
   //
-  screenSize: v_(128),
-  cameraOffset: v_(0, -16),
-  topbarSize: v_(128, 16),
-  gameAreaSize: v_(128, 112),
-  tileSize: v_(8),
+  screenSize: $v(128),
+  cameraOffset: $v(0, -16),
+  topbarSize: $v(128, 16),
+  gameAreaSize: $v(128, 112),
+  tileSize: $v(8),
   //
-  spriteSheetCells: v_(16),
-  spriteSheetCellSize: v_(8),
+  spriteSheetCells: $v(16),
+  spriteSheetCellSize: $v(8),
   //
   musicBeatFrames: 16,
   //
   colors: {
-    bgColorModeNormal: rgb_p8_.storm,
-    bgColorModeNoCoins: rgb_p8_.orange,
-    bgColorModeNoMemories: rgb_p8_.pink,
+    bgColorModeNormal: $rgb_p8.storm,
+    bgColorModeNoCoins: $rgb_p8.orange,
+    bgColorModeNoMemories: $rgb_p8.pink,
   },
   //
   assets: {

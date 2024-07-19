@@ -1,9 +1,9 @@
 import {
+  $timer,
   BpxDrawingPattern,
   BpxPatternColors,
   BpxRgbColor,
   BpxTimer,
-  timer_,
 } from "@beetpx/beetpx";
 import { g } from "../globals";
 
@@ -26,12 +26,12 @@ export class Mode {
 
   startNoCoins(): void {
     this.#current = "no_coins";
-    this.#timer = timer_(90);
+    this.#timer = $timer(90);
   }
 
   startNoMemories(): void {
     this.#current = "no_memories";
-    this.#timer = timer_(150);
+    this.#timer = $timer(150);
   }
 
   label(): string | null {

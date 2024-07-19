@@ -1,4 +1,4 @@
-import { b_, rgb_p8_, u_, v_ } from "@beetpx/beetpx";
+import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
@@ -24,19 +24,19 @@ export class GameStateOver implements GameState {
     expand: true,
     drawText: sashCenter => {
       const heading = "your score";
-      const headingSize = b_.measureText(heading).wh;
+      const headingSize = $d.measureText(heading).wh;
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = b_.measureText(finalScore).wh;
-      b_.drawText(
+      const finalScoreSize = $d.measureText(finalScore).wh;
+      $d.text(
         heading,
-        sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
-        rgb_p8_.white,
+        sashCenter.add($v(-headingSize.x / 2, -headingSize.y - 3)),
+        $rgb_p8.white,
       );
-      u_.drawTextWithOutline(
+      $u.drawTextWithOutline(
         finalScore,
-        sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
-        rgb_p8_.pink,
-        rgb_p8_.black,
+        sashCenter.add($v(-finalScoreSize.x / 2, 2)),
+        $rgb_p8.pink,
+        $rgb_p8.black,
       );
     },
   });
@@ -46,9 +46,9 @@ export class GameStateOver implements GameState {
     this.#level = params.level;
     this.#player = params.player;
 
-    b_.mutePlayback(Game.playbackIds.melody);
-    b_.mutePlayback(Game.playbackIds.modeNoCoins);
-    b_.mutePlayback(Game.playbackIds.modeNoMemories);
+    $.mutePlayback(Game.playbackIds.melody);
+    $.mutePlayback(Game.playbackIds.modeNoCoins);
+    $.mutePlayback(Game.playbackIds.modeNoMemories);
   }
 
   update(): GameState {
@@ -58,10 +58,10 @@ export class GameStateOver implements GameState {
 
     if (this.#sash.hasExpanded()) {
       if (
-        b_.wasButtonJustPressed("left") ||
-        b_.wasButtonJustPressed("right") ||
-        b_.wasButtonJustPressed("up") ||
-        b_.wasButtonJustPressed("down")
+        $.wasButtonJustPressed("left") ||
+        $.wasButtonJustPressed("right") ||
+        $.wasButtonJustPressed("up") ||
+        $.wasButtonJustPressed("down")
       ) {
         this.#sash.collapse();
       }

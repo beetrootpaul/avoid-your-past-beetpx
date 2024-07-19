@@ -1,4 +1,4 @@
-import { rgb_p8_ } from "@beetpx/beetpx";
+import { $rgb_p8 } from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
 import { Memory } from "./Memory";
 import { Player } from "./Player";
@@ -33,7 +33,7 @@ export class Memories {
     this.#trails.push(
       new Trail({
         origin: memory,
-        color: rgb_p8_.wine,
+        color: $rgb_p8.wine,
       }),
     );
   }

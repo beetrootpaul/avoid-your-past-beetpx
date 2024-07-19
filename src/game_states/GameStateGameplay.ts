@@ -1,4 +1,4 @@
-import { b_, rgb_p8_ } from "@beetpx/beetpx";
+import { $, $rgb_p8 } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
@@ -40,15 +40,15 @@ export class GameStateGameplay implements GameState {
     });
     this.#playerTrail = new Trail({
       origin: this.#player,
-      color: rgb_p8_.moss,
+      color: $rgb_p8.moss,
     });
 
-    b_.unmutePlayback(Game.playbackIds.melody);
+    $.unmutePlayback(Game.playbackIds.melody);
   }
 
   #onBackToRegularMode(): void {
-    b_.mutePlayback(Game.playbackIds.modeNoCoins);
-    b_.mutePlayback(Game.playbackIds.modeNoMemories);
+    $.mutePlayback(Game.playbackIds.modeNoCoins);
+    $.mutePlayback(Game.playbackIds.modeNoMemories);
   }
 
   #onCoinCollision(): void {
@@ -56,7 +56,7 @@ export class GameStateGameplay implements GameState {
       return;
     }
 
-    b_.startPlayback(g.assets.coinSfx);
+    $.startPlayback(g.assets.coinSfx);
 
     this.#score.add(10);
 
@@ -68,14 +68,14 @@ export class GameStateGameplay implements GameState {
   }
 
   #onDropletNoCoinsCollision(): void {
-    b_.unmutePlayback(Game.playbackIds.modeNoCoins);
+    $.unmutePlayback(Game.playbackIds.modeNoCoins);
     this.#score.add(3);
     this.#mode.startNoCoins();
     this.#level.removeDropletNoCoins();
   }
 
   #onDropletNoMemoriesCollision(): void {
-    b_.unmutePlayback(Game.playbackIds.modeNoMemories);
+    $.unmutePlayback(Game.playbackIds.modeNoMemories);
     this.#score.add(1);
     this.#mode.startNoMemories();
     this.#level.removeDropletNoMemories();
@@ -83,10 +83,10 @@ export class GameStateGameplay implements GameState {
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (b_.wasButtonJustPressed("left")) detectedDirections.push("l");
-    if (b_.wasButtonJustPressed("right")) detectedDirections.push("r");
-    if (b_.wasButtonJustPressed("up")) detectedDirections.push("u");
-    if (b_.wasButtonJustPressed("down")) detectedDirections.push("d");
+    if ($.wasButtonJustPressed("left")) detectedDirections.push("l");
+    if ($.wasButtonJustPressed("right")) detectedDirections.push("r");
+    if ($.wasButtonJustPressed("up")) detectedDirections.push("u");
+    if ($.wasButtonJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
