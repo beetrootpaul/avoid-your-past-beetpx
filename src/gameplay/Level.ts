@@ -1,7 +1,15 @@
-import { b_, BpxVector2d, u_, v_, v_0_0_ } from "@beetpx/beetpx";
+import {
+  $,
+  $d,
+  $rgb_p8,
+  $u,
+  $v,
+  $v_0_0,
+  BpxAnimatedSprite,
+  BpxVector2d,
+} from "@beetpx/beetpx";
 import { Collisions } from "../Collisions";
-import { c, g } from "../globals";
-import { AnimatedSprite } from "./AnimatedSprite";
+import { g } from "../globals";
 import { Item } from "./Item";
 import { Mode } from "./Mode";
 import { Player } from "./Player";
@@ -63,7 +71,7 @@ export class Level {
         tileY += 1
       ) {
         if (!tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-          availableTiles.push(v_(tileX, tileY));
+          availableTiles.push($v(tileX, tileY));
         }
       }
     }
@@ -72,15 +80,19 @@ export class Level {
       const coinTile =
         availableTiles[Math.floor(Math.random() * availableTiles.length)];
       if (coinTile) {
-        availableTiles = availableTiles.filter((tile) => !tile.eq(coinTile));
+        availableTiles = availableTiles.filter(tile => !tile.eq(coinTile));
         this.#coin = new Item({
           tile: coinTile,
           collisionCircleR: 2.5,
-          animatedSprite: new AnimatedSprite({
-            firstSpriteSheetCell: 16,
-            numberOfSprites: 16,
-            framesPerSprite: (2 * g.musicBeatFrames) / 16,
-          }),
+          animatedSprite: BpxAnimatedSprite.from(
+            g.assets.spritesheet,
+            g.spriteSheetCellSize.x,
+            g.spriteSheetCellSize.y,
+            $u.repeatEachElement(
+              2,
+              $u.range(16).map(i => [i * 8, 8]),
+            ),
+          ),
         });
       }
     }
@@ -91,29 +103,31 @@ export class Level {
       !this.#mode.isNoCoins() &&
       !this.#mode.isNoMemories()
     ) {
-      const dropletTile = u_.randomElementOf(availableTiles);
+      const dropletTile = $u.randomElementOf(availableTiles);
       if (dropletTile) {
         const probability = Math.random();
-        b_.logDebug("Droplet probability:", probability);
+        $.logDebug("Droplet probability:", probability);
         if (probability < 0.3) {
           this.#dropletNoCoins = new Item({
             tile: dropletTile,
             collisionCircleR: 3.5,
-            animatedSprite: new AnimatedSprite({
-              firstSpriteSheetCell: 32,
-              numberOfSprites: 1,
-              framesPerSprite: 1,
-            }),
+            animatedSprite: BpxAnimatedSprite.from(
+              g.assets.spritesheet,
+              g.spriteSheetCellSize.x,
+              g.spriteSheetCellSize.y,
+              [[0, 16]],
+            ),
           });
         } else if (probability > 0.7) {
           this.#dropletNoMemories = new Item({
             tile: dropletTile,
             collisionCircleR: 3.5,
-            animatedSprite: new AnimatedSprite({
-              firstSpriteSheetCell: 48,
-              numberOfSprites: 1,
-              framesPerSprite: 1,
-            }),
+            animatedSprite: BpxAnimatedSprite.from(
+              g.assets.spritesheet,
+              g.spriteSheetCellSize.x,
+              g.spriteSheetCellSize.y,
+              [[0, 24]],
+            ),
           });
         }
       }
@@ -141,7 +155,7 @@ export class Level {
       if (
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
-          this.#coin.collisionCircle()
+          this.#coin.collisionCircle(),
         )
       ) {
         callbacks.onCoin();
@@ -152,7 +166,7 @@ export class Level {
       if (
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
-          this.#dropletNoCoins.collisionCircle()
+          this.#dropletNoCoins.collisionCircle(),
         )
       ) {
         callbacks.onDropletNoCoins();
@@ -162,7 +176,7 @@ export class Level {
       if (
         Collisions.haveCirclesCollided(
           this.#player.collisionCircle(),
-          this.#dropletNoMemories.collisionCircle()
+          this.#dropletNoMemories.collisionCircle(),
         )
       ) {
         callbacks.onDropletNoMemories();
@@ -170,18 +184,12 @@ export class Level {
     }
   }
 
-  animate(): void {
-    this.#coin?.animate();
-    this.#dropletNoCoins?.animate();
-    this.#dropletNoMemories?.animate();
-  }
-
   drawBg(): void {
-    const prevPattern = b_.setPattern(this.#mode.bgPattern());
-    b_.rectFilled(v_0_0_, g.gameAreaSize, this.#mode.bgColor());
-    b_.setPattern(prevPattern);
+    const prevPattern = $d.setDrawingPattern(this.#mode.bgPattern());
+    $d.rectFilled($v_0_0, g.gameAreaSize, this.#mode.bgColor());
+    $d.setDrawingPattern(prevPattern);
 
-    if (b_.debug) {
+    if ($.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
       for (
         let tileX = 1;
@@ -193,14 +201,14 @@ export class Level {
           tileY <= g.gameAreaSize.div(g.tileSize).y;
           tileY += 1
         ) {
-          b_.pixel(v_(tileX, tileY).sub(1).mul(g.tileSize), c.lavender);
+          $d.pixel($v(tileX, tileY).sub(1).mul(g.tileSize), $rgb_p8.dusk);
           if (tilesCloseToPlayer[`${tileX}_${tileY}`]) {
-            b_.rectFilled(
-              v_(tileX - 1, tileY - 1)
+            $d.rectFilled(
+              $v(tileX - 1, tileY - 1)
                 .mul(g.tileSize)
                 .add(1),
               g.tileSize.sub(1),
-              c.darkPurple
+              $rgb_p8.wine,
             );
           }
         }

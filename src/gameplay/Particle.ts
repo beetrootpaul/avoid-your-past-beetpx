@@ -1,4 +1,4 @@
-import { BpxRgbColor, BpxVector2d, b_, v_ } from "@beetpx/beetpx";
+import { $d, $v, BpxRgbColor, BpxVector2d } from "@beetpx/beetpx";
 
 type ParticleParams = {
   xy: BpxVector2d;
@@ -34,6 +34,6 @@ export class Particle {
     //  (e.g. player's y = 10.5 -> 11 and ellipse's = 11.0 -> 11).
     const r = Math.floor((this.#ttl / this.#ttlMax) * (this.#rMax + 0.9));
     const d = r * 2 + 1;
-    b_.ellipseFilled(this.#xy.sub(r), v_(d, d), this.#color);
+    $d.ellipseFilled(this.#xy.sub(r), $v(d, d), this.#color);
   }
 }

@@ -1,33 +1,27 @@
-import { v_ } from "@beetpx/beetpx";
-import { Pico8Colors } from "./Pico8Color";
-
-export const c = Pico8Colors;
+import { $rgb_p8, $v } from "@beetpx/beetpx";
 
 export const g = {
-  // __quickStart: !__BEETPX_IS_PROD__,
-  __quickStart: false,
+  __quickStart: !window.BEETPX__IS_PROD,
   //
-  screenSize: v_(128, 128),
-  cameraOffset: v_(0, -16),
-  topbarSize: v_(128, 16),
-  gameAreaSize: v_(128, 112),
-  tileSize: v_(8, 8),
+  screenSize: $v(128),
+  cameraOffset: $v(0, -16),
+  topbarSize: $v(128, 16),
+  gameAreaSize: $v(128, 112),
+  tileSize: $v(8),
   //
-  spriteSheetCells: v_(16, 16),
-  spriteSheetCellSize: v_(8, 8),
+  spriteSheetCells: $v(16),
+  spriteSheetCellSize: $v(8),
   //
   musicBeatFrames: 16,
   //
   colors: {
-    bgColorModeNormal: c.darkBlue,
-    bgColorModeNoCoins: c.orange,
-    bgColorModeNoMemories: c.pink,
+    bgColorModeNormal: $rgb_p8.storm,
+    bgColorModeNoCoins: $rgb_p8.orange,
+    bgColorModeNoMemories: $rgb_p8.pink,
   },
   //
   assets: {
     spritesheet: "spritesheet.png",
-    pico8FontId: "pico8",
-    pico8FontImage: "pico-8-font.png",
     coinSfx: "sfx_coin_collected.wav",
     musicBase: "music_base.wav",
     musicMelody: "music_melody.wav",

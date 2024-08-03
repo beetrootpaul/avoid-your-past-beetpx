@@ -1,13 +1,15 @@
 import {
-  b_,
-  BpxPattern,
+  $,
+  $d,
+  $rgb_p8,
+  $v,
+  BpxDrawingPattern,
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
-  v_,
 } from "@beetpx/beetpx";
 import { CollisionCircle } from "../Collisions";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Direction } from "./Direction";
 import { Origin, OriginSnapshot } from "./Origin";
 
@@ -27,10 +29,10 @@ export class Memory extends Origin {
   #direction: Direction;
 
   readonly #spriteXy1ForDirection = {
-    u: v_(7, 3).mul(g.spriteSheetCellSize),
-    r: v_(8, 3).mul(g.spriteSheetCellSize),
-    d: v_(9, 3).mul(g.spriteSheetCellSize),
-    l: v_(10, 3).mul(g.spriteSheetCellSize),
+    u: $v(7, 3).mul(g.spriteSheetCellSize),
+    r: $v(8, 3).mul(g.spriteSheetCellSize),
+    d: $v(9, 3).mul(g.spriteSheetCellSize),
+    l: $v(10, 3).mul(g.spriteSheetCellSize),
   };
 
   constructor(params: MemoryParams) {
@@ -90,25 +92,27 @@ export class Memory extends Origin {
 
   draw(opts: { noMemoriesModeFramesLeft: number }): void {
     const prevMapping =
-      opts.noMemoriesModeFramesLeft > 0
-        ? b_.setSpriteColorMapping(
-            BpxSpriteColorMapping.from([
-              [c.darkBlue, null],
-              [c.red, c.darkGrey],
-              [c.black, c.darkGrey],
-              [c.pink, c.lightGrey],
-              [c.brown, c.lightGrey],
-              [c.darkPurple, c.lightGrey],
-            ])
-          )
-        : b_.setSpriteColorMapping(
-            BpxSpriteColorMapping.from([[c.darkBlue, null]])
-          );
+      opts.noMemoriesModeFramesLeft > 0 ?
+        $d.setSpriteColorMapping(
+          BpxSpriteColorMapping.from([
+            [$rgb_p8.storm, null],
+            [$rgb_p8.ember, $rgb_p8.slate],
+            [$rgb_p8.black, $rgb_p8.slate],
+            [$rgb_p8.pink, $rgb_p8.silver],
+            [$rgb_p8.tan, $rgb_p8.silver],
+            [$rgb_p8.wine, $rgb_p8.silver],
+          ]),
+        )
+      : $d.setSpriteColorMapping(
+          BpxSpriteColorMapping.from([[$rgb_p8.storm, null]]),
+        );
 
     if (opts.noMemoriesModeFramesLeft > 0) {
-      b_.setPattern(this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft));
+      $d.setDrawingPattern(
+        this.#indicatorFillPattern(opts.noMemoriesModeFramesLeft),
+      );
       this.#drawAboutToAppearIndicator();
-      b_.setPattern(BpxPattern.primaryOnly);
+      $d.setDrawingPattern(BpxDrawingPattern.primaryOnly);
     } else if (this.isActive()) {
       this.#drawMemory();
     } else if (this.isAboutToBecomeActive()) {
@@ -117,49 +121,53 @@ export class Memory extends Origin {
       }
     }
 
-    b_.setSpriteColorMapping(prevMapping);
+    $d.setSpriteColorMapping(prevMapping);
 
-    if (b_.debug) {
+    if ($.debug) {
       const cc = this.collisionCircle();
-      b_.ellipse(
+      $d.ellipse(
         cc.center.sub(cc.r),
-        v_(cc.r, cc.r).mul(2),
-        this.isActive() ? c.red : c.darkGrey
+        $v(cc.r, cc.r).mul(2),
+        this.isActive() ? $rgb_p8.ember : $rgb_p8.slate,
       );
     }
   }
 
   #drawMemory(): void {
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.sprite(
-      new BpxSprite(
+    $d.sprite(
+      BpxSprite.from(
         g.assets.spritesheet,
-        spriteXy1,
-        spriteXy1.add(g.spriteSheetCellSize)
+        g.spriteSheetCellSize.x,
+        g.spriteSheetCellSize.y,
+        spriteXy1.x,
+        spriteXy1.y,
       ),
-      this.#xy.sub(this.#r)
+      this.#xy.sub(this.#r),
     );
   }
 
   #drawAboutToAppearIndicator(): void {
     const spriteXy1 = this.#spriteXy1ForDirection[this.#direction];
-    b_.sprite(
-      new BpxSprite(
+    $d.sprite(
+      BpxSprite.from(
         g.assets.spritesheet,
-        spriteXy1,
-        spriteXy1.add(g.spriteSheetCellSize)
+        g.spriteSheetCellSize.x,
+        g.spriteSheetCellSize.y,
+        spriteXy1.x,
+        spriteXy1.y,
       ),
-      this.#xy.sub(this.#r)
+      this.#xy.sub(this.#r),
     );
   }
 
-  #indicatorFillPattern(framesLeft: number): BpxPattern {
+  #indicatorFillPattern(framesLeft: number): BpxDrawingPattern {
     const base = 20;
     if (framesLeft < base) {
-      return BpxPattern.primaryOnly;
+      return BpxDrawingPattern.primaryOnly;
     }
     if (framesLeft < base + 4) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         ####
         ####
         ####
@@ -167,7 +175,7 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 8) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         ####
         #-#-
         ####
@@ -175,7 +183,7 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 12) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         -#-#
         #-#-
         -#-#
@@ -183,7 +191,7 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 16) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         -#-#
         ----
         -#-#
@@ -191,13 +199,13 @@ export class Memory extends Origin {
       `);
     }
     if (framesLeft < base + 20) {
-      return BpxPattern.from(`
+      return BpxDrawingPattern.from(`
         ----
         ----
         -#--
         ----
       `);
     }
-    return BpxPattern.secondaryOnly;
+    return BpxDrawingPattern.secondaryOnly;
   }
 }

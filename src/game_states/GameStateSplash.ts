@@ -1,6 +1,6 @@
-import { b_, u_, v_ } from "@beetpx/beetpx";
+import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
 import { Game } from "../Game";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
 import { GameStateStart } from "./GameStateStart";
@@ -9,31 +9,33 @@ export class GameStateSplash implements GameState {
   readonly #sash: Sash = new Sash({
     duration: g.__quickStart ? 0 : 8 * g.musicBeatFrames,
     expand: false,
-    drawText: (sashCenter) => {
+    drawText: sashCenter => {
       const title = "Avoid Your Past";
-      const titleSize = u_.measureText(title)[1];
+      const titleSize = $d.measureText(title).wh;
       const author = "by @beetrootpaul";
-      const authorSize = u_.measureText(author)[1];
-      u_.printWithOutline(
+      const authorSize = $d.measureText(author).wh;
+      $u.drawTextWithOutline(
         title,
-        sashCenter.add(v_(-titleSize.x / 2, -authorSize.y - 3)),
-        c.pink,
-        c.black
+        sashCenter.add($v(-titleSize.x / 2, -authorSize.y - 3)),
+        $rgb_p8.pink,
+        $rgb_p8.black,
       );
-      b_.print(author, sashCenter.add(v_(-authorSize.x / 2, 2)), c.white);
+      $d.text(author, sashCenter.add($v(-authorSize.x / 2, 2)), $rgb_p8.white);
     },
   });
 
   constructor() {
-    b_.playSoundLooped(g.assets.musicBase);
-    Game.playbackIds.melody = b_.playSoundLooped(g.assets.musicMelody, true);
-    Game.playbackIds.modeNoCoins = b_.playSoundLooped(
+    $.startPlaybackLooped(g.assets.musicBase);
+    Game.playbackIds.melody = $.startPlaybackLooped(g.assets.musicMelody, {
+      muteOnStart: true,
+    });
+    Game.playbackIds.modeNoCoins = $.startPlaybackLooped(
       g.assets.musicModeNoCoins,
-      true
+      { muteOnStart: true },
     );
-    Game.playbackIds.modeNoMemories = b_.playSoundLooped(
+    Game.playbackIds.modeNoMemories = $.startPlaybackLooped(
       g.assets.musicModeNoMemories,
-      true
+      { muteOnStart: true },
     );
   }
 
@@ -43,10 +45,10 @@ export class GameStateSplash implements GameState {
     }
 
     if (
-      b_.wasJustPressed("left") ||
-      b_.wasJustPressed("right") ||
-      b_.wasJustPressed("up") ||
-      b_.wasJustPressed("down")
+      $.wasButtonJustPressed("left") ||
+      $.wasButtonJustPressed("right") ||
+      $.wasButtonJustPressed("up") ||
+      $.wasButtonJustPressed("down")
     ) {
       this.#sash.collapse();
     }
@@ -57,7 +59,7 @@ export class GameStateSplash implements GameState {
   }
 
   draw(): void {
-    b_.rectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
+    $d.rectFilled(g.cameraOffset, g.screenSize, g.colors.bgColorModeNormal);
 
     this.#sash.draw();
   }

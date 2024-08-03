@@ -1,5 +1,5 @@
-import { b_, BpxVector2d, v_ } from "@beetpx/beetpx";
-import { c, g } from "../globals";
+import { $d, $rgb_p8, $v, BpxVector2d } from "@beetpx/beetpx";
+import { g } from "../globals";
 
 type SashParams = {
   duration: number;
@@ -31,11 +31,11 @@ export class Sash {
 
     this.#drawText = params.drawText;
 
-    this.#ttlExpansionStart = this.#shouldExpand
-      ? this.#ttlMax - g.musicBeatFrames
-      : this.#ttlMax;
-    this.#ttlExpansionEnd = this.#shouldExpand
-      ? this.#ttlExpansionStart - g.musicBeatFrames / 4
+    this.#ttlExpansionStart =
+      this.#shouldExpand ? this.#ttlMax - g.musicBeatFrames : this.#ttlMax;
+    this.#ttlExpansionEnd =
+      this.#shouldExpand ?
+        this.#ttlExpansionStart - g.musicBeatFrames / 4
       : this.#ttlMax;
   }
 
@@ -70,10 +70,10 @@ export class Sash {
     }
 
     if (h > 0) {
-      b_.rectFilled(
-        v_(0, this.#center.y - h / 2),
-        v_(g.screenSize.x, h),
-        c.darkGreen
+      $d.rectFilled(
+        $v(0, this.#center.y - h / 2),
+        $v(g.screenSize.x, h),
+        $rgb_p8.moss,
       );
     }
 

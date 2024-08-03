@@ -11,34 +11,24 @@
     "url": "git+https://github.com/beetrootpaul/avoid-your-past-beetpx.git"
   },
   "engines": {
-    "node": ">=14.18.0"
+    "node": ">=18.0.0"
   },
   "scripts": {
-    "prepare": "husky install",
-    "checkForDepedencyUpdates": "npm-check-updates",
-    "cleanup": "rimraf ./.beetpx/ ./index.html ./itch_io_simulation.html",
-    "format": "prettier --ignore-path .gitignore --write src/",
-    "typecheck": "tsc",
-    "typecheck:watch": "tsc --watch",
-    "test": "jest",
-    "start": "npm run dev",
-    "dev": "beetpx dev --open --htmlTitle \"[dev] Avoid Your Past\"",
-    "prod": "npm run cleanup && npm run typecheck && beetpx build --htmlTitle \"[dev] Avoid Your Past\" && beetpx preview",
-    "itch": "npm run cleanup && npm run typecheck && beetpx build --htmlTitle \"[dev] Avoid Your Past\" && beetpx zip"
+    "prepare": "husky",
+    "start": "beetpx dev --open --htmlTitle \"[dev] Avoid Your Past\"",
+    "build": "npm run tsc && beetpx build --htmlTitle \"Avoid Your Past\"",
+    "prod": "npm run build && beetpx preview --open",
+    "itch": "npm run build && beetpx zip",
+    "format": "prettier --ignore-path .gitignore --write src/ README.md",
+    "tsc": "tsc",
+    "tsc:watch": "tsc --watch",
+    "checkForDepedencyUpdates": "npx npm-check-updates"
   },
   "devDependencies": {
-    "@beetpx/beetpx": "0.21.0",
-    "@jest/globals": "29.5.0",
-    "husky": "8.0.3",
-    "jest": "29.6.2",
-    "jest-environment-jsdom": "29.7.0",
-    "jquery": "3.7.1",
-    "mkdirp": "3.0.1",
-    "npm-check-updates": "^16.13.1",
-    "prettier": "2.8.8",
-    "prettier-plugin-organize-imports": "3.2.3",
-    "rimraf": "5.0.0",
-    "ts-jest": "29.1.1",
-    "typescript": "5.0.4"
+    "@beetpx/beetpx": "0.51.0",
+    "husky": "9.0.11",
+    "prettier": "3.2.5",
+    "prettier-plugin-organize-imports": "3.2.4",
+    "typescript": "5.5.3"
   }
 }

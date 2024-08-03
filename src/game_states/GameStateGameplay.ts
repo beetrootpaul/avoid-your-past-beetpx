@@ -1,4 +1,4 @@
-import { b_ } from "@beetpx/beetpx";
+import { $, $rgb_p8 } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
@@ -7,7 +7,7 @@ import { Mode } from "../gameplay/Mode";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
 import { Trail } from "../gameplay/Trail";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Topbar } from "../gui/Topbar";
 import { GameState } from "./GameState";
 import { GameStateOver } from "./GameStateOver";
@@ -40,15 +40,15 @@ export class GameStateGameplay implements GameState {
     });
     this.#playerTrail = new Trail({
       origin: this.#player,
-      color: c.darkGreen,
+      color: $rgb_p8.moss,
     });
 
-    b_.unmutePlayback(Game.playbackIds.melody);
+    $.unmutePlayback(Game.playbackIds.melody);
   }
 
   #onBackToRegularMode(): void {
-    b_.mutePlayback(Game.playbackIds.modeNoCoins);
-    b_.mutePlayback(Game.playbackIds.modeNoMemories);
+    $.mutePlayback(Game.playbackIds.modeNoCoins);
+    $.mutePlayback(Game.playbackIds.modeNoMemories);
   }
 
   #onCoinCollision(): void {
@@ -56,7 +56,7 @@ export class GameStateGameplay implements GameState {
       return;
     }
 
-    b_.playSoundOnce(g.assets.coinSfx);
+    $.startPlayback(g.assets.coinSfx);
 
     this.#score.add(10);
 
@@ -68,14 +68,14 @@ export class GameStateGameplay implements GameState {
   }
 
   #onDropletNoCoinsCollision(): void {
-    b_.unmutePlayback(Game.playbackIds.modeNoCoins);
+    $.unmutePlayback(Game.playbackIds.modeNoCoins);
     this.#score.add(3);
     this.#mode.startNoCoins();
     this.#level.removeDropletNoCoins();
   }
 
   #onDropletNoMemoriesCollision(): void {
-    b_.unmutePlayback(Game.playbackIds.modeNoMemories);
+    $.unmutePlayback(Game.playbackIds.modeNoMemories);
     this.#score.add(1);
     this.#mode.startNoMemories();
     this.#level.removeDropletNoMemories();
@@ -83,10 +83,10 @@ export class GameStateGameplay implements GameState {
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if (b_.wasJustPressed("left")) detectedDirections.push("l");
-    if (b_.wasJustPressed("right")) detectedDirections.push("r");
-    if (b_.wasJustPressed("up")) detectedDirections.push("u");
-    if (b_.wasJustPressed("down")) detectedDirections.push("d");
+    if ($.wasButtonJustPressed("left")) detectedDirections.push("l");
+    if ($.wasButtonJustPressed("right")) detectedDirections.push("r");
+    if ($.wasButtonJustPressed("up")) detectedDirections.push("u");
+    if ($.wasButtonJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
@@ -100,8 +100,6 @@ export class GameStateGameplay implements GameState {
       onDropletNoCoins: this.#onDropletNoCoinsCollision.bind(this),
       onDropletNoMemories: this.#onDropletNoMemoriesCollision.bind(this),
     });
-
-    this.#level.animate();
 
     this.#playerTrail.update();
     this.#player.move();

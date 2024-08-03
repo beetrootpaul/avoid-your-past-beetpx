@@ -1,9 +1,9 @@
-import { b_, u_, v_ } from "@beetpx/beetpx";
+import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
 import { Score } from "../gameplay/Score";
-import { c, g } from "../globals";
+import { g } from "../globals";
 import { Sash } from "../gui/Sash";
 import { GameState } from "./GameState";
 import { GameStateStart } from "./GameStateStart";
@@ -22,21 +22,21 @@ export class GameStateOver implements GameState {
   readonly #sash: Sash = new Sash({
     duration: 8 * g.musicBeatFrames,
     expand: true,
-    drawText: (sashCenter) => {
+    drawText: sashCenter => {
       const heading = "your score";
-      const headingSize = u_.measureText(heading)[1];
+      const headingSize = $d.measureText(heading).wh;
       const finalScore = this.#score.value().toFixed(0);
-      const finalScoreSize = u_.measureText(finalScore)[1];
-      b_.print(
+      const finalScoreSize = $d.measureText(finalScore).wh;
+      $d.text(
         heading,
-        sashCenter.add(v_(-headingSize.x / 2, -headingSize.y - 3)),
-        c.white
+        sashCenter.add($v(-headingSize.x / 2, -headingSize.y - 3)),
+        $rgb_p8.white,
       );
-      u_.printWithOutline(
+      $u.drawTextWithOutline(
         finalScore,
-        sashCenter.add(v_(-finalScoreSize.x / 2, 2)),
-        c.pink,
-        c.black
+        sashCenter.add($v(-finalScoreSize.x / 2, 2)),
+        $rgb_p8.pink,
+        $rgb_p8.black,
       );
     },
   });
@@ -46,9 +46,9 @@ export class GameStateOver implements GameState {
     this.#level = params.level;
     this.#player = params.player;
 
-    b_.mutePlayback(Game.playbackIds.melody);
-    b_.mutePlayback(Game.playbackIds.modeNoCoins);
-    b_.mutePlayback(Game.playbackIds.modeNoMemories);
+    $.mutePlayback(Game.playbackIds.melody);
+    $.mutePlayback(Game.playbackIds.modeNoCoins);
+    $.mutePlayback(Game.playbackIds.modeNoMemories);
   }
 
   update(): GameState {
@@ -58,10 +58,10 @@ export class GameStateOver implements GameState {
 
     if (this.#sash.hasExpanded()) {
       if (
-        b_.wasJustPressed("left") ||
-        b_.wasJustPressed("right") ||
-        b_.wasJustPressed("up") ||
-        b_.wasJustPressed("down")
+        $.wasButtonJustPressed("left") ||
+        $.wasButtonJustPressed("right") ||
+        $.wasButtonJustPressed("up") ||
+        $.wasButtonJustPressed("down")
       ) {
         this.#sash.collapse();
       }
