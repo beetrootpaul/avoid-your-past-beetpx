@@ -1,4 +1,4 @@
-import { $, $d, $font_pico8, $rgb_p8, $v } from "@beetpx/beetpx";
+import { $d, $font_pico8, $rgb_p8, $v, $x } from "@beetpx/beetpx";
 import { GameState } from "./game_states/GameState";
 import { GameStateSplash } from "./game_states/GameStateSplash";
 import { g } from "./globals";
@@ -13,32 +13,32 @@ export class Game {
   #gameState: GameState | undefined;
 
   start(): void {
-    $.setOnStarted(() => {
+    $x.setOnStarted(() => {
       $d.setFont($font_pico8);
       $d.setCameraXy(g.cameraOffset);
 
       this.#gameState = new GameStateSplash();
     });
 
-    $.setOnUpdate(() => {
+    $x.setOnUpdate(() => {
       this.#gameState = this.#gameState?.update();
     });
 
-    $.setOnDraw(() => {
+    $x.setOnDraw(() => {
       $d.clearCanvas($rgb_p8.black);
 
       this.#gameState?.draw();
 
-      if ($.debug) {
+      if ($x.debug) {
         $d.text(
-          `♪ ${$.getAudioContext().state}`,
+          `♪ ${$x.getAudioContext().state}`,
           g.cameraOffset.add($v(0, g.screenSize.y - 6)),
           $rgb_p8.wine,
         );
       }
     });
 
-    $.start({
+    $x.start({
       gameId: "avoid-your-past-beetpx",
       canvasSize: "128x128",
       fixedTimestep: "30fps",

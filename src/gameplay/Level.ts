@@ -1,10 +1,10 @@
 import {
-  $,
   $d,
   $rgb_p8,
   $u,
   $v,
   $v_0_0,
+  $x,
   BpxAnimatedSprite,
   BpxVector2d,
 } from "@beetpx/beetpx";
@@ -77,8 +77,7 @@ export class Level {
     }
 
     if (availableTiles.length > 0) {
-      const coinTile =
-        availableTiles[Math.floor(Math.random() * availableTiles.length)];
+      const coinTile = $u.randOf(availableTiles);
       if (coinTile) {
         availableTiles = availableTiles.filter(tile => !tile.eq(coinTile));
         this.#coin = new Item({
@@ -103,10 +102,10 @@ export class Level {
       !this.#mode.isNoCoins() &&
       !this.#mode.isNoMemories()
     ) {
-      const dropletTile = $u.randomElementOf(availableTiles);
+      const dropletTile = $u.randOf(availableTiles);
       if (dropletTile) {
         const probability = Math.random();
-        $.logDebug("Droplet probability:", probability);
+        $x.logDebug("Droplet probability:", probability);
         if (probability < 0.3) {
           this.#dropletNoCoins = new Item({
             tile: dropletTile,
@@ -189,7 +188,7 @@ export class Level {
     $d.rectFilled($v_0_0, g.gameAreaSize, this.#mode.bgColor());
     $d.setDrawingPattern(prevPattern);
 
-    if ($.debug) {
+    if ($x.debug) {
       const tilesCloseToPlayer = this.#getTilesCloseToPlayer();
       for (
         let tileX = 1;

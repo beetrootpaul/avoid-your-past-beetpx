@@ -1,4 +1,4 @@
-import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
+import { $d, $rgb_p8, $u, $v, $x } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Level } from "../gameplay/Level";
 import { Player } from "../gameplay/Player";
@@ -46,9 +46,9 @@ export class GameStateOver implements GameState {
     this.#level = params.level;
     this.#player = params.player;
 
-    $.mutePlayback(Game.playbackIds.melody);
-    $.mutePlayback(Game.playbackIds.modeNoCoins);
-    $.mutePlayback(Game.playbackIds.modeNoMemories);
+    $x.mutePlayback(Game.playbackIds.melody);
+    $x.mutePlayback(Game.playbackIds.modeNoCoins);
+    $x.mutePlayback(Game.playbackIds.modeNoMemories);
   }
 
   update(): GameState {
@@ -58,10 +58,10 @@ export class GameStateOver implements GameState {
 
     if (this.#sash.hasExpanded()) {
       if (
-        $.wasButtonJustPressed("left") ||
-        $.wasButtonJustPressed("right") ||
-        $.wasButtonJustPressed("up") ||
-        $.wasButtonJustPressed("down")
+        $x.wasButtonJustPressed("left") ||
+        $x.wasButtonJustPressed("right") ||
+        $x.wasButtonJustPressed("up") ||
+        $x.wasButtonJustPressed("down")
       ) {
         this.#sash.collapse();
       }

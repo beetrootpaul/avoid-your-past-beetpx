@@ -1,4 +1,4 @@
-import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
+import { $d, $rgb_p8, $u, $v, $x } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { g } from "../globals";
 import { Sash } from "../gui/Sash";
@@ -25,15 +25,15 @@ export class GameStateSplash implements GameState {
   });
 
   constructor() {
-    $.startPlaybackLooped(g.assets.musicBase);
-    Game.playbackIds.melody = $.startPlaybackLooped(g.assets.musicMelody, {
+    $x.startPlaybackLooped(g.assets.musicBase);
+    Game.playbackIds.melody = $x.startPlaybackLooped(g.assets.musicMelody, {
       muteOnStart: true,
     });
-    Game.playbackIds.modeNoCoins = $.startPlaybackLooped(
+    Game.playbackIds.modeNoCoins = $x.startPlaybackLooped(
       g.assets.musicModeNoCoins,
       { muteOnStart: true },
     );
-    Game.playbackIds.modeNoMemories = $.startPlaybackLooped(
+    Game.playbackIds.modeNoMemories = $x.startPlaybackLooped(
       g.assets.musicModeNoMemories,
       { muteOnStart: true },
     );
@@ -45,10 +45,10 @@ export class GameStateSplash implements GameState {
     }
 
     if (
-      $.wasButtonJustPressed("left") ||
-      $.wasButtonJustPressed("right") ||
-      $.wasButtonJustPressed("up") ||
-      $.wasButtonJustPressed("down")
+      $x.wasButtonJustPressed("left") ||
+      $x.wasButtonJustPressed("right") ||
+      $x.wasButtonJustPressed("up") ||
+      $x.wasButtonJustPressed("down")
     ) {
       this.#sash.collapse();
     }

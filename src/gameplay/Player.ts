@@ -1,8 +1,8 @@
 import {
-  $,
   $d,
   $rgb_p8,
   $v,
+  $x,
   BpxSprite,
   BpxSpriteColorMapping,
   BpxVector2d,
@@ -100,7 +100,7 @@ export class Player extends Origin {
 
     $d.setSpriteColorMapping(prevMapping);
 
-    if ($.debug) {
+    if ($x.debug) {
       const cc = this.collisionCircle();
       $d.ellipse(cc.center.sub(cc.r), $v(cc.r, cc.r).mul(2), $rgb_p8.ember);
     }

@@ -1,8 +1,8 @@
 import {
-  $,
   $d,
   $rgb_p8,
   $v,
+  $x,
   BpxDrawingPattern,
   BpxSprite,
   BpxSpriteColorMapping,
@@ -123,7 +123,7 @@ export class Memory extends Origin {
 
     $d.setSpriteColorMapping(prevMapping);
 
-    if ($.debug) {
+    if ($x.debug) {
       const cc = this.collisionCircle();
       $d.ellipse(
         cc.center.sub(cc.r),

@@ -21,7 +21,7 @@ export class Mode {
   }
 
   noMemoriesModeFramesLeft(): number {
-    return this.#current === "no_memories" ? this.#timer?.framesLeft ?? 0 : 0;
+    return this.#current === "no_memories" ? (this.#timer?.framesLeft ?? 0) : 0;
   }
 
   startNoCoins(): void {

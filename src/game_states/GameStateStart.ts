@@ -1,4 +1,4 @@
-import { $, $d, $rgb_p8, $u, $v } from "@beetpx/beetpx";
+import { $d, $rgb_p8, $u, $v, $x } from "@beetpx/beetpx";
 import { Game } from "../Game";
 import { Direction } from "../gameplay/Direction";
 import { Level } from "../gameplay/Level";
@@ -24,19 +24,19 @@ export class GameStateStart implements GameState {
   });
 
   constructor() {
-    $.mutePlayback(Game.playbackIds.melody);
-    $.mutePlayback(Game.playbackIds.modeNoCoins);
-    $.mutePlayback(Game.playbackIds.modeNoMemories);
+    $x.mutePlayback(Game.playbackIds.melody);
+    $x.mutePlayback(Game.playbackIds.modeNoCoins);
+    $x.mutePlayback(Game.playbackIds.modeNoMemories);
 
     this.#level.spawnItems();
   }
 
   update(): GameState {
     const detectedDirections: Direction[] = [];
-    if ($.wasButtonJustPressed("left")) detectedDirections.push("l");
-    if ($.wasButtonJustPressed("right")) detectedDirections.push("r");
-    if ($.wasButtonJustPressed("up")) detectedDirections.push("u");
-    if ($.wasButtonJustPressed("down")) detectedDirections.push("d");
+    if ($x.wasButtonJustPressed("left")) detectedDirections.push("l");
+    if ($x.wasButtonJustPressed("right")) detectedDirections.push("r");
+    if ($x.wasButtonJustPressed("up")) detectedDirections.push("u");
+    if ($x.wasButtonJustPressed("down")) detectedDirections.push("d");
     if (detectedDirections.length === 1) {
       detectedDirections.forEach(this.#player.direct.bind(this.#player));
     }
